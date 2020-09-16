@@ -1,0 +1,13 @@
+{% extends 'users/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <p>Username: <i>{{profile.user.username}}</i></p>
+    <p>Email: <i>{{profile.email}}</i></p>
+    <a class="btn btn-outline-info" href="{% url 'startsmart-home' %}">Back</a>
+    <!-- <img src="{{profile.image.url}}"> -->
+</div>
+
+{% endblock %}
