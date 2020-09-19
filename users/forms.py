@@ -20,3 +20,23 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'user': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
         }
+
+##Update part
+
+class UpdateUserForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+
+##Member choice members: (Free, Pro, Elite) or (Customer, Pro, Creator)
+##MEMBER_CHOICES = [(), (), ()]
+
+
+

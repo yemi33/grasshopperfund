@@ -5,15 +5,14 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from .forms import CreateUserForm, ProfileForm
+from .forms import CreateUserForm, ProfileForm, UpdateUserForm, UpdateProfileForm
 from .models import Profile
 
 # Create your views here.
 
+@login_required
 def home_page(request):
-    context = {
-
-    }
+    context = {}
     return render(request, 'users/home_page.html', context)
 
 def register_page(request):
@@ -50,8 +49,11 @@ def logout_page(request):
 
 def view_profile(request, pk):
     profile = Profile.objects.get(id=pk)
-
+    user_form = UpdateUserForm()
+    profile_form = UpdateProfileForm()
     context = {
-        'profile': profile
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'profile' : profile
     }
     return render(request, 'users/profile.html', context)
