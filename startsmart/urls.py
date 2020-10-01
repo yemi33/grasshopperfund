@@ -28,6 +28,8 @@ urlpatterns = [
     path('login/', users_views.login_page, name='login'),
     path('logout/', users_views.logout_page, name='logout'),
 
+    path('update_profile/', users_views.update_profile, name='update-profile'),
+    path('delete_profile/', users_views.delete_profile, name='delete-profile'),
     path('profile/<str:pk>/', users_views.view_profile, name='profile'),
 
     path('accounts/', include('allauth.urls'))

@@ -7,22 +7,13 @@
 <div class="media">
     <img class="rounded-circle account-img" src='{{ profile.image.url }}' width="300" height="300">
     <div class="media-body">
-        <p class="account-heading">Username: <i>{{profile.user.username}}</i></p>
-        <p class="text-secondary">Email: <i>{{profile.email}}</i></p>
-        <a class="btn btn-outline-info" href="{% url 'startsmart-home' %}">Back</a>
+        <p class="account-heading">Username: {{profile.user.username}}</p>
+        <p class="text-secondary">Email: {{profile.email}}</p>
+        <a href="{% url 'update-profile' %}" class="btn btn-outline-info">Edit Profile</a>
+        <a class="btn btn-outline-danger" href="{% url 'startsmart-home' %}">Back</a>
     </div>
 </div>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Profile Info</legend>
-        {{ user_form|crispy }}
-        {{ profile_form|crispy }}
-    </fieldset>
-    <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Update</button>
-    </div>
-</form>
 </div>
+
 
 {% endblock content%}

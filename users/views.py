@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from .forms import CreateUserForm, ProfileForm, UpdateUserForm, UpdateProfileForm
+from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
 from .models import Profile
 
 # Create your views here.
@@ -47,13 +47,38 @@ def logout_page(request):
     logout(request)
     return render(request, 'users/logout_page.html')
 
+@login_required
 def view_profile(request, pk):
     profile = Profile.objects.get(id=pk)
-    user_form = UpdateUserForm()
-    profile_form = UpdateProfileForm()
+
     context = {
-        'user_form': user_form,
-        'profile_form': profile_form,
         'profile' : profile
     }
     return render(request, 'users/profile.html', context)
+
+@login_required
+def update_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    form = UpdateProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            messages.success(request, 'Profile Updated!')
+            form.save()
+            return redirect('update-profile')
+    context = {
+        'form': form
+    }
+    return render(request, 'users/update_profile.html', context)
+
+@login_required
+def delete_profile(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        profile.delete()
+        messages.success(request, 'Profile Deleted!')
+        return redirect('register')
+
+    return render(request, 'users/delete_profile.html')
