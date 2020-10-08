@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from config import Config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     # providers
-    # TODO: use environmental vars or github secrets for providers
+    # TODO: use environmental vars or github secrets for google
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook'
 ]
@@ -115,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# set up allauth social apps
 SOCIALACCOUNT_PROVIDERS = {
     'facebook':
         {
@@ -139,9 +140,9 @@ SOCIALACCOUNT_PROVIDERS = {
          'VERSION': 'v7.0',
          # you should fill in 'APP' only if you don't create a Facebook instance at /admin/socialaccount/socialapp/
          'APP': {
-             'client_id': 'App ID',  # !!! THIS App ID
-             'secret': 'App Secret',  # !!! THIS App Secret
-             'key': ''
+             'client_id': Config.SOCIAL_AUTH_FACEBOOK_APP_ID,  # !!! THIS App ID
+             'secret': Config.SOCIAL_AUTH_FACEBOOK_APP_SECRET,  # !!! THIS App Secret
+             'key': Config.SOCIAL_AUTH_FACEBOOK_APP_KEY
                 }
          }
 }
