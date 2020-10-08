@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from config import Config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -34,7 +35,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'crispy_forms',
-    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,9 +49,13 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-    #providers
+    # providers
+    # TODO: use environmental vars or github secrets for google
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook'
+    'allauth.socialaccount.providers.facebook',
+
+    # Our apps
+    'startsmart.users'
 ]
 
 MIDDLEWARE = [
@@ -113,6 +117,64 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# set up allauth social apps
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+         'METHOD': 'oauth2',
+         'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+         'SCOPE': ['email', 'public_profile'],
+         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+         'INIT_PARAMS': {'cookie': True},
+         'FIELDS': [
+             'id',
+             'first_name',
+             'last_name',
+             'name',
+             'name_format',
+             'picture',
+             'short_name'
+         ],
+         'EXCHANGE_TOKEN': True,
+         'LOCALE_FUNC': lambda request: 'ru_RU',
+         'VERIFIED_EMAIL': False,
+         'VERSION': 'v7.0',
+         
+         # This portion is OPTIONAL if you'd like to use environmental variables
+         # While 'APP' is commented out, you can use Django Admin to
+         # populate the credential fields.
+         # If this is uncommented, this block will OVERRIDE credentials in
+         # Django admin
+         'APP': {
+             'client_id': Config.SOCIAL_AUTH_FACEBOOK_APP_ID,  # !!! THIS App ID
+             'secret': Config.SOCIAL_AUTH_FACEBOOK_APP_SECRET,  # !!! THIS App Secret
+             'key': Config.SOCIAL_AUTH_FACEBOOK_APP_KEY
+        }
+
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online'
+        },
+
+         # This portion is OPTIONAL if you'd like to use environmental variables
+         # While 'APP' is commented out, you can use Django Admin to
+         # populate the credential fields.
+         # If this is uncommented, this block will OVERRIDE credentials in
+         # Django admin
+         'APP': {
+             'client_id': Config.SOCIAL_AUTH_GOOGLE_APP_ID,  # !!! THIS App ID
+             'secret': Config.SOCIAL_AUTH_GOOGLE_APP_SECRET,  # !!! THIS App Secret
+             'key': Config.SOCIAL_AUTH_GOOGLE_APP_KEY
+        }
+    }
+
+
+}
 
 
 # Internationalization

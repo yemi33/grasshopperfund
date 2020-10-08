@@ -1,0 +1,7 @@
+site_name: Startsmart Campaigns Docs
+
+repo_url: https://github.com/PeterOR2D2/startsmart-backend-version
+repo_name: PeterOR2D2/startsmart-backend-version
+
+theme:
+  name: material

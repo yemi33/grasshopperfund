@@ -1,0 +1,6 @@
+__pycache__
+env
+.idea
+profile_pics
+db.*
+*.db
