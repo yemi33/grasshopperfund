@@ -50,7 +50,22 @@ One Windows Powershell
 python -m pip install -r requirements.txt
 ```
 
+**Initialize database**
+```
+python manage.py migrate
+```
+
 **Run Django app**
 ```
 python manage.py runserver
+```
+
+
+## Quick Start
+Be sure that the Django app is **NOT** running for these steps
+
+### Creating a super user
+This allows access to `/admin`
+```
+python manage.py createsuperuser
 ```
