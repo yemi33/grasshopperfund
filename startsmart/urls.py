@@ -32,7 +32,6 @@ urlpatterns = [
     path('delete_profile/', users_views.delete_profile, name='delete-profile'),
     path('profile/<str:pk>/', users_views.view_profile, name='profile'),
 
-    path('accounts/', include('allauth.urls')),
-    path("social-auth/", include("social_django.urls", namespace="social"))
+    path('accounts/', include('allauth.urls'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
