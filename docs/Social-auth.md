@@ -1,5 +1,6 @@
-# Social Auth
+# Social Authentication
 
+uses `allauth` library.
 ## Two methods
 There are two methods to setting up Social Authentication using apps like Google and Facebook.
 * **Default**: Environmental Variables (complex but automates the process)
