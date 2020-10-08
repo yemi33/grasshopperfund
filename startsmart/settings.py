@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-    #providers
+    # providers
+    # TODO: use environmental vars or github secrets for providers
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook'
 ]
@@ -113,6 +114,37 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook':
+        {
+         'METHOD': 'oauth2',
+         'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+         'SCOPE': ['email', 'public_profile'],
+         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+         'INIT_PARAMS': {'cookie': True},
+         'FIELDS': [
+             'id',
+             'first_name',
+             'last_name',
+             'name',
+             'name_format',
+             'picture',
+             'short_name'
+         ],
+         'EXCHANGE_TOKEN': True,
+         'LOCALE_FUNC': lambda request: 'ru_RU',
+         'VERIFIED_EMAIL': False,
+         'VERSION': 'v7.0',
+         # you should fill in 'APP' only if you don't create a Facebook instance at /admin/socialaccount/socialapp/
+         'APP': {
+             'client_id': 'App ID',  # !!! THIS App ID
+             'secret': 'App Secret',  # !!! THIS App Secret
+             'key': ''
+                }
+         }
+}
 
 
 # Internationalization
