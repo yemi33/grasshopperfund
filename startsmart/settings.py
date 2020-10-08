@@ -120,8 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # set up allauth social apps
 SOCIALACCOUNT_PROVIDERS = {
-    'facebook':
-        {
+    'facebook': {
          'METHOD': 'oauth2',
          'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
          'SCOPE': ['email', 'public_profile'],
@@ -140,13 +139,41 @@ SOCIALACCOUNT_PROVIDERS = {
          'LOCALE_FUNC': lambda request: 'ru_RU',
          'VERIFIED_EMAIL': False,
          'VERSION': 'v7.0',
-         # you should fill in 'APP' only if you don't create a Facebook instance at /admin/socialaccount/socialapp/
+         
+         # This portion is OPTIONAL if you'd like to use environmental variables
+         # While 'APP' is commented out, you can use Django Admin to
+         # populate the credential fields.
+         # If this is uncommented, this block will OVERRIDE credentials in
+         # Django admin
          'APP': {
              'client_id': Config.SOCIAL_AUTH_FACEBOOK_APP_ID,  # !!! THIS App ID
              'secret': Config.SOCIAL_AUTH_FACEBOOK_APP_SECRET,  # !!! THIS App Secret
              'key': Config.SOCIAL_AUTH_FACEBOOK_APP_KEY
-                }
-         }
+        }
+
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online'
+        },
+
+         # This portion is OPTIONAL if you'd like to use environmental variables
+         # While 'APP' is commented out, you can use Django Admin to
+         # populate the credential fields.
+         # If this is uncommented, this block will OVERRIDE credentials in
+         # Django admin
+         'APP': {
+             'client_id': Config.SOCIAL_AUTH_GOOGLE_APP_ID,  # !!! THIS App ID
+             'secret': Config.SOCIAL_AUTH_GOOGLE_APP_SECRET,  # !!! THIS App Secret
+             'key': Config.SOCIAL_AUTH_GOOGLE_APP_KEY
+        }
+    }
+
+
 }
 
 

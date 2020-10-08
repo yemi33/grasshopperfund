@@ -16,3 +16,12 @@ class Config:
 
     SOCIAL_AUTH_FACEBOOK_APP_KEY = os.environ.get(
         "SOCIAL_AUTH_FACEBOOK_APP_KEY", "")
+
+    SOCIAL_AUTH_GOOGLE_APP_ID = os.environ.get(
+        "SOCIAL_AUTH_GOOGLE_APP_ID", "")
+
+    SOCIAL_AUTH_GOOGLE_APP_SECRET = os.environ.get(
+        "SOCIAL_AUTH_GOOGLE_APP_SECRET", "")
+
+    SOCIAL_AUTH_GOOGLE_APP_KEY = os.environ.get(
+        "SOCIAL_AUTH_GOOGLE_APP_KEY", "")
