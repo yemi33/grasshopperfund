@@ -1,6 +1,6 @@
 # StartSmart Django Backend
 
-# Installation
+## Installation
 
 **Clone repository**
 ```
