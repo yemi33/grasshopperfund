@@ -3,3 +3,5 @@ env
 
 .idea
 profile_pics
+db.*
+*.db
