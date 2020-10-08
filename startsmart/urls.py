@@ -19,18 +19,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from users import views as users_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('users.urls')),
-    path('register/', users_views.register_page, name='register'),
-    path('login/', users_views.login_page, name='login'),
-    path('logout/', users_views.logout_page, name='logout'),
-
-    path('update_profile/', users_views.update_profile, name='update-profile'),
-    path('delete_profile/', users_views.delete_profile, name='delete-profile'),
-    path('profile/<str:pk>/', users_views.view_profile, name='profile'),
+    path('', include('apps.users.urls')),
 
     path('accounts/', include('allauth.urls'))
 
