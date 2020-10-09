@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     # Our apps
-    'startsmart.users'
+    'startsmart.users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -139,7 +139,7 @@ SOCIALACCOUNT_PROVIDERS = {
          'LOCALE_FUNC': lambda request: 'ru_RU',
          'VERIFIED_EMAIL': False,
          'VERSION': 'v7.0',
-         
+
          # This portion is OPTIONAL if you'd like to use environmental variables
          # While 'APP' is commented out, you can use Django Admin to
          # populate the credential fields.
