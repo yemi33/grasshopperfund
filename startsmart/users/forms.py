@@ -42,7 +42,7 @@ class CampaignForm(forms.ModelForm):
         model = Campaign
         fields = '__all__'
         
-         widgets = {
+        widgets = {
                 'user': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
             }
 
