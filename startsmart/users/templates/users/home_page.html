@@ -36,12 +36,14 @@
         {% for campaign in campaigns %}
             <div class="col-lg-4">
                 <div style="margin-bottom:10px;" id="box-element" class="border border-info">
-                    <h2 style="margin-left:10px;">{{campaign.title}}</h2>
+                    <h2 style="margin-left:10px;    font-family:Candara;">{{campaign.title}}</h2>
                     <i style="margin-left:10px;">By {{campaign.user}}</i>
                     <hr>
-                    <h5 style="margin-left:10px;" class="view-money">Target: ${{campaign.target_money|intcomma}}</h5>
+                    <h5 style="margin-left:10px;" class="view-money">Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></h5>
                     <!-- <img id="thumbnail" src="{{campaign.imageUrl}}"> -->
                     <i><h6 style="margin-left:10px;" class="view-money">Current: ${{campaign.current_money|intcomma}}</h6></i>
+                    <hr>
+                    <small style="margin-left:10px; font-family:Comic Sans MS;">Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong></small>
                     <hr>
                     {% if request.user == campaign.user %}
                         <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{% url 'update-campaign' campaign.id %}">Update</a>
