@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from .forms import CreateUserForm, ProfileForm, UpdateProfileForm, CampaignForm
-from .models import Profile
+from .models import Profile, Campaign
 
 # Create your views here.
 
