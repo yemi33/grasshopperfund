@@ -43,6 +43,8 @@
                     <!-- <img id="thumbnail" src="{{campaign.imageUrl}}"> -->
                     <i><h6 style="margin-left:10px;" class="view-money">Current: ${{campaign.current_money|intcomma}}</h6></i>
                     <hr>
+                    <small style="margin-left:10px;">Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong></small>
+                    <hr>
                     {% if request.user == campaign.user %}
                         <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{% url 'update-campaign' campaign.id %}">Update</a>
                         <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-danger" href="{% url 'delete-campaign' campaign.id %}">Delete</a>
