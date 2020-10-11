@@ -1,0 +1,32 @@
+{% extends 'users/main.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<div style="margin-top:10px;" class="container">
+    <div class="row">
+        {% for campaign in campaigns %}
+            <div class="col-lg-4">
+                <div style="margin-bottom:10px;" id="box-element" class="border border-info">
+                    <h2 style="margin-left:10px;">{{campaign.title}}</h2>
+                    <i style="margin-left:10px;">By {{campaign.user}}</i>
+                    <hr>
+                    <h5 style="margin-left:10px;" class="view-money">Target: ${{campaign.target_money|intcomma}}</h5>
+                    <!-- <img id="thumbnail" src="{{campaign.imageUrl}}"> -->
+                    <i><h6 style="margin-left:10px;" class="view-money">Current: ${{campaign.current_money|intcomma}}</h6></i>
+                    <hr>
+                    {% if request.user == campaign.user %}
+                        <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{% url 'update-campaign' campaign.id %}">Update</a>
+                        <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-danger" href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+                    {% else %}
+                        <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-secondary" href="{% url 'view-campaign' campaign.id %}">View More</a>
+                        <!-- <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{}">Thumbs Up!</a> -->
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
