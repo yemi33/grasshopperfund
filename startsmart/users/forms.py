@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Profile
+from .models import Profile, Campaign
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -36,5 +36,9 @@ class UpdateProfileForm(forms.ModelForm):
 ##Member choice members: (Free, Pro, Elite) or (Customer, Pro, Creator)
 ##MEMBER_CHOICES = [(), (), ()]
 
+class CampaignForm(forms.ModelForm):
 
+    class Meta:
+        model = Campaign
+        fields = '__all__'
 
