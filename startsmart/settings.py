@@ -56,8 +56,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     # Our apps
-    'startsmart.users.apps.UsersConfig'
-    # 'startsmart.campaigns.apps.CampaignsConfig'
+    'startsmart.users.apps.UsersConfig',
+    'startsmart.campaigns.apps.CampaignsConfig'
 ]
 
 MIDDLEWARE = [

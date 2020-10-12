@@ -4,4 +4,3 @@ env
 profile_pics
 db.*
 *.db
-migrations
