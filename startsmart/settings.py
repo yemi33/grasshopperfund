@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     # Our apps
-    'startsmart.users.apps.UsersConfig'
+    'startsmart.users.apps.UsersConfig',
+    'startsmart.campaigns.apps.CampaignsConfig'
 ]
 
 MIDDLEWARE = [
@@ -74,8 +75,8 @@ ROOT_URLCONF = 'startsmart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'startsmart/templates')],
+        "APP_DIRS": True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -218,3 +219,7 @@ AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
  'allauth.account.auth_backends.AuthenticationBackend',
  )
+
+
+
+# AUTH_USER_MODEL = "users.Profile"

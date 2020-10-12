@@ -1,11 +1,11 @@
-{% extends 'users/main.html' %}
+{% extends 'main.html' %}
 {% load humanize %}
 {% load static %}
 
 
 {% block content %}
 
-<!-- {% if request.user.is_authenticated %}
+{% if request.user.is_authenticated %}
         <div class="row text-center">
         <div class="col-md-12 text-center">
             <h2>Membership</h2>
@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-4">
             <!--This column displays beginner membership as bronze star-->
-<!--            <img src="{% static 'images/bronze-star-md.png' %}" width="200" height="200">
+            <img src="{% static 'images/bronze-star-md.png' %}" width="200" height="200">
              <h4 class="service-heading">Begineer</h4>
              <h3>Buy here</h3>
         </div>
@@ -29,7 +29,7 @@
         </div>
 
         </div>
-    {% endif %} --> -->
+    {% endif %}
 
 <div style="margin-top:10px;" class="container">
     <div class="row">

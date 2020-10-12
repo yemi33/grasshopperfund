@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('startsmart.users.urls')),
+    path('campaigns/', include('startsmart.campaigns.urls')),
 
     path('accounts/', include('allauth.urls'))
 
