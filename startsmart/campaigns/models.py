@@ -11,6 +11,9 @@ class Campaign(models.Model):
     num_of_backers = models.IntegerField()
     image = models.ImageField(null=True, blank=True)
 
+    class Meta:
+        unique_together = (('user','title'),)
+
     def __str__(self):
         return self.title
 
