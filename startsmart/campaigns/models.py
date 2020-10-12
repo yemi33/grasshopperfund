@@ -1,8 +1,8 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Campaign(models.Model):
-    user = models.ForeignKey('users.Profile', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator')
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=1000)
     target_money = models.IntegerField()
@@ -11,8 +11,10 @@ class Campaign(models.Model):
     num_of_backers = models.IntegerField()
     image = models.ImageField(null=True, blank=True)
 
+    search_fields = ['creator__username']
+
     class Meta:
-        unique_together = (('user','title'),)
+        unique_together = (('creator','title'),)
 
     def __str__(self):
         return self.title

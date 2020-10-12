@@ -58,8 +58,8 @@ def delete_campaign(request, pk):
     return render(request, 'users/delete_campaign.html', context)
 
 @login_required
-def view_campaign(request, pk):
-    campaign = Campaign.objects.get(id=pk)
+def view_campaign(request, username:str, campaign_title:str):
+    campaign = Campaign.objects.get(creator__username=username, title=campaign_title)
 
     context = {
         'campaign': campaign
