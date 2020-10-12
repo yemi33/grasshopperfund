@@ -23,7 +23,7 @@ def create_campaign(request):
         'form': form
     }
 
-    return render(request, 'users/create_campaign.html', context)
+    return render(request, 'campaigns/create_campaign.html', context)
 
 @login_required
 def update_campaign(request, pk):
@@ -41,7 +41,7 @@ def update_campaign(request, pk):
         'form': form,
     }
 
-    return render(request, 'users/update_campaign.html', context)
+    return render(request, 'campaigns/update_campaign.html', context)
 
 @login_required
 def delete_campaign(request, pk):
@@ -55,13 +55,13 @@ def delete_campaign(request, pk):
     context = {
         'campaign': campaign
     }
-    return render(request, 'users/delete_campaign.html', context)
+    return render(request, 'campaigns/delete_campaign.html', context)
 
-@login_required
+# login not required for this
 def view_campaign(request, username:str, campaign_title:str):
     campaign = Campaign.objects.get(creator__username=username, title=campaign_title)
 
     context = {
         'campaign': campaign
     }
-    return render(request, 'users/view_campaign.html', context)
+    return render(request, 'campaigns/view_campaign.html', context)
