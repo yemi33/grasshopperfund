@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 
     # Our apps
     'startsmart.users.apps.UsersConfig'
+    # 'startsmart.campaigns.apps.CampaignsConfig'
 ]
 
 MIDDLEWARE = [
@@ -218,3 +219,7 @@ AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
  'allauth.account.auth_backends.AuthenticationBackend',
  )
+
+
+
+# AUTH_USER_MODEL = "users.Profile"
