@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
 from .models import Profile
-from startsmart.campaigns.models import Campaign
+from ..campaigns.models import Campaign
 
-from startsmart.templates import *
+from ..templates import *
 # Create your views here.
 
 def home_page(request):
