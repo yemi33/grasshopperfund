@@ -44,6 +44,7 @@
                     <hr>
                     <small style="margin-left:10px; font-family:Comic Sans MS;">Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong></small>
                     <hr>
+                    <img class="rounded-circle account-img" src='{{ campaign.image.url }}' width="300" height="300">
                     {% if request.user == campaign.creator %}
                         <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{% url 'update-campaign' campaign.id %}">Update</a>
                         <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-danger" href="{% url 'delete-campaign' campaign.id %}">Delete</a>

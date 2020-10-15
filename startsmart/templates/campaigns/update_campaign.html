@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<form class="update-order-form" method="POST" action="">
+<form class="update-order-form" method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}
     {{form|crispy}}
     <br>
