@@ -4,3 +4,4 @@ env
 profile_pics
 db.*
 *.db
+.coverage

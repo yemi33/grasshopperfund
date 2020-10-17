@@ -10,10 +10,12 @@ from ..models import Profile
 class TestProfile(TestCase):
     def setUp(self):
         self.username = "test"
+        self.email = "test@email.com"
         self.password = "testing#2020"
         User.objects.create_user(
             username = self.username,
-            password = self.password
+            password = self.password,
+            email=self.email
             )
 
 
@@ -22,3 +24,4 @@ class TestProfile(TestCase):
         test_user = Profile.objects.get(user__username = self.username)
 
         self.assertEqual(test_user.user.username, self.username)
+        self.assertEqual(test_user.email, self.email)
