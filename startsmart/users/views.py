@@ -7,11 +7,17 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
 from .models import Profile
+from ..campaigns.models import Campaign
+
+from ..templates import *
 # Create your views here.
 
-@login_required
 def home_page(request):
-    context = {}
+    campaigns = Campaign.objects.all()
+
+    context = {
+        'campaigns': campaigns,
+    }
     return render(request, 'users/home_page.html', context)
 
 def register_page(request):

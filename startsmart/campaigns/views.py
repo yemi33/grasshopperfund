@@ -13,10 +13,23 @@ def create_campaign(request):
     form = CampaignForm()
 
     if request.method == 'POST':
-        form = CampaignForm(request.POST)
+        form = CampaignForm(request.POST, request.FILES)
         if form.is_valid():
+            c = form.cleaned_data['creator']
+            t = form.cleaned_data['title']
+            d = form.cleaned_data['description']
+            t_money = form.cleaned_data['target_money']
+            c_money = form.cleaned_data['current_money']
+            d_left = form.cleaned_data['days_left']
+            backers = form.cleaned_data['num_of_backers']
+            images = form.cleaned_data['image']
+            CampaignCreated = Campaign(creator = c, title = t, description = d, target_money = t_money,
+                                       current_money = c_money, days_left = d_left, num_of_backers = backers,
+                                       image = images)
+            CampaignCreated.save()
             messages.success(request, 'Campaign Created!')
-            form.save()
+            ##Uncomment form.save()
+            ##form.save()
             return redirect('startsmart-home')
 
     context = {
