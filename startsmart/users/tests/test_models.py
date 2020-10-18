@@ -17,7 +17,7 @@ class TestProfile(TestCase):
 
     def tearDown(self):
         # cascade will delete Profile too
-        User.objects.all().delete()
+        User.objects.get(username=self.username).delete()
 
 
     def test_profile_created(self):
