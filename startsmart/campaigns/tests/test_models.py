@@ -26,9 +26,7 @@ class TestModels(TestCase):
             title = self.title,
             description=self.description,
             target_money = self.target_money,
-            current_money = self.current_money,
-            days_left = self.days_left,
-            num_of_backers = self.num_of_backers
+            days_left = self.days_left
         )
 
 

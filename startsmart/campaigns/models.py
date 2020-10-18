@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -6,9 +8,7 @@ class Campaign(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=1000)
     target_money = models.IntegerField()
-    current_money = models.IntegerField()
     days_left = models.IntegerField()
-    num_of_backers = models.IntegerField()
     image = models.ImageField(null=True, blank=True, upload_to='campaign_pics')
 
     search_fields = ['creator__username']
@@ -27,6 +27,20 @@ class Campaign(models.Model):
             url = ''
         return url
 
+    @property
+    def current_money(self) -> Decimal:
+        money = Decimal(0)
+        for donation in self.donation_set.all():
+            money += 0
+        return money
+
+    @property
+    def num_of_backers(self) -> int:
+        backers = set()
+        for donation in self.donation_set.all():
+            backers.add(donation.donor__username)
+
+        return len(backers)
 
 
 class Donation(models.Model):
