@@ -22,5 +22,15 @@ class TestLogin(TestCase):
 
 
     def test_login_required(self):
-        response = self.client.get(reverse('profile'))
-        print(response)
+        response = self.client.get(reverse('delete-profile'))
+        assert response.status_code == 302
+        response = self.client.get(reverse('update-profile'))
+        assert response.status_code == 302
+
+    def test_login(self):
+        self.client.login(username = self.username, password=self.password)
+        response = self.client.get(reverse('update-profile'))
+        assert response.status_code == 200
+        response = self.client.get(reverse('delete-profile'))
+        assert response.status_code == 200
+        self.client.logout()
