@@ -1,13 +1,13 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Python application
+name: Django Tests
 
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ master, dev, tests ]
   pull_request:
-    branches: [ master, dev ]
+    branches: [ master, dev, tests ]
 
 jobs:
   build:
@@ -33,4 +33,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with django tests
       run: |
-        # need to implement
+        coverage run --source=startsmart manage.py test
+        coveralls
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
