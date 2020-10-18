@@ -4,9 +4,6 @@ from django.contrib.auth.models import User
 from ..models import Profile
 
 
-
-
-
 class TestProfile(TestCase):
     def setUp(self):
         self.username = "test"
@@ -18,6 +15,9 @@ class TestProfile(TestCase):
             email=self.email
             )
 
+    def tearDown(self):
+        # cascade will delete Profile too
+        User.objects.all().delete()
 
 
     def test_profile_created(self):
