@@ -29,22 +29,43 @@ class Campaign(models.Model):
 
     @property
     def current_money(self) -> Decimal:
+        '''
+        get current money from sum of donation amounts
+        '''
         money = Decimal(0)
-        for donation in self.donation_set.all():
+        for donation in self.donations.all():
             money += 0
         return money
 
     @property
-    def num_of_backers(self) -> int:
+    def donations(self) -> list:
+        return list(self.donations.all())
+
+
+    @property
+    def backers(self) -> list:
+        '''
+        get backers from unique donors
+        '''
         backers = set()
-        for donation in self.donation_set.all():
-            backers.add(donation.donor__username)
+        for donation in self.donations.all():
+            backers.add(donation.donor)
 
-        return len(backers)
+        return backers
 
+    def num_of_backers(self) -> int:
+        '''
+        get num_of_backers from len of backers
+        '''
+        return len(self.backers())
 
 class Donation(models.Model):
-    campaign = models.ForeignKey(Campaign, on_delete=models.PROTECT, related_name='campaign')
+    campaign = models.ForeignKey(Campaign, on_delete=models.PROTECT, related_name='donations')
     amount = models.DecimalField(decimal_places=2, max_digits=7)
-    donor = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='donor', null=True)
+    donor = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='donations', null=True)
     date = models.DateTimeField(auto_now=True)
+
+
+
+    def __str__(self):
+        return f"To {self.campaign.title} | from {self.donor.username} | amount: {self.amount} | {self.date}"

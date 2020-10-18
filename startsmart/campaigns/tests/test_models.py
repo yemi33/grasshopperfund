@@ -7,7 +7,9 @@ from ..models import Campaign, Donation
 
 class TestModels(TestCase):
     def setUp(self):
-
+        '''
+        Must follow this order
+        '''
         self.creator = self._create_campaign_creator()
         self.campaign = self._create_campaign()
         self.donors = self._create_donors()
@@ -28,6 +30,9 @@ class TestModels(TestCase):
         return creator
 
     def _create_campaign(self):
+        '''
+        Create test campaign
+        '''
 
         self.title = "test campaign"
         self.description = "for testing"
@@ -47,6 +52,9 @@ class TestModels(TestCase):
         return campaign
 
     def _create_donors(self, amount = 5) -> list:
+        '''
+        Create a list of unique donors
+        '''
         self.donor_username = "donor"
         self.donor_email = "donor@email.com"
 
@@ -67,6 +75,10 @@ class TestModels(TestCase):
         return donors
 
     def _create_donations(self, amount = 5) -> list:
+        '''
+        Create donations from previously made donors to
+        the previously made campaign
+        '''
         donations = list()
 
         for i in range(amount):
@@ -81,6 +93,9 @@ class TestModels(TestCase):
         return donations
 
     def tearDown(self):
+        '''
+        Delete all objects created
+        '''
         for donation in self.donations:
             donation.delete()
 
@@ -98,3 +113,10 @@ class TestModels(TestCase):
         )
 
         self.assertEqual(campaign.description, self.description)
+
+
+    def test_donations_made(self):
+        donations = list(self.campaign.donations.all())
+
+        assert len(self.campaign.backers) > 0
+        assert len(self.donations) == len(donations)
