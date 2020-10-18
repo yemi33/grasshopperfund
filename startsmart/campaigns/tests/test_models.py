@@ -1,19 +1,34 @@
+import random
+
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from ..models import Campaign
+from ..models import Campaign, Donation
 
 class TestModels(TestCase):
     def setUp(self):
-        self.username = "test"
+
+        self.creator = self._create_campaign_creator()
+        self.campaign = self._create_campaign()
+        self.donors = self._create_donors()
+        self.donations = self._create_donations()
+
+
+    def _create_campaign_creator(self):
+        self.username = "testing"
         self.email = "test@email.com"
         self.password = "testing#2020"
 
-        self.creator = User.objects.create_user(
+        creator = User.objects.create_user(
             username = self.username,
             password = self.password,
             email=self.email
         )
+
+        return creator
+
+    def _create_campaign(self):
+
         self.title = "test campaign"
         self.description = "for testing"
         self.target_money = 100
@@ -21,7 +36,7 @@ class TestModels(TestCase):
         self.days_left = 100
         self.num_of_backers = 100
 
-        self.campaign = Campaign.objects.create(
+        campaign = Campaign.objects.create(
             creator = self.creator,
             title = self.title,
             description=self.description,
@@ -29,12 +44,51 @@ class TestModels(TestCase):
             days_left = self.days_left
         )
 
+        return campaign
 
+    def _create_donors(self, amount = 5) -> list:
+        self.donor_username = "donor"
+        self.donor_email = "donor@email.com"
+
+        donors = list()
+        username = self.donor_username
+        email = self.donor_email
+
+        for i in range(amount):
+            donor = User.objects.create_user(
+                username = username,
+                password = self.password,
+                email=email
+            )
+            donors.append(donor)
+            username += 'a'
+            email = 'a' + email
+
+        return donors
+
+    def _create_donations(self, amount = 5) -> list:
+        donations = list()
+
+        for i in range(amount):
+            donation_amount = random.randrange(1,10)
+            donation = Donation.objects.create(
+                campaign = self.campaign,
+                amount = donation_amount,
+                donor = random.choice(self.donors)
+            )
+            donations.append(donation)
+
+        return donations
 
     def tearDown(self):
-        # cascade will delete Profile too
-        User.objects.get(username=self.username).delete()
-        Campaign.objects.all().delete()
+        for donation in self.donations:
+            donation.delete()
+
+        for donor in self.donors:
+            donor.delete()
+
+        self.campaign.delete()
+        self.creator.delete()
 
 
     def test_campaign_created(self):

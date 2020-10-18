@@ -44,7 +44,7 @@ class Campaign(models.Model):
 
 
 class Donation(models.Model):
-    campaign = models.ForeignKey(User, on_delete=models.PROTECT, related_name='campaign')
+    campaign = models.ForeignKey(Campaign, on_delete=models.PROTECT, related_name='campaign')
     amount = models.DecimalField(decimal_places=2, max_digits=7)
     donor = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='donor', null=True)
     date = models.DateTimeField(auto_now=True)
