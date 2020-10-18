@@ -9,7 +9,7 @@ class Campaign(models.Model):
     description = models.TextField(max_length=1000)
     target_money = models.IntegerField()
     days_left = models.IntegerField()
-    image = models.ImageField(null=True, blank=True, upload_to='campaign_pics')
+    image = models.ImageField(default='campaign_default_pic.png', blank=True, upload_to='campaign_pics')
 
     search_fields = ['creator__username']
 
