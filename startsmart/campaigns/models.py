@@ -53,11 +53,12 @@ class Campaign(models.Model):
 
         return backers
 
+    @property
     def num_of_backers(self) -> int:
         '''
         get num_of_backers from len of backers
         '''
-        return len(self.backers())
+        return len(self.backers)
 
 class Donation(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.PROTECT, related_name='donations')

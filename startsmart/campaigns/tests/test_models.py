@@ -122,4 +122,7 @@ class TestModels(TestCase):
         donations = list(self.campaign.donations.all())
 
         assert len(self.campaign.backers) > 0
+        assert self.campaign.num_of_backers == len(self.campaign.backers)
+
         assert len(self.donations) == len(donations)
+        assert self.campaign.num_of_donations == len(self.donations)
