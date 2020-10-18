@@ -49,6 +49,9 @@ class TestModels(TestCase):
             days_left = self.days_left
         )
 
+        assert len(campaign.backers) == 0
+        assert len(campaign.donations.all()) == 0
+
         return campaign
 
     def _create_donors(self, amount = 5) -> list:

@@ -38,8 +38,8 @@ class Campaign(models.Model):
         return money
 
     @property
-    def donations(self) -> list:
-        return list(self.donations.all())
+    def num_of_donations(self) -> list:
+        return len(list(self.donations.all()))
 
 
     @property
