@@ -1,5 +1,5 @@
 # [StartSmart Django Backend](https://docs.startsmart.tisuela.com/)
-
+[![Coverage Status](https://coveralls.io/repos/github/PeterOR2D2/startsmart-backend-version/badge.svg?branch=master)](https://coveralls.io/github/PeterOR2D2/startsmart-backend-version?branch=master) [![CodeFactor](https://www.codefactor.io/repository/github/peteror2d2/startsmart-backend-version/badge)](https://www.codefactor.io/repository/github/peteror2d2/startsmart-backend-version)
 ## Installation
 
 **Clone repository**
