@@ -14,13 +14,13 @@
   <title>StartSmart</title>
 </head>
 <body>
-    <nav class="blue darken-3">
+    <nav class="blue darken-1">
     <div class="nav-wrapper">
       <div class="container">
       <a class="brand-logo" href="{% url 'startsmart-home' %}">StartSmart</a>
 
-        <ul class="right hide-on-med-and-down">
-          <li class="nav-item active">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'startsmart-home' %}">Home</a>
           </li>
           {% if request.user.is_authenticated %}
