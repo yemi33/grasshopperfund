@@ -19,13 +19,15 @@ def create_campaign(request):
             t = form.cleaned_data['title']
             d = form.cleaned_data['description']
             t_money = form.cleaned_data['target_money']
-            c_money = form.cleaned_data['current_money']
             d_left = form.cleaned_data['days_left']
-            backers = form.cleaned_data['num_of_backers']
             images = form.cleaned_data['image']
-            CampaignCreated = Campaign(creator = c, title = t, description = d, target_money = t_money,
-                                       current_money = c_money, days_left = d_left, num_of_backers = backers,
-                                       image = images)
+            CampaignCreated = Campaign(
+                creator = c,
+                title = t,
+                description = d,
+                target_money = t_money,
+                days_left = d_left,
+                image = images)
             CampaignCreated.save()
             messages.success(request, 'Campaign Created!')
             ##Uncomment form.save()
