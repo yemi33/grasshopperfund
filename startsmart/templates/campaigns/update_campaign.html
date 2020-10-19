@@ -1,10 +1,10 @@
 {% extends 'main.html' %}
-{% load crispy_forms_tags %}
+{% load material_form %}
 {% block content %}
 
 <form class="update-order-form" method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}
-    {{form|crispy}}
+    {% form form=form %}{% endform %}
     <br>
     <input class="btn btn-primary" type="submit" value="Confirm">
     <a href="{% url 'startsmart-home' %}" class='btn btn-danger' type='submit'>Cancel</a>

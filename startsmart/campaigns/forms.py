@@ -7,5 +7,5 @@ class CampaignForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-                'user': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
+                'creator': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
             }
