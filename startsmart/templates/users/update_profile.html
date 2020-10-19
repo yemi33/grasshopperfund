@@ -2,14 +2,16 @@
 {% load material_form %}
 
 {% block content %}
-
-<div class="create-post">
+<div class="row">
+  <div class="col m8">
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         {% form form=form %}{% endform %}
         <input type="submit" class="btn btn-outline-primary" value="Update">
         <a href="{% url 'delete-profile' %}" class="btn btn-outline-danger">Delete</a>
     </form>
+  </div>
 </div>
+
 
 {% endblock %}
