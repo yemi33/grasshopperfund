@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'material',
 
     # providers
     # TODO: use environmental vars or github secrets for google

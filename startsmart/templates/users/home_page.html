@@ -32,43 +32,45 @@
 
 
   <div class="row">
-      {% for campaign in campaigns %}
-          <div class="col s12 m6">
-              <div class="card darken-1 hoverable">
-                <div class="card-content ">
-                  <div class="card-image">
-                    <img class="activator" src="{{ campaign.image.url }}" >
-                  </div>
-                  <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
+    {% for campaign in campaigns %}
+    <div class="col s12 m4">
 
-                  <p>By {{campaign.creator.username}}</p>
-                </div>
-                <div class="card-reveal">
-                  <span class="card-title">{{campaign.title}}<i class="material-icons right">close</i></span>
-                  <p class="flow-text">
-                    <ul>{{campaign.description}}</ul>
-                  </p>
-                  <h6>
-                    <ul>Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></ul>
-                    <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
-                    <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
-                  </h6>
+        <div class="card darken-1 hoverable">
+          <div class="card-content ">
+            <div class="card-image">
+              <img class="activator responsive" src="{{ campaign.image.url }}" >
+            </div>
+            <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
 
-                  <div class="card-action">
-                    {% if request.user == campaign.creator %}
-                        <a href="{% url 'update-campaign' campaign.id %}">Update</a>
-                        <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
-                    {% else %}
-                        <a href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
-                        <!-- <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{}">Thumbs Up!</a> -->
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
+            <p>By {{campaign.creator.username}}</p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title">{{campaign.title}}<i class="material-icons right">close</i></span>
+            <p class="flow-text">
+              <ul>{{campaign.description}}</ul>
+            </p>
+            <h6>
+              <ul>Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></ul>
+              <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
+              <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
+            </h6>
+
+            <div class="card-action">
+              {% if request.user == campaign.creator %}
+                  <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+                  <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+              {% else %}
+                  <a href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
+                  <!-- <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{}">Thumbs Up!</a> -->
+              {% endif %}
             </div>
           </div>
+        </div>
+
+    </div>
       {% endfor %}
   </div>
+
 
 
 {% endblock %}
