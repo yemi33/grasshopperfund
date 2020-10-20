@@ -10,18 +10,18 @@
         <div class="col-md-12 text-center">
             <h2 style="margin-top:10px;">Membership</h2>
         </div>
-        <div class="col-md-4">
+      <div class="col s12 m4">
             <!--This column displays beginner membership as bronze star-->
             <img src="{% static 'images/bronze-star-md.png' %}" width="200" height="200">
              <h4 class="service-heading">Beginner</h4>
              <a class="btn btn-outline-info" href="">Learn More</a>
         </div>
-        <div class="col-md-4">
+        <div class="col s12 m4">
             <img src="{% static 'images/silver_star.png' %}" width="200" height="200">
              <h4 class="service-heading">Pro</h4>
              <a class="btn btn-outline-info" href="">Learn More</a>
         </div>
-        <div class="col-md-4">
+        <div class="col s12 m4">
             <img src="{% static 'images/gold_star.png' %}" width="200" height="200">
             <h4 class="service-heading">Expert</h4>
             <a class="btn btn-outline-info" href="">Learn More</a>
@@ -29,33 +29,49 @@
 
         </div>
 {% endif %}
+
 <hr>
-<div style="margin-top:10px;" class="container">
-    <div class="row">
-        {% for campaign in campaigns %}
-            <div class="col-lg-4">
-                <div style="margin-bottom:10px;" id="box-element" class="border border-info">
-                    <h2 style="margin-left:10px;    font-family:Candara;">{{campaign.title}}</h2>
-                    <i style="margin-left:10px;">By {{campaign.creator.username}}</i>
-                    <hr>
-                    <h5 style="margin-left:10px;" class="view-money">Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></h5>
-                    <!-- <img id="thumbnail" src="{{campaign.imageUrl}}"> -->
-                    <i><h6 style="margin-left:10px;" class="view-money">Current: ${{campaign.current_money|intcomma}}</h6></i>
-                    <hr>
-                    <small style="margin-left:10px; font-family:Comic Sans MS;">Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong></small>
-                    <hr>
-                    <img class="rounded-circle account-img" src='{{ campaign.image.url }}' width="300" height="300">
-                    {% if request.user == campaign.creator %}
-                        <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{% url 'update-campaign' campaign.id %}">Update</a>
-                        <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-danger" href="{% url 'delete-campaign' campaign.id %}">Delete</a>
-                    {% else %}
-                        <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-secondary" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
-                        <!-- <a style="margin-bottom: 10px;  margin-left:10px;" class="btn btn-outline-info" href="{}">Thumbs Up!</a> -->
-                    {% endif %}
-                </div>
+  <div class="row">
+    {% for campaign in campaigns %}
+    <div class="col s12 m4">
+
+        <div class="card darken-1 hoverable medium sticky-action">
+          <div class="card-content ">
+            <div class="card-image">
+              <img class="activator responsive" src="{{ campaign.image.url }}" >
             </div>
-        {% endfor %}
+
+            <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
+
+            <p>By {{campaign.creator.username}}</p>
+
+          </div>
+          <div class="card-reveal">
+            <span class="card-title">{{campaign.title}}<i class="material-icons right">close</i></span>
+            <p class="flow-text">
+              <ul>{{campaign.description}}</ul>
+            </p>
+            <h6>
+              <ul>Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></ul>
+              <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
+              <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
+            </h6>
+          </div>
+          <div class="card-action">
+            {% if request.user == campaign.creator %}
+                <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+                <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+            {% else %}
+              <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
+              <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+            {% endif %}
+          </div>
+        </div>
+
     </div>
-</div>
+      {% endfor %}
+  </div>
+
+
 
 {% endblock %}

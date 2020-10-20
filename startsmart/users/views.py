@@ -45,6 +45,8 @@ def login_page(request):
             messages.success(request, 'Logged in Successfully!')
             login(request, user)
             return redirect('startsmart-home')
+        else:
+            messages.error(request, "Invalid username or password")
     return render(request, 'users/login_page.html')
 
 def logout_page(request):
