@@ -7,23 +7,18 @@
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
-            <h5>Created by {{campaign.creator}}</h5>
+            <h5>Owned by {{organization.owner}}</h5>
             <hr>
         </div>
     </div>
 
     <div class="col-md">
         <div class="card card-body">
-            <h5>Campaign Information</h5>
+            <h5>Organization Information</h5>
             <hr>
-            <p><strong>Project Name:</strong> {{campaign.title}}</p>
-            <p><strong>Target Goal:</strong> ${{campaign.target_money|intcomma}}</p>
-            <p><strong>Current Donations:</strong> ${{campaign.current_money|intcomma}}</p>
-            <p><strong>Description:</strong> {{campaign.description}}</p>
-            <p><strong>Days Left:</strong> {{campaign.days_left}}</p>
-            <p><strong>Number of Investors:</strong> {{campaign.num_of_backers}}</p>
-            <!-- <p><strong>Image:</strong> {{campaign.imageUrl}}</p> -->
-            <button type="button" class="btn btn-outline-info">Donate</button>
+            <p><strong>Organization Name:</strong> {{organization.name}}</p>
+            <p><strong>Description:</strong> {{organization.description}}</p>
+            <img src="{{ organization.image.url }}" >
         </div>
     </div>
 </div>

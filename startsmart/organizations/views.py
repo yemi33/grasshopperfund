@@ -30,6 +30,8 @@ def create_organization(request):
             new_organization.save()
             messages.success(request, "Organization Created")
 
+            return redirect("view-organization", organization_name = name)
+
 
 
 
@@ -42,3 +44,13 @@ def create_organization(request):
         "organizations/create_organization.html",
         context,
     )
+
+
+
+def view_organization(request, organization_name:str):
+    organization = Organization.objects.get(name=organization_name)
+
+    context = {
+        'organization': organization
+    }
+    return render(request, 'organizations/view_organization.html', context)
