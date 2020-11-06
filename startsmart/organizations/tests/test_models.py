@@ -3,7 +3,7 @@ import random
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from ..models import Organization
+from ..models import Organization, Post
 
 class TestModels(TestCase):
     def setUp(self):
@@ -12,6 +12,7 @@ class TestModels(TestCase):
         '''
         self.owner = self._create_organization_owner()
         self.organization = self._create_organization()
+        self.owner_posts = self._create_posts_from_owner()
 
     def tearDown(self):
         '''
@@ -37,6 +38,28 @@ class TestModels(TestCase):
 
         return owner
 
+
+
+    def _create_posts_from_owner(self):
+        '''
+        Create posts within the test organization authored by the owner
+        '''
+        self.post_texts = [
+            "Hello world",
+            "This is a test post",
+        ]
+
+        posts = []
+
+        for text in self.post_texts:
+            post = Post.objects.create(
+                author = self.owner,
+                organization = self.organization,
+                text = text,
+            )
+            posts.append(posts)
+
+        return posts
 
     def _create_organization(self):
         '''
@@ -71,3 +94,18 @@ class TestModels(TestCase):
             organization.description,
             self.organization_description
         )
+
+
+    def test_owner_posts_created(self):
+        '''
+        Verify that posts from the owner within the organization have been
+        created
+        '''
+        posts = Post.objects.filter(
+            author = self.owner,
+        )
+
+        assert len(posts) > 1
+
+        for post in posts:
+            print(post)
