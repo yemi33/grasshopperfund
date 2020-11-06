@@ -32,9 +32,6 @@ def create_organization(request):
 
             return redirect("view-organization", organization_name = name)
 
-
-
-
     context = {
         "form": form,
     }
