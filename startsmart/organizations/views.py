@@ -43,7 +43,6 @@ def create_organization(request):
     )
 
 
-
 def view_organization(request, organization_name:str):
     organization = Organization.objects.get(name=organization_name)
 
@@ -51,3 +50,43 @@ def view_organization(request, organization_name:str):
         'organization': organization
     }
     return render(request, 'organizations/view_organization.html', context)
+
+@login_required
+def update_organization(request, organization_name: str):
+    organization = Organization.objects.get(name=organization_name)
+    form = OrganizationForm(instance=organization)
+
+    if request.method == 'POST':
+        form = OrganizationForm(request.POST, request.FILES, instance=organization)
+        if form.is_valid():
+            messages.success(request, 'Successfully Updated organization!')
+            form.save()
+        return redirect('startsmart-home')
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'organizations/update_organization.html', context)
+
+@login_required
+def delete_organization(request, organization_name: str):
+    organization = Organization.objects.get(name = organization_name)
+
+    if request.method == 'POST':
+        organization.delete()
+        messages.success(request, 'Successfully Removed organization!')
+        return redirect('startsmart-home')
+
+    context = {
+        'organization': organization
+    }
+    return render(request, 'organizations/delete_organization.html', context)
+
+def browse_organizations(request):
+    organizations = Organization.objects.all()
+
+    context = {
+        'organizations': organizations,
+    }
+    return render(request, 'organizations/browse_organizations.html', context)

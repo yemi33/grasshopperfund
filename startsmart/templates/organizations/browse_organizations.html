@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% load humanize %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<hr>
+  <div class="row">
+    {% for organization in organizations %}
+    <div class="col s12 m4">
+
+        <div class="card darken-1 hoverable medium sticky-action">
+          <div class="card-content ">
+            <div class="card-image">
+              <img class="activator responsive" src="{{ organization.image.url }}" >
+            </div>
+
+            <span class="card-title activator">{{organization.name}}<i class="material-icons right">more_vert</i></span>
+
+            <p>By {{organization.owner.username}}</p>
+
+          </div>
+          <div class="card-reveal">
+            <span class="card-title">{{organization.name}}<i class="material-icons right">close</i></span>
+            <p class="flow-text">
+              <ul>{{organization.description}}</ul>
+            </p>
+            <h6>
+            </h6>
+          </div>
+          <div class="card-action">
+            {% if request.user == organization.owner %}
+                <a href="{% url 'update-organization' organization.name %}">Update</a>
+                <a href="{% url 'delete-organization' organization.name %}">Delete</a>
+            {% else %}
+              <a class="waves-effect waves-light" href="{% url 'view-organization' organization.creator organization.title %}">View More</a>
+              <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+            {% endif %}
+          </div>
+        </div>
+
+    </div>
+      {% endfor %}
+  </div>
+
+
+
+{% endblock %}
