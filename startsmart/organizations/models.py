@@ -5,6 +5,7 @@ class Organization(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organizations')
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=1000)
+    image = models.ImageField(default='campaign_default_pic.png', blank=True, upload_to='organization_pics')
 
 
     def __str__(self):
