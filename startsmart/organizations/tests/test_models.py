@@ -109,3 +109,8 @@ class TestModels(TestCase):
 
         for post in posts:
             print(post)
+
+        org_posts = self.organization.posts.all()
+
+        assert len(org_posts) == self.organization.num_of_posts
+        assert len(org_posts) > 1
