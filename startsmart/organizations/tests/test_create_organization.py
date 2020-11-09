@@ -54,3 +54,6 @@ class TestForms(BaseTestOrganizations):
         # verify that org was created
         organization = Organization.objects.get(name = self.new_org_name)
         assert self.new_org_description == organization.description
+
+        # delete org
+        organization.delete()
