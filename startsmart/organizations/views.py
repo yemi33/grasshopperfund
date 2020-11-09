@@ -32,6 +32,9 @@ def create_organization(request):
 
             return redirect("view-organization", organization_name = name)
 
+        else:
+            print("form errors", form.errors)
+
     context = {
         "form": form,
     }
@@ -70,6 +73,7 @@ def update_organization(request, organization_name: str):
         if form.is_valid():
             messages.success(request, 'Successfully Updated organization!')
             form.save()
+
         return redirect('startsmart-home')
 
     context = {
