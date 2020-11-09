@@ -96,6 +96,33 @@ class TestModels(TestCase):
 
         assert self.organization_name == organization.name
 
+    def test_delete_organization(self):
+        '''
+        Verify that we can delete our org
+        '''
+        self.client.login(username = self.username, password=self.password)
+
+        response = self.client.post(reverse(
+            "delete-organization",
+            kwargs = {
+                "organization_name": self.organization_name
+            }
+        ))
+
+
+        # successful delete redirects user to home
+        assert response.status_code == 302
+
+        # check that organization does not exist
+        self.assertRaises(
+            Organization.DoesNotExist,
+            Organization.objects.get,
+            name = self.organization_name,
+        )
+
+        self.client.logout()
+
+
     def test_does_not_exist(self):
         '''
         Verify behavior for when an organization doesn't exist
