@@ -8,6 +8,6 @@ class Tags(models.Model):
     name = models.CharField(max_length=300, unique=True)
     ##organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='tags', null=True)
     ##post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='tags', null=True)
-    campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, related_name='tags', null=True)
+    campaign = models.ManyToManyField(Campaign, related_name='tags')
 
     def __str__(self): return f"name: {self.name}\n campaign: {self.campaign}\n"
