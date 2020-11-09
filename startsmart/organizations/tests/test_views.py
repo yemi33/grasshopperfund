@@ -121,7 +121,7 @@ class TestModels(TestCase):
         assert response.status_code == 404
 
         response = self.client.get(reverse(
-            "update-organization",
+            "delete-organization",
             kwargs = {
                 "organization_name": "skeet on the beet"
             }
