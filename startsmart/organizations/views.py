@@ -44,7 +44,11 @@ def create_organization(request):
 
 
 def view_organization(request, organization_name:str):
-    organization = Organization.objects.get(name=organization_name)
+    try:
+        organization = Organization.objects.get(name=organization_name)
+    except Organization.DoesNotExist:
+        # 404 if organization doesn't exist
+        return(HttpResponse(status=404))
 
     context = {
         'organization': organization
@@ -53,7 +57,12 @@ def view_organization(request, organization_name:str):
 
 @login_required
 def update_organization(request, organization_name: str):
-    organization = Organization.objects.get(name=organization_name)
+    try:
+        organization = Organization.objects.get(name=organization_name)
+    except Organization.DoesNotExist:
+        # 404 if organization doesn't exist
+        return(HttpResponse(status=404))
+
     form = OrganizationForm(instance=organization)
 
     if request.method == 'POST':
@@ -71,7 +80,11 @@ def update_organization(request, organization_name: str):
 
 @login_required
 def delete_organization(request, organization_name: str):
-    organization = Organization.objects.get(name = organization_name)
+    try:
+        organization = Organization.objects.get(name=organization_name)
+    except Organization.DoesNotExist:
+        # 404 if organization doesn't exist
+        return(HttpResponse(status=404))
 
     if request.method == 'POST':
         organization.delete()
