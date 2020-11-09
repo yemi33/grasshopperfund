@@ -7,9 +7,9 @@ from .utils import BaseTestOrganizations
 
 
 
-class TestForms(BaseTestOrganizations):
+class TestUpdateOrganization(BaseTestOrganizations):
 
-    def test_create_organization(self):
+    def test_form(self):
         self.client.login(username = self.username, password=self.password)
 
         response = self.client.get(reverse(
