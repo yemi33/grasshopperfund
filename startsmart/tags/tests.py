@@ -11,7 +11,7 @@ class TestModels(TestCase):
 
     def tearDown(self) -> None:
         del self.campaign_list
-        self.tag_list.campaign.clear()
+        self.tag_list.campaigns.clear()
 
     def _create_lists_of_campaign_for_tag(self):
         self.creator = User.objects.create_user(username='randomdude', email='random@email.com',
@@ -50,11 +50,11 @@ class TestModels(TestCase):
         tag = Tags(name='jazz')
         tag.save()
         for campaign_num in self.campaign_list:
-            tag.campaign.add(campaign_num)
+            tag.campaigns.add(campaign_num)
         return tag
 
     def test_tag_created(self):
-        self.assertEqual(len(Tags.objects.get(name=self.tag_list.name).campaign.all()), 2)
+        self.assertEqual(len(Tags.objects.get(name=self.tag_list.name).campaigns.all()), 2)
         pass
 
 
