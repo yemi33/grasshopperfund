@@ -2,6 +2,20 @@
 {% load humanize %}
 {% load static %}
 
+<script>
+    .button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+</script>
 
 {% block content %}
 
@@ -67,10 +81,15 @@
             {% endif %}
           </div>
         </div>
-
     </div>
       {% endfor %}
   </div>
+    <div class="row">
+       {% for tag in tags %}
+       <a class="btn waves-effect waves-teal btn-large col s1 offset-s1" href="{% url 'filter-campaigns-from-tags' tag.name %}">
+           #{{ tag.name }}</a>
+      {% endfor %}
+    </div>
 
 
 

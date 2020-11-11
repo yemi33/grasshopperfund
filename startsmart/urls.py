@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('startsmart.users.urls')),
     path('organizations/', include('startsmart.organizations.urls')),
     path('campaigns/', include('startsmart.campaigns.urls')),
+    path('tags/', include('startsmart.tags.urls')),
 
     path('accounts/', include('allauth.urls'))
 

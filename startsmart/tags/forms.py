@@ -1,13 +1,19 @@
 from django import forms
 
 from .models import Tags
+from startsmart.campaigns.models import Campaign
 
 class TagsForm(forms.ModelForm):
+    campaign = forms.ChoiceField(choices=Campaign.objects.all())
+
+    def __init__(self, *args, **kwargs):
+        super(TagsForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = Tags
         fields = '__all__'
 
-        widgets = {
-            'owner': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
-        }
+    name = forms.TextInput()
+    campaign = forms.ModelMultipleChoiceField(queryset=Campaign.objects.all(), widget=forms.CheckboxSelectMultiple)
+
+
