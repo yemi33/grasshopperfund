@@ -4,17 +4,20 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .forms import CampaignForm
+from .forms import CampaignForm, TagsForm1
 from .models import Campaign
+from ..tags.models import Tags
 
 
 @login_required
 def create_campaign(request):
     form = CampaignForm()
+    form1 = TagsForm1()
 
     if request.method == 'POST':
         form = CampaignForm(request.POST, request.FILES)
-        if form.is_valid():
+        form1 = TagsForm1(request.POST)
+        if all([form.is_valid(), form1.is_valid()]):
             c = form.cleaned_data['creator']
             t = form.cleaned_data['title']
             d = form.cleaned_data['description']
@@ -29,13 +32,17 @@ def create_campaign(request):
                 days_left = d_left,
                 image = images)
             CampaignCreated.save()
+            tag = Tags(name=form1.cleaned_data['name'])
+            tag.save()
+            if request.POST.get('campaigns') != None:
+                for campaign in form1.cleaned_data['campaigns']: tag.campaigns.add(campaign)
+            tag.campaigns.add(CampaignCreated)
             messages.success(request, 'Campaign Created!')
             ##Uncomment form.save()
             ##form.save()
             return redirect('startsmart-home')
-
     context = {
-        'form': form
+        'form': form, 'form1' : form1
     }
 
     return render(request, 'campaigns/create_campaign.html', context)
