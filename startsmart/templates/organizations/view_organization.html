@@ -24,7 +24,7 @@
     </div>
 
 
-    <div class="col m8">
+    <div class="col-md">
 
       <form method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
@@ -45,6 +45,7 @@
       <div>
         <p>
           Post text: {{post.text}}
+          {{post.created}}
         </p>
       </div>
 
