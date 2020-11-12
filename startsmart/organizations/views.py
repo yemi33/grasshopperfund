@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import OrganizationForm
-from .models import Organization
+from .forms import OrganizationForm, PostForm
+from .models import Organization, Post
 
 
 @login_required
@@ -53,8 +53,32 @@ def view_organization(request, organization_name:str):
         # 404 if organization doesn't exist
         return(HttpResponse(status=404))
 
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            author = form.cleaned_data["author"]
+            # organization = form.cleaned_data["organization"]
+            text = form.cleaned_data["text"]
+
+            new_post = Post(
+                author = author,
+                organization = organization,
+                text = text,
+            )
+
+            new_post.save()
+            messages.success(request, "Posted!")
+            return redirect("view-organization", organization_name = organization.name)
+
+        else:
+            print(form.errors)
+
+
     context = {
-        'organization': organization
+        'organization': organization,
+        'post_form': PostForm,
+        'organization_posts': organization.posts.all(),
     }
     return render(request, 'organizations/view_organization.html', context)
 

@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 {% load humanize %}
 {% block content %}
+{% load material_form %}
 
 <br>
 
@@ -20,6 +21,34 @@
             <p><strong>Description:</strong> {{organization.description}}</p>
             <img src="{{ organization.image.url }}" >
         </div>
+    </div>
+
+
+    <div class="col m8">
+
+      <form method="POST" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% form form=post_form %}{% endform %}
+          <input class="btn btn-info" type="submit" name="Submit">
+          <script type="text/javascript">
+              let author = '{{request.user.id}}';
+              let organization = '{{organization.id}}';
+              document.getElementById('post_author').value = author;
+              document.getElementById('post_organization').value = organization;
+          </script>
+
+    </div>
+
+    <div class="col-md">
+      Posts:
+      {% for post in organization_posts %}
+      <div>
+        <p>
+          Post text: {{post.text}}
+        </p>
+      </div>
+
+      {% endfor %}
     </div>
 </div>
 
