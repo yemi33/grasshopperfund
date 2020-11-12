@@ -3,12 +3,23 @@
 {% block content %}
 
 <div class="row">
-    <div class="col m8">
+    <div class="col m6">
 
       <form method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
           {% form form=form %}{% endform %}
           <input class="btn btn-info" type="submit" name="Submit">
+          <script type="text/javascript">
+              let creator = '{{request.user.id}}';
+              document.getElementById('element').value = creator;
+          </script>
+
+    </div>
+<div class="col m6">
+
+      <form method="POST" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% form form=form1 %}{% endform %}
           <script type="text/javascript">
               let creator = '{{request.user.id}}';
               document.getElementById('element').value = creator;

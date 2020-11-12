@@ -8,15 +8,18 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
 from .models import Profile
 from ..campaigns.models import Campaign
+from ..tags.models import Tags
 
 from ..templates import *
 # Create your views here.
 
 def home_page(request):
     campaigns = Campaign.objects.all()
+    tags = Tags.objects.all()
 
     context = {
         'campaigns': campaigns,
+        'tags' : tags
     }
     return render(request, 'users/home_page.html', context)
 

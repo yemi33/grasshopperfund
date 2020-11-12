@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'startsmart.users.apps.UsersConfig',
     'startsmart.campaigns.apps.CampaignsConfig',
     'startsmart.organizations.apps.OrganizationsConfig',
+    'startsmart.tags.apps.TagsConfig'
 ]
 
 MIDDLEWARE = [
