@@ -10,7 +10,7 @@ from ..tags.models import Tags
 
 
 @login_required
-def create_campaign(request):
+def create_campaign(request, organization: str):
     form = CampaignForm()
     form1 = TagsForm1()
 

@@ -2,9 +2,12 @@ from decimal import Decimal
 
 from django.db import models
 from django.contrib.auth.models import User
+from ..organizations.models import Organization
+
 
 class Campaign(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator')
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='campaigns')
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='campaigns')
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=1000)
     target_money = models.IntegerField()

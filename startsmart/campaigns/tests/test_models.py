@@ -3,6 +3,8 @@ import random
 from django.test import TestCase
 from django.contrib.auth.models import User
 
+
+from ...organizations.models import Organization
 from ..models import Campaign, Donation
 
 class TestModels(TestCase):
@@ -11,10 +13,29 @@ class TestModels(TestCase):
         Must follow this order
         '''
         self.creator = self._create_campaign_creator()
+        self.organization = self._create_organization()
         self.campaign = self._create_campaign()
         self.donors = self._create_donors()
         self.donations = self._create_donations()
 
+
+
+    def _create_organization(self):
+        '''
+        Create an organization.
+        Save the attributes to test that the organization exists
+        '''
+        self.organization_name = "Test Org Inc."
+        self.organization_description = "for testing"
+
+        organization = Organization.objects.create(
+            owner = self.creator,
+            name = self.organization_name,
+            description = self.organization_description,
+        )
+
+
+        return organization
 
     def _create_campaign_creator(self):
         self.username = "testing"
@@ -43,6 +64,7 @@ class TestModels(TestCase):
 
         campaign = Campaign.objects.create(
             creator = self.creator,
+            organization = self.organization,
             title = self.title,
             description=self.description,
             target_money = self.target_money,
