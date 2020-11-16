@@ -8,16 +8,33 @@ from .forms import CampaignForm, TagsForm1
 from .models import Campaign
 from ..tags.models import Tags
 
+import re
+
 
 @login_required
 def create_campaign(request):
     form = CampaignForm()
     form1 = TagsForm1()
-
+    count_same_tag = 0
     if request.method == 'POST':
         form = CampaignForm(request.POST, request.FILES)
         form1 = TagsForm1(request.POST)
         if all([form.is_valid(), form1.is_valid()]):
+            tag_list = [tag_name for tag_name in re.split('[, ]',
+                        form1.cleaned_data['enter_tags_you_would_like_to_include'])
+                        if tag_name != '']
+            for tag_name in tag_list:
+                if Tags.objects.filter(name=tag_name).exists():
+                    count_same_tag += 1
+                    messages.success(request, 'Tag name %s exists' % tag_name)
+                    tag_list.remove(tag_name)
+            if count_same_tag != 0:
+                result = ','.join(word for word in tag_list)
+                form1 = TagsForm1(initial={'enter_tags_you_would_like_to_include': result})
+                context = {
+                    'form': form, 'form1': form1
+                }
+                return render(request, 'campaigns/create_campaign.html', context)
             c = form.cleaned_data['creator']
             t = form.cleaned_data['title']
             d = form.cleaned_data['description']
@@ -32,11 +49,15 @@ def create_campaign(request):
                 days_left = d_left,
                 image = images)
             CampaignCreated.save()
-            tag = Tags(name=form1.cleaned_data['name'])
-            tag.save()
-            if request.POST.get('campaigns') != None:
-                for campaign in form1.cleaned_data['campaigns']: tag.campaigns.add(campaign)
-            tag.campaigns.add(CampaignCreated)
+            for enter_tag_name in tag_list:
+                tag_created = Tags(name=enter_tag_name)
+                tag_created.save()
+                CampaignCreated.tag.add(tag_created)
+                tag_created.campaigns.add(CampaignCreated)
+            if request.POST.get('tag') != None:
+                for exist_tag in form1.cleaned_data['tag']:
+                    CampaignCreated.tag.add(exist_tag)
+                    exist_tag.campaigns.add(CampaignCreated)
             messages.success(request, 'Campaign Created!')
             ##Uncomment form.save()
             ##form.save()

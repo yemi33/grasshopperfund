@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # from .forms import TagsForm
-from .models import Tags, Campaign
+from .models import Tags
 
 # @login_required
 # def create_tags(request):
