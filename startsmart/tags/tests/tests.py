@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from ...organizations.models import Organization
 
 # Create your tests here.
-class TestModels(TestCase):
+class TestModels(TestCase): 
     def setUp(self):
         print("From test tags")
         self.owner = self._create_organization_owner()
