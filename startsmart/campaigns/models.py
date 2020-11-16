@@ -14,6 +14,8 @@ class Campaign(models.Model):
     days_left = models.IntegerField()
     image = models.ImageField(default='campaign_default_pic.png', blank=True, upload_to='campaign_pics')
 
+    tag = models.ManyToManyField('tags.Tags', related_name='campaign')
+
     search_fields = ['creator__username']
 
     class Meta:

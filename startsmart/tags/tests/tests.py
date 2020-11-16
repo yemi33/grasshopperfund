@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 # Create your tests here.
 class TestModels(TestCase):
     def setUp(self):
+        print("From test tags")
         self.campaign_list = self._create_lists_of_campaign_for_tag()
         self.tag_list = self._create_tag()
 
@@ -54,6 +55,7 @@ class TestModels(TestCase):
         return tag
 
     def test_tag_created(self):
+        print("test tag created starting")
         self.assertEqual(len(Tags.objects.get(name=self.tag_list.name).campaigns.all()), 2)
         pass
 
