@@ -11,11 +11,11 @@ class CampaignForm(forms.ModelForm):
                 'creator': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
             }
 
-class TagsForm1(forms.ModelForm):
+class TagsForm(forms.ModelForm):
     # campaign = forms.ChoiceField(choices=Campaign.objects.all())
 
     def __init__(self, *args, **kwargs):
-        super(TagsForm1, self).__init__(*args, **kwargs)
+        super(TagsForm, self).__init__(*args, **kwargs)
         if len(Tags.objects.all()) == 0: self.fields['tag'].help_text = 'No existing tags yet'
         else: self.fields['tag'].help_text = 'Existing tags you would like to include for your campaign'
 

@@ -1,27 +1,33 @@
+import re
+
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .forms import CampaignForm, TagsForm1
+from .forms import CampaignForm, TagsForm
 from .models import Campaign
 from ..tags.models import Tags
+from ..organizations.models import Organization
 
-import re
+
 
 
 @login_required
-def create_campaign(request, organization: str):
-    form = CampaignForm()
-    form1 = TagsForm1()
+def create_campaign(request, organization_name: str):
+    campaign_form = CampaignForm()
+    tag_form = TagsForm()
+
+    organization = Organization.objects.get(
+        name = organization_name
+    )
     count_same_tag = 0
     if request.method == 'POST':
-        form = CampaignForm(request.POST, request.FILES)
-        form1 = TagsForm1(request.POST)
-        if all([form.is_valid(), form1.is_valid()]):
+        campaign_form = CampaignForm(request.POST, request.FILES)
+        tag_form = TagsForm(request.POST)
+        if all([campaign_form.is_valid(), tag_form.is_valid()]):
             tag_list = [tag_name for tag_name in re.split('[, ]',
-                        form1.cleaned_data['enter_tags_you_would_like_to_include'])
+                        tag_form.cleaned_data['enter_tags_you_would_like_to_include'])
                         if tag_name != '']
             for tag_name in tag_list:
                 if Tags.objects.filter(name=tag_name).exists():
@@ -30,40 +36,43 @@ def create_campaign(request, organization: str):
                     tag_list.remove(tag_name)
             if count_same_tag != 0:
                 result = ','.join(word for word in tag_list)
-                form1 = TagsForm1(initial={'enter_tags_you_would_like_to_include': result})
+                tag_form = TagsForm(initial={'enter_tags_you_would_like_to_include': result})
                 context = {
-                    'form': form, 'form1': form1
+                    'form': campaign_form, 'form1': tag_form
                 }
-                return render(request, 'campaigns/create_campaign.html', context)
-            c = form.cleaned_data['creator']
-            t = form.cleaned_data['title']
-            d = form.cleaned_data['description']
-            t_money = form.cleaned_data['target_money']
-            d_left = form.cleaned_data['days_left']
-            images = form.cleaned_data['image']
-            CampaignCreated = Campaign(
-                creator = c,
-                title = t,
-                description = d,
-                target_money = t_money,
-                days_left = d_left,
-                image = images)
-            CampaignCreated.save()
+
+                # this seems incorrectly placed. commenting it out.
+                # return render(request, 'campaigns/create_campaign.html', context)
+            campaign_creator = campaign_form.cleaned_data['creator']
+            campaign_title = campaign_form.cleaned_data['title']
+            campaign_description = campaign_form.cleaned_data['description']
+            campaign_target_money = campaign_form.cleaned_data['target_money']
+            campaign_days_left = campaign_form.cleaned_data['days_left']
+            campaign_image = campaign_form.cleaned_data['image']
+            new_campaign = Campaign(
+                creator = campaign_creator,
+                organization = organization,
+                title = campaign_title,
+                description = campaign_description,
+                target_money = campaign_target_money,
+                days_left = campaign_days_left,
+                image = campaign_image)
+            new_campaign.save()
             for enter_tag_name in tag_list:
                 tag_created = Tags(name=enter_tag_name)
                 tag_created.save()
-                CampaignCreated.tag.add(tag_created)
-                tag_created.campaigns.add(CampaignCreated)
+                new_campaign.tag.add(tag_created)
+                tag_created.campaigns.add(new_campaign)
             if request.POST.get('tag') != None:
-                for exist_tag in form1.cleaned_data['tag']:
-                    CampaignCreated.tag.add(exist_tag)
-                    exist_tag.campaigns.add(CampaignCreated)
+                for exist_tag in campaign_form.cleaned_data['tag']:
+                    new_campaign.tag.add(exist_tag)
+                    exist_tag.campaigns.add(new_campaign)
             messages.success(request, 'Campaign Created!')
-            ##Uncomment form.save()
+            ##Uncomment campaign_form.save()
             ##form.save()
             return redirect('startsmart-home')
     context = {
-        'form': form, 'form1' : form1
+        'form': campaign_form, 'form1' : tag_form
     }
 
     return render(request, 'campaigns/create_campaign.html', context)
