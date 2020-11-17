@@ -35,7 +35,7 @@ nav:
     - Installation: Installation.md
     - Git Workflow: Git-Workflow.md
     - Django: Django.md
-  - Database: Database.md
+  - Database: database.md
   - Change log:
     - Added Tags: change-log/added-tags.md
     - Added Organizations: change-log/added-organizations.md
