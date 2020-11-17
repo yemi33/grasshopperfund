@@ -22,7 +22,7 @@ Our Project Structure:
 
 ## Simple assignment
 
-**[Read this about installing the project](https://docs.grasshopperfund.tisuela.com/)**
+**[Read this about installing the project](/Installation)**
 
 **[Read this on how to use Git](https://www.notion.so/Git-With-The-Flow-1c62521d9fb747a1ae9ce0f4ecf6bcdb)**
 

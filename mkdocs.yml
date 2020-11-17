@@ -25,3 +25,17 @@ extra_css:
 extra_javascript:
   - js/termynal.js
   - js/custom.js
+
+
+# page tree
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Onboarding: Onboarding.md
+    - Installation: Installation.md
+    - Git Workflow: Git-Workflow.md
+    - Django: Django.md
+  - Database: Database.md
+  - Change log:
+    - Project Restructure: project-restructure.md
+    - Suggestions: suggestions.md
