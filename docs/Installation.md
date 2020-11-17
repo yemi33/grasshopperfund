@@ -16,19 +16,19 @@ There are a good amount of depencies for this project -- it will be good practic
 
 === "macOS/Linux"
 
-    ```
+    ``` bash
     python3 -m venv env
     ```
 
 === "Windows Command Line"
 
-    ```
+    ``` bat
     python -m venv env
     ```
 
 === "Windows Powershell"
 
-    ```
+    ``` powershell
     python -m venv env
     ```
 
@@ -39,19 +39,19 @@ The last argument is the location to create the virtual environment. Generally, 
 
 === "macOS/Linux"
 
-    ```
+    ``` bash
     source env/bin/activate
     ```
 
 === "Windows Command Line"
 
-    ```
+    ``` bat
     .\env\Scripts\activate.bat
     ```
 
 === "Windows Powershell"
 
-    ```
+    ``` powershell
     .\env\Scripts\activate.ps1
     ```
 
