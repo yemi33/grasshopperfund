@@ -1,4 +1,4 @@
-"""startsmart URL Configuration
+"""grasshopperfund URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -23,10 +23,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('startsmart.users.urls')),
-    path('organizations/', include('startsmart.organizations.urls')),
-    path('campaigns/', include('startsmart.campaigns.urls')),
-    path('tags/', include('startsmart.tags.urls')),
+    path('', include('grasshopperfund.users.urls')),
+    path('organizations/', include('grasshopperfund.organizations.urls')),
+    path('campaigns/', include('grasshopperfund.campaigns.urls')),
+    path('tags/', include('grasshopperfund.tags.urls')),
 
     path('accounts/', include('allauth.urls'))
 

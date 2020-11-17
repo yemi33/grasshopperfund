@@ -1,6 +1,6 @@
 from django.db import models
 
-from startsmart.organizations.models import Organization, Post
+from ..organizations.models import Organization, Post
 
 # Create your models here.
 class Tags(models.Model):

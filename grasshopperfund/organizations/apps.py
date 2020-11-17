@@ -3,7 +3,7 @@ from django.apps import AppConfig
 
 
 class OrganizationsConfig(AppConfig):
-    name = 'startsmart.organizations'
+    name = 'grasshopperfund.organizations'
 
     def ready(self):
         pass
