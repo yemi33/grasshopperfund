@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+{% load humanize %}
+{% block content %}
+{% load material_form %}
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Owned by {{organization.owner}}</h5>
+            <hr>
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
+        </li>
+    </div>
+
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Organization Information</h5>
+            <hr>
+            <p><strong>Organization Name:</strong> {{organization.name}}</p>
+            <p><strong>Description:</strong> {{organization.description}}</p>
+            <img src="{{ organization.image.url }}" >
+        </div>
+    </div>
+
+
+    <div class="col-md">
+
+      <form method="POST" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% form form=post_form %}{% endform %}
+          <input class="btn btn-info" type="submit" name="Submit">
+          <script type="text/javascript">
+              let author = '{{request.user.id}}';
+              let organization = '{{organization.id}}';
+              document.getElementById('post_author').value = author;
+              document.getElementById('post_organization').value = organization;
+          </script>
+
+    </div>
+
+    <div class="col-md">
+      Posts:
+      {% for post in organization_posts %}
+      <div>
+        <p>
+          Post text: {{post.text}}
+          {{post.created}}
+        </p>
+      </div>
+
+      {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

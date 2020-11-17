@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% load material_form %}
+{% block content %}
+<div class="row">
+  <div class="col m8">
+    <form class="update-order-form" method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% form form=form %}{% endform %}
+        <br>
+        <input class="btn btn-primary" type="submit" value="Confirm">
+        <a href="{% url 'startsmart-home' %}" class='btn btn-danger' type='submit'>Cancel</a>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -6,3 +6,4 @@ db.*
 *.db
 .coverage
 campaign_pics
+organization_pics

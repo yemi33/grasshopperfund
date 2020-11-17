@@ -5,7 +5,7 @@ name: Django Tests
 
 on:
   push:
-    branches: [ master, dev, tests ]
+    branches: [ master, dev, tests, django-tests ]
   pull_request:
     branches: [ master, dev, tests ]
 
@@ -33,7 +33,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with django tests
       run: |
-        coverage run --source=startsmart manage.py test
+        coverage run --source=grasshopperfund manage.py test
         coveralls
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
