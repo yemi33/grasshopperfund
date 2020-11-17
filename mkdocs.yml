@@ -1,7 +1,24 @@
 site_name: Startsmart Campaigns Docs
 
-repo_url: https://github.com/PeterOR2D2/startsmart-backend-version
-repo_name: PeterOR2D2/startsmart-backend-version
+repo_url: https://github.com/grasshopperfund/grasshopperfund
+repo_name: grasshopperfund/grasshopperfund
 
 theme:
   name: material
+
+markdown_extensions:
+  - admonition
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: docs/
+#  - markdown_include.include:
+#      base_path: docs
+
+extra_css:
+  - css/termynal.css
+
+extra_javascript:
+  - js/termynal.js
+  - js/custom.js
