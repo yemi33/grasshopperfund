@@ -1,4 +1,4 @@
-# Grasshopperfund
+# [Grasshopperfund](https://docs.grasshopperfund.tisuela.com/)
 
 [![Coverage Status](https://coveralls.io/repos/github/grasshopperfund/grasshopperfund/badge.svg?branch=master)](https://coveralls.io/github/grasshopperfund/grasshopperfund?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/peteror2d2/startsmart-backend-version/badge)](https://www.codefactor.io/repository/github/peteror2d2/startsmart-backend-version)
@@ -7,12 +7,12 @@
 
 **Clone repository**
 ```
-git clone https://github.com/PeterOR2D2/startsmart-backend-version/
+git clone https://github.com/grasshopperfund/grasshopperfund/
 ```
 
 **Navigate into repository**   
 ```
-cd startsmart-backend-version
+cd grasshopperfund
 ```
 
 **🐍 Create Python virtual environment**

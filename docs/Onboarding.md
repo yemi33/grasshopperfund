@@ -5,8 +5,8 @@ This is meant to help onboard frontend developers.
 Our Project Structure:
 
 ```
-└───this-repository
-    ├───startsmart
+└───grasshopperfund
+    ├───grasshopperfund        <-- Django-related files are here
     │   ├───organizations      <-- Django models and views for organizations
     │   ├───campaigns          <-- Django models and views for campaigns
     │   ├───users              <-- Django models and views for users
@@ -22,7 +22,7 @@ Our Project Structure:
 
 ## Simple assignment
 
-**[Read this about installing the project](https://docs.startsmart.tisuela.com/)**
+**[Read this about installing the project](https://docs.grasshopperfund.tisuela.com/)**
 
 **[Read this on how to use Git](https://www.notion.so/Git-With-The-Flow-1c62521d9fb747a1ae9ce0f4ecf6bcdb)**
 

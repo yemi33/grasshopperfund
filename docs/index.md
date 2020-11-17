@@ -7,12 +7,12 @@
 
 **Clone repository**
 ```
-git clone https://github.com/PeterOR2D2/startsmart-backend-version/
+git clone https://github.com/grasshopperfund/grasshopperfund/
 ```
 
 **Navigate into repository**   
 ```
-cd startsmart-backend-version
+cd grasshopperfund
 ```
 
 **🐍 Create Python virtual environment**
@@ -187,7 +187,7 @@ Performing system checks...
 
 System check identified no issues (0 silenced).
 October 26, 2020 - 11:15:15
-Django version 3.1.2, using settings 'startsmart.settings'
+Django version 3.1.2, using settings 'grasshopperfund.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
 ```
