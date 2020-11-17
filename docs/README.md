@@ -1,3 +1,7 @@
+# Grasshopperfund
+
+[![Coverage Status](https://coveralls.io/repos/github/grasshopperfund/grasshopperfund/badge.svg?branch=master)](https://coveralls.io/github/grasshopperfund/grasshopperfund?branch=master)
+
 ## Installation
 
 **Clone repository**
