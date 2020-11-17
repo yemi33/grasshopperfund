@@ -5,8 +5,8 @@ This is meant to help onboard frontend developers.
 Our Project Structure:
 
 ```
-└───this-repository
-    ├───startsmart
+└───grasshopperfund
+    ├───grasshopperfund        <-- Django-related files are here
     │   ├───organizations      <-- Django models and views for organizations
     │   ├───campaigns          <-- Django models and views for campaigns
     │   ├───users              <-- Django models and views for users
@@ -20,13 +20,19 @@ Our Project Structure:
     └───static <--- images used for the website.
 ```
 
-## Simple assignment
+## What do I need to know?
 
-**[Read this about installing the project](https://docs.startsmart.tisuela.com/)**
+Simply follow the links under "Getting Started". I suggest this order:
+
+1. [Installation](/installation)
+2. [Git Workflow](/Git-Workflow)
+3. [Django](/Django)
+
+## Simple assignment
 
 **[Read this on how to use Git](https://www.notion.so/Git-With-The-Flow-1c62521d9fb747a1ae9ce0f4ecf6bcdb)**
 
-Make a pretend feature.
+The point of this assignment is to get you familiar with Git, Django, and our project. Please follow the [installation guide](/installation) before attempting this. 
 
 1. `git clone` the repository
 2. make your own branch and publish it.

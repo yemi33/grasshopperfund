@@ -4,7 +4,7 @@
 
 ## Django and our project
 
-🤔 You may notice that the current repository name is `startsmart-backend-version`. It's a bit of a misnomer. While the backend logic is found in this repository, we are currently using Django for both the Frontend and Backend implementation. This repository contains the entire system, using Django. 
+We are currently using Django for both the Frontend and Backend implementation. This repository contains the entire system, using Django. 
 
 What does this mean?
 
@@ -14,3 +14,23 @@ What does this mean?
 - 🏃‍♀️ Full project implementation is *sped* up by using many of Django's awesome tools
 - 🌟 Implementation is simplified by using only one framework
 - 📉 Frontend implementation is *limited* by what you can do within Django (i.e. no SPAs)
+
+
+## Django as a Frontend Developer
+
+For a Django Fullstack Web App, web pages are served via templates, which are HTML files. The backend populates those templates with data from the database.
+
+What you need to know:
+
+* A lil python
+* Be familiar with Django views and models.
+
+Tutorials:
+
+* [Background (8 min, you can skip this)](https://www.youtube.com/watch?v=Iy4niMCsbEE)
+* [Quick Start (7 min)](https://www.youtube.com/watch?v=VxOsCKMStuw)
+* [Comprehensive Tutorial (45 min)](https://www.youtube.com/watch?v=qDwdMDQ8oX4)
+
+
+Want to find a different tutorial? Your google search should be along the lines of "Django templates tutorial"
+
