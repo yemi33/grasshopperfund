@@ -37,5 +37,7 @@ nav:
     - Django: Django.md
   - Database: Database.md
   - Change log:
-    - Project Restructure: project-restructure.md
-    - Suggestions: suggestions.md
+    - Added Tags: change-log/added-tags.md
+    - Added Organizations: change-log/added-organizations.md
+    - Project Restructure: change-log/project-restructure.md
+    - Suggestions: change-log/suggestions.md
