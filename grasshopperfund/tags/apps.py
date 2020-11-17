@@ -2,6 +2,6 @@ from django.apps import AppConfig
 
 
 class TagsConfig(AppConfig):
-    name = 'startsmart.tags'
+    name = 'grasshopperfund.tags'
 
     def ready(self): pass

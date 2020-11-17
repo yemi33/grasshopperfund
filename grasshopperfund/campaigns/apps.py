@@ -3,7 +3,7 @@ from django.apps import AppConfig
 
 
 class CampaignsConfig(AppConfig):
-    name = 'startsmart.campaigns'
+    name = 'grasshopperfund.campaigns'
 
     def ready(self):
         pass
