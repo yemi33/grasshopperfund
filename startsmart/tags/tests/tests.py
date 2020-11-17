@@ -90,6 +90,7 @@ class TestModels(TestCase):
         return campaigns_list
 
     def _create_tag(self):
+        print("X")
         tag = Tags(name='jazz')
         tag.save()
         for campaign_num in self.campaign_list:
