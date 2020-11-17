@@ -1,10 +1,13 @@
-site_name: Startsmart Campaigns Docs
+site_name: Grasshopperfund Docs
 
 repo_url: https://github.com/grasshopperfund/grasshopperfund
 repo_name: grasshopperfund/grasshopperfund
 
 theme:
   name: material
+  palette:
+    scheme: slate
+    primary: green
 
 markdown_extensions:
   - admonition

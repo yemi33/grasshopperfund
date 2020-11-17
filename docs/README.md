@@ -19,97 +19,91 @@ cd startsmart-backend-version
 
 There are a good amount of depencies for this project -- it will be good practice to use a virtual environment, albeit not necessary.
 
-=== "macOS/Linux"
+macOS/Linux
 
-    ```
-    python3 -m venv env
-    ```
+```
+python3 -m venv env
+```
 
-=== "Windows Command Line"
+Windows Command Line
 
-    ```
-    python -m venv env
-    ```
+```
+python -m venv env
+```
 
-=== "Windows Powershell"
+Windows Powershell
 
-    ```
-    python -m venv env
-    ```
+```
+python -m venv env
+```
 
 The last argument is the location to create the virtual environment. Generally, you can just create this in your project and call it env.
 
 
 **✅ Activate virtual environment**
 
-=== "macOS/Linux"
+macOS/Linux
 
-    ```
-    source env/bin/activate
-    ```
+```
+source env/bin/activate
+```
 
-=== "Windows Command Line"
+Windows Command Line
 
-    ```
-    .\env\Scripts\activate.bat
-    ```
+```
+.\env\Scripts\activate.bat
+```
 
-=== "Windows Powershell"
+Windows Powershell
 
-    ```
-    .\env\Scripts\activate.ps1
-    ```
+```
+.\env\Scripts\activate.ps1
+```
 
 
 **Install Requirements**
 
-<div class="termy">
-
-```console
-(env) python -m pip install -r requirements.txt
-
----> 100%
 ```
+python -m pip install -r requirements.txt
 
-</div>
+```
 
 ### Configuration
 
-**🔐 This portion provides authentication information, which is NOT in our repository**
+**🔐 This portion provides API authetnication information. You can skip this**
 
 We use environmental variables to store sensitive information. Anything that is committed to this repository becomes publicly available, and it is difficult to remove. The use of environmental variables is preferred (over, say, manual input via Django Admin) in order to use Github Actions to automate testing.
 
-??? note
-    Environmental variables are configured at [`config.py`](https://raw.githubusercontent.com/PeterOR2D2/startsmart-backend-version/master/config.py)
-    ``` python
-    import os
+Environmental variables are configured at [`config.py`](https://raw.githubusercontent.com/PeterOR2D2/startsmart-backend-version/master/config.py)
 
-    class Config:
+``` python
+import os
 
-      SOCIAL_AUTH_FACEBOOK_APP_ID = os.environ.get(
-        "SOCIAL_AUTH_FACEBOOK_APP_ID", "")
+class Config:
 
-      SOCIAL_AUTH_FACEBOOK_APP_SECRET = os.environ.get(
-        "SOCIAL_AUTH_FACEBOOK_APP_SECRET", "")
+  SOCIAL_AUTH_FACEBOOK_APP_ID = os.environ.get(
+    "SOCIAL_AUTH_FACEBOOK_APP_ID", "")
 
-      SOCIAL_AUTH_FACEBOOK_APP_KEY = os.environ.get(
-          "SOCIAL_AUTH_FACEBOOK_APP_KEY", "")
+  SOCIAL_AUTH_FACEBOOK_APP_SECRET = os.environ.get(
+    "SOCIAL_AUTH_FACEBOOK_APP_SECRET", "")
 
-      SOCIAL_AUTH_GOOGLE_APP_ID = os.environ.get(
-          "SOCIAL_AUTH_GOOGLE_APP_ID", "")
+  SOCIAL_AUTH_FACEBOOK_APP_KEY = os.environ.get(
+      "SOCIAL_AUTH_FACEBOOK_APP_KEY", "")
 
-      SOCIAL_AUTH_GOOGLE_APP_SECRET = os.environ.get(
-          "SOCIAL_AUTH_GOOGLE_APP_SECRET", "")
+  SOCIAL_AUTH_GOOGLE_APP_ID = os.environ.get(
+      "SOCIAL_AUTH_GOOGLE_APP_ID", "")
 
-      SOCIAL_AUTH_GOOGLE_APP_KEY = os.environ.get(
-          "SOCIAL_AUTH_GOOGLE_APP_KEY", "")
-    ```
+  SOCIAL_AUTH_GOOGLE_APP_SECRET = os.environ.get(
+      "SOCIAL_AUTH_GOOGLE_APP_SECRET", "")
+
+  SOCIAL_AUTH_GOOGLE_APP_KEY = os.environ.get(
+      "SOCIAL_AUTH_GOOGLE_APP_KEY", "")
+```
 
 
 #### Method 1: secrets.json
 
-!!! failure
-    Currently not implemented.
+Currently not implemented.
 
 #### Method 2: Set environmental variables
 
@@ -121,105 +115,81 @@ To set environmental variables, follow these instructions:
 
 **Social Authentication API Tokens**
 
-!!! note
     Not all of these fields may be required, but please populate as much as you can.
 
-=== "macOS/Linux"
+macOS/Linux
 
-      ``` bash
-      export SOCIAL_AUTH_FACEBOOK_APP_ID=your_facebook_app_id
-      export SOCIAL_AUTH_FACEBOOK_APP_SECRET=your_facebook_app_secret
-      export SOCIAL_AUTH_FACEBOOK_APP_KEY=your_facebook_app_key
-      export SOCIAL_AUTH_GOOGLE_APP_ID=your_google_app_id
-      export SOCIAL_AUTH_GOOGLE_APP_SECRET=your_google_app_secret
-      export SOCIAL_AUTH_GOOGLE_APP_KEY=your_google_app_key
-      ```
+``` bash
+export SOCIAL_AUTH_FACEBOOK_APP_ID=your_facebook_app_id
+export SOCIAL_AUTH_FACEBOOK_APP_SECRET=your_facebook_app_secret
+export SOCIAL_AUTH_FACEBOOK_APP_KEY=your_facebook_app_key
+export SOCIAL_AUTH_GOOGLE_APP_ID=your_google_app_id
+export SOCIAL_AUTH_GOOGLE_APP_SECRET=your_google_app_secret
+export SOCIAL_AUTH_GOOGLE_APP_KEY=your_google_app_key
+```
 
-=== "Windows Command Line"
+Windows Command Line
 
-      ``` bat
-      set SOCIAL_AUTH_FACEBOOK_APP_ID=your_facebook_app_id
-      set SOCIAL_AUTH_FACEBOOK_APP_SECRET=your_facebook_app_secret
-      set SOCIAL_AUTH_FACEBOOK_APP_KEY=your_facebook_app_key
-      set SOCIAL_AUTH_GOOGLE_APP_ID=your_google_app_id
-      set SOCIAL_AUTH_GOOGLE_APP_SECRET=your_google_app_secret
-      set SOCIAL_AUTH_GOOGLE_APP_KEY=your_google_app_key
-      ```
+``` bat
+set SOCIAL_AUTH_FACEBOOK_APP_ID=your_facebook_app_id
+set SOCIAL_AUTH_FACEBOOK_APP_SECRET=your_facebook_app_secret
+set SOCIAL_AUTH_FACEBOOK_APP_KEY=your_facebook_app_key
+set SOCIAL_AUTH_GOOGLE_APP_ID=your_google_app_id
+set SOCIAL_AUTH_GOOGLE_APP_SECRET=your_google_app_secret
+set SOCIAL_AUTH_GOOGLE_APP_KEY=your_google_app_key
+```
 
-=== "Windows Powershell"
+Windows Powershell
 
-      ``` powershell
-      $env:SOCIAL_AUTH_FACEBOOK_APP_ID="your_facebook_app_id"
-      $env:SOCIAL_AUTH_FACEBOOK_APP_SECRET="your_facebook_app_secret"
-      $env:SOCIAL_AUTH_FACEBOOK_APP_KEY="your_facebook_app_key"
-      $env:SOCIAL_AUTH_GOOGLE_APP_ID="your_google_app_id"
-      $env:SOCIAL_AUTH_GOOGLE_APP_SECRET="your_google_app_secret"
-      $env:SOCIAL_AUTH_GOOGLE_APP_KEY="your_google_app_key"
-      ```
+``` powershell
+$env:SOCIAL_AUTH_FACEBOOK_APP_ID="your_facebook_app_id"
+$env:SOCIAL_AUTH_FACEBOOK_APP_SECRET="your_facebook_app_secret"
+$env:SOCIAL_AUTH_FACEBOOK_APP_KEY="your_facebook_app_key"
+$env:SOCIAL_AUTH_GOOGLE_APP_ID="your_google_app_id"
+$env:SOCIAL_AUTH_GOOGLE_APP_SECRET="your_google_app_secret"
+$env:SOCIAL_AUTH_GOOGLE_APP_KEY="your_google_app_key"
+```
 
 
 ### Running Django
 
 **Initialize database**
 
-<div class="termy">
-
 ``` console
-(env) python manage.py migrate
-
-Operations to perform:
-  Apply all migrations: account, admin, auth, campaigns, contenttypes, sessions, sites, socialaccount, users
-Running migrations:
----> 100%
+python manage.py migrate
 ```
 
-</div>
+
 
 **Run Django app**
 
-<div class="termy">
-
-```console
-(env) python manage.py runserver
-
-Watching for file changes with StatReloader
-Performing system checks...
-
-System check identified no issues (0 silenced).
-October 26, 2020 - 11:15:15
-Django version 3.1.2, using settings 'startsmart.settings'
-Starting development server at http://127.0.0.1:8000/
-Quit the server with CTRL-BREAK.
+```
+python manage.py runserver
 ```
 
-</div>
+
 
 ## Utilities
 
-!!! Warning
-    Be sure that the Django app is **NOT** running for these steps
+
+Be sure that the Django app is **NOT** running for these steps
 
 ### Creating a super user
 This allows access to `/admin`
 
-<div class="termy">
+
 
 ``` console
-(env) python manage.py createsuperuser
+python manage.py createsuperuser
 
 // Input the username for superuser login
-
-# Username (leave blank to use 'default'):(env) administrator
+Username (leave blank to use 'default'): administrator
 
 // You can leave email blank
-
 Email address:
 
 // Password must be at least 8 characters long
 
-# Password:(env) ********
-# Password (again):(env) ********
-
+Password: ********
+Password (again): ********
 ```
-
-</div>
