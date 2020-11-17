@@ -6,7 +6,7 @@ repo_name: grasshopperfund/grasshopperfund
 theme:
   name: material
   palette:
-    scheme: slate
+    scheme: preference
     primary: green
 
 markdown_extensions:
