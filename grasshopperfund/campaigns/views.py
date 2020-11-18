@@ -117,3 +117,33 @@ def view_campaign(request, username:str, campaign_title:str):
         'campaign': campaign
     }
     return render(request, 'campaigns/view_campaign.html', context)
+
+@login_required
+def make_donation(request, pk):
+    campaign = Campaign.objects.get(id=pk)
+    form = DonationForm()
+
+    if request.method == 'POST':
+        form = DonationForm(request.POST)
+        if form.is_valid():
+            donation_campaign = form.cleaned_data['campaign']
+            donation_amount = form.cleaned_data['amount']
+            donation_donor = form.cleaned_data['donor']
+
+            donation = Donation(
+                campaign = donation_campaign,
+                amount = donation_amount,
+                donor = donation_donor
+            )
+
+            donation.save()
+
+            messages.success(request, 'Successfully Donated!')
+            return redirect(reverse('view-campaign', args=(campaign.creator.username, campaign.title)))
+
+    context = {
+        'form': form,
+        'campaign': campaign,
+    }
+
+    return render(request, 'campaigns/make_donation.html', context)
