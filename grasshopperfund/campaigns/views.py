@@ -5,8 +5,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .forms import CampaignForm, TagsForm
-from .models import Campaign
+from .forms import CampaignForm, TagsForm, DonationForm
+from .models import Campaign, Donation
 from ..tags.models import Tags
 from ..organizations.models import Organization
 
