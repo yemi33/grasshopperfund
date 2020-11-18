@@ -20,7 +20,7 @@ def view_post(request, organization_name: str, post_id: str):
     )
 
     # Get post from the organization's posts
-    post = Organization.posts.get(
+    post = Post.objects.get(
         id = post_id
     )
 
@@ -29,4 +29,4 @@ def view_post(request, organization_name: str, post_id: str):
         'post': post,
     }
 
-    return render(request, 'posts/view_post.html')
+    return render(request, 'posts/view_post.html', context)
