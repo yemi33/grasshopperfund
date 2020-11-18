@@ -57,7 +57,10 @@
 
             <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
 
+
             <p>By {{campaign.creator.username}} From {{ campaign.organization.name }}</p>
+
+            <p>By {{campaign.organization.username}}</p>
 
           </div>
           <div class="card-reveal">
@@ -73,12 +76,12 @@
           </div>
           <div class="card-action">
             {% if request.user == campaign.creator %}
-                <a href="{% url 'update-campaign' campaign.id %}">Update</a>
-                <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
-            {% else %}
-              <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
-              <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+              <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+              <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
             {% endif %}
+            <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
+            <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+
           </div>
         </div>
     </div>

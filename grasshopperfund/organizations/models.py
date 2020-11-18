@@ -23,6 +23,14 @@ class Organization(models.Model):
     def num_of_posts(self) -> int:
         return len(self.posts.all())
 
+    @property
+    def all_posts(self) -> list:
+        return self.posts.all()
+
+    @property
+    def all_campaigns(self) -> list:
+        return self.campaigns.all()
+
 
 class Post(models.Model):
     # Foreign keys
