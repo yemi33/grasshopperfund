@@ -1,5 +1,5 @@
 from django import forms
-from .models import Campaign
+from .models import Campaign, Donation
 from ..tags.models import Tags
 class CampaignForm(forms.ModelForm):
 
