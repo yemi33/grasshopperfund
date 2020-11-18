@@ -112,10 +112,13 @@ def delete_campaign(request, pk):
 # login not required for this
 def view_campaign(request, username:str, campaign_title:str):
     campaign = Campaign.objects.get(creator__username=username, title=campaign_title)
+    donor = Donation.objects.filter(donor=request.user.id)
 
     context = {
-        'campaign': campaign
+        'campaign': campaign,
+        'donor': donor,
     }
+
     return render(request, 'campaigns/view_campaign.html', context)
 
 @login_required
