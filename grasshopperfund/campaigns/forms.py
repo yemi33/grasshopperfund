@@ -1,5 +1,5 @@
 from django import forms
-from .models import Campaign
+from .models import Campaign, Donation
 from ..tags.models import Tags
 class CampaignForm(forms.ModelForm):
 
@@ -27,3 +27,13 @@ class TagsForm(forms.ModelForm):
         forms.CharField(max_length=200, help_text='A comma-separated or white-space separated list of tags.')
     tag = forms.ModelMultipleChoiceField(queryset=Tags.objects.all(), widget=forms.CheckboxSelectMultiple,
                                          required=False)
+
+class DonationForm(forms.ModelForm):
+    class Meta:
+        model = Donation
+        fields = ['campaign', 'amount', 'donor']
+
+        widgets = {
+            'campaign': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'}),
+            'donor': forms.TextInput(attrs={'value': '', 'id': 'element1', 'type': 'hidden'})
+        }
