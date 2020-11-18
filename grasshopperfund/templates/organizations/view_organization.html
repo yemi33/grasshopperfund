@@ -11,9 +11,6 @@ xtends 'main.html' %}
             <h5>Owned by {{organization.owner}}</h5>
             <hr>
         </div>
-        {% if organization.owner == request.user %}
-            <a class="btn btn-info" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
-
         <!-- The create campaign button is only available to the organization's owner -->
         {% if request.user == organization.owner %}
           <li class="nav-item">
