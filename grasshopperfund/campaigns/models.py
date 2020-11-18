@@ -19,7 +19,7 @@ class Campaign(models.Model):
     search_fields = ['creator__username']
 
     class Meta:
-        unique_together = (('creator','title'),)
+        unique_together = (('creator', 'title'),)
 
     def __str__(self):
         return self.title
@@ -39,13 +39,12 @@ class Campaign(models.Model):
         '''
         money = Decimal(0)
         for donation in self.donations.all():
-            money += 0
+            money += donation.amount
         return money
 
     @property
     def num_of_donations(self) -> list:
         return len(list(self.donations.all()))
-
 
     @property
     def backers(self) -> list:
@@ -65,13 +64,12 @@ class Campaign(models.Model):
         '''
         return len(self.backers)
 
+
 class Donation(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.PROTECT, related_name='donations')
     amount = models.DecimalField(decimal_places=2, max_digits=7)
     donor = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='donations', null=True)
     date = models.DateTimeField(auto_now=True)
-
-
 
     def __str__(self):
         return f"To {self.campaign.title} | from {self.donor.username} | amount: {self.amount} | {self.date}"
