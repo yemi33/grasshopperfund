@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+xtends 'main.html' %}
 {% load humanize %}
 {% block content %}
 {% load material_form %}
@@ -11,11 +11,10 @@
             <h5>Owned by {{organization.owner}}</h5>
             <hr>
         </div>
-
         <!-- The create campaign button is only available to the organization's owner -->
         {% if request.user == organization.owner %}
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
+              <a class="btn btn-info" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
           </li>
         {% endif %}
     </div>
@@ -41,23 +40,22 @@
         </div>
     </div>
 
-    <!-- This is the form to create a post -->
-    <div class="col-md">
+    {% if organization.owner == request.user %}
+        <div class="col-md">
 
-      <form method="POST" action="" enctype="multipart/form-data">
-          {% csrf_token %}
-          {% form form=post_form %}{% endform %}
-          <input class="btn btn-info" type="submit" name="Submit">
+          <form method="POST" action="" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% form form=post_form %}{% endform %}
+              <input class="btn btn-info" type="submit" name="Submit">
+              <script type="text/javascript">
+                  let author = '{{request.user.id}}';
+                  let organization = '{{organization.id}}';
+                  document.getElementById('post_author').value = author;
+                  document.getElementById('post_organization').value = organization;
+              </script>
 
-          <!-- This script passes information to the form about the user/org -->
-          <script type="text/javascript">
-              let author = '{{request.user.id}}';
-              let organization = '{{organization.id}}';
-              document.getElementById('post_author').value = author;
-              document.getElementById('post_organization').value = organization;
-          </script>
-
-    </div>
+        </div>
+    {% endif %}
 
     <!-- posts are displayed here -->
     <div class="col-md">

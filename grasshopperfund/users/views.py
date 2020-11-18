@@ -60,10 +60,13 @@ def logout_page(request):
 @login_required
 def view_profile(request, pk):
     profile = Profile.objects.get(id=pk)
+    donations = Donation.objects.all().filter(donor=profile.user)
 
     context = {
-        'profile' : profile
+        'profile' : profile,
+        'donations': donations,
     }
+
     return render(request, 'users/profile.html', context)
 
 @login_required

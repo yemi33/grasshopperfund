@@ -5,8 +5,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .forms import CampaignForm, TagsForm
-from .models import Campaign
+from .forms import CampaignForm, TagsForm, DonationForm
+from .models import Campaign, Donation
 from ..tags.models import Tags
 from ..organizations.models import Organization
 
@@ -112,8 +112,41 @@ def delete_campaign(request, pk):
 # login not required for this
 def view_campaign(request, username:str, campaign_title:str):
     campaign = Campaign.objects.get(creator__username=username, title=campaign_title)
+    donor = Donation.objects.filter(donor=request.user.id)
 
     context = {
-        'campaign': campaign
+        'campaign': campaign,
+        'donor': donor,
     }
+
     return render(request, 'campaigns/view_campaign.html', context)
+
+@login_required
+def make_donation(request, pk):
+    campaign = Campaign.objects.get(id=pk)
+    form = DonationForm()
+
+    if request.method == 'POST':
+        form = DonationForm(request.POST)
+        if form.is_valid():
+            donation_campaign = form.cleaned_data['campaign']
+            donation_amount = form.cleaned_data['amount']
+            donation_donor = form.cleaned_data['donor']
+
+            donation = Donation(
+                campaign = donation_campaign,
+                amount = donation_amount,
+                donor = donation_donor
+            )
+
+            donation.save()
+
+            messages.success(request, 'Successfully Donated!')
+            return redirect(reverse('view-campaign', args=(campaign.creator.username, campaign.title)))
+
+    context = {
+        'form': form,
+        'campaign': campaign,
+    }
+
+    return render(request, 'campaigns/make_donation.html', context)

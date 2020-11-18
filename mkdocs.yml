@@ -1,7 +1,43 @@
-site_name: Startsmart Campaigns Docs
+site_name: Grasshopperfund Docs
 
-repo_url: https://github.com/PeterOR2D2/startsmart-backend-version
-repo_name: PeterOR2D2/startsmart-backend-version
+repo_url: https://github.com/grasshopperfund/grasshopperfund
+repo_name: grasshopperfund/grasshopperfund
 
 theme:
   name: material
+  palette:
+    scheme: preference
+    primary: green
+
+markdown_extensions:
+  - admonition
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: docs/
+#  - markdown_include.include:
+#      base_path: docs
+
+extra_css:
+  - css/termynal.css
+
+extra_javascript:
+  - js/termynal.js
+  - js/custom.js
+
+
+# page tree
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Onboarding: Onboarding.md
+    - Installation: Installation.md
+    - Git Workflow: Git-Workflow.md
+    - Django: Django.md
+  - Database: database.md
+  - Change log:
+    - Added Tags: change-log/added-tags.md
+    - Added Organizations: change-log/added-organizations.md
+    - Project Restructure: change-log/project-restructure.md
+    - Suggestions: change-log/suggestions.md
