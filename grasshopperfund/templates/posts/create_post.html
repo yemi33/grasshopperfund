@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% load material_form %}
+{% block content %}
+
+<div class="row">
+    <div class="col m8">
+
+      <form method="POST" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% form form=form %}{% endform %}
+          <input class="btn btn-info" type="submit" name="Submit">
+          <script type="text/javascript">
+              let post_author = '{{request.user.id}}';
+              document.getElementById('post_author').value = post_author;
+          </script>
+
+    </div>
+</div>
+
+{% endblock %}
