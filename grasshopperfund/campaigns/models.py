@@ -72,4 +72,4 @@ class Donation(models.Model):
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"To {self.campaign.title} | from {self.donor.username} | amount: {self.amount} | {self.date}"
+        return f"TO: {self.campaign.title} | FROM: {self.donor.username} | AMOUNT: ${self.amount} | {self.date}"
