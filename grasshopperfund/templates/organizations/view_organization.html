@@ -72,6 +72,14 @@
             <ul>Post text: {{post.text}}</ul>
             <ul>{{post.created}}</ul>
           </p>
+
+          <div class="card-action">
+            {% if request.user == post.author %}
+            {% endif %}
+            <a class="waves-effect waves-light" href="{% url 'view-post' organization.name post.id %}">View Post</a>
+            <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+
+          </div>
         </div>
       </div>
 
