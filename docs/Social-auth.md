@@ -2,14 +2,16 @@
 
 uses `allauth` library.
 ## Two methods
+
 There are two methods to setting up Social Authentication using apps like Google and Facebook.
+
 * **Default**: Environmental Variables (complex but automates the process)
 * Django Admin (Simple but time consuming)
 
 ## Environmental Variables
 You can configure your API credentials as environmental variables, which are defined in `config.py`.
 
-Be sure to have your python virtual environment activated.
+See the ReadMe for more instructions.
 
 
 ## Django admin
