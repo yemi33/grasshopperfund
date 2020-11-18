@@ -23,7 +23,11 @@
             <p><strong>Days Left:</strong> {{campaign.days_left}}</p>
             <p><strong>Number of Investors:</strong> {{campaign.num_of_backers}}</p>
             <!-- <p><strong>Image:</strong> {{campaign.imageUrl}}</p> -->
-            <button type="button" class="btn btn-outline-info">Donate</button>
+            {% if donor == 0 %}
+                <a class="btn btn-outline-info" href="{% url 'make-donation' campaign.id %}">Donate</a>
+            {% else %}
+                <h6 style="padding-bottom:10px; color:dodgerblue">Already Donated!</h6>
+            {% endif %}
         </div>
     </div>
 </div>
