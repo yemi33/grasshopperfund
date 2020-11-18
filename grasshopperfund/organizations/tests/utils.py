@@ -60,7 +60,7 @@ class BaseTestOrganizations(TestCase):
                 organization = self.organization,
                 text = text,
             )
-            posts.append(posts)
+            posts.append(post)
 
         return posts
 
