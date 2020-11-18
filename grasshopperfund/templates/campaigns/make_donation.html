@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% load humanize %}
+{% block content %}
+
+<br>
+
+<div class="row">
+    <div class="col m8">
+        <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+            <script type="text/javascript">
+                let campaign = '{{campaign.id}}';
+                document.getElementById('element').value = campaign;
+
+                let donor = '{{request.user.id}}';
+                document.getElementById('element1').value = donor;
+            </script>
+
+            <input type="submit" class="btn btn-outline-info" value="Submit">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
