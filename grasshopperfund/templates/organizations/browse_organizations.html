@@ -33,7 +33,6 @@
           </div>
           <div class="card-action">
             {% if request.user == organization.owner %}
-                <a href="{% url 'view-organization' organization.name %}">View More</a>
                 <a href="{% url 'update-organization' organization.name %}">Update</a>
                 <a href="{% url 'delete-organization' organization.name %}">Delete</a>
             {% endif %}
