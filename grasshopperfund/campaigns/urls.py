@@ -6,4 +6,5 @@ urlpatterns = [
     path('update/<str:pk>/', views.update_campaign, name='update-campaign'),
     path('delete/<str:pk>/', views.delete_campaign, name='delete-campaign'),
     path('view/<str:username>/<str:campaign_title>', views.view_campaign, name='view-campaign'),
+    path('make_donation/<str:pk>/', views.make_donation, name='make-donation'),
 ]
