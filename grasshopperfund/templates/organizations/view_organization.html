@@ -64,15 +64,15 @@
 
       <p>Posts:<p>
       {% for post in organization.all_posts %}
-      
+
       <!-- each post uses materializecss card class -->
       <div class="card darken-1 hoverable small">
         <div class="card-content ">
           <span class="card-title">{{post.author}}</span>
 
           <p class="flow-text">
-            Post text: {{post.text}}
-            {{post.created}}
+            <ul>Post text: {{post.text}}</ul>
+            <ul>{{post.created}}</ul>
           </p>
         </div>
       </div>
