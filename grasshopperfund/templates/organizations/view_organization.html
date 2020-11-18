@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+xtends 'main.html' %}
 {% load humanize %}
 {% block content %}
 {% load material_form %}
@@ -11,9 +11,11 @@
             <h5>Owned by {{organization.owner}}</h5>
             <hr>
         </div>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
-        </li>
+        {% if organization.owner == request.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
+            </li>
+        {% endif %}
     </div>
 
     <div class="col-md">
@@ -26,21 +28,22 @@
         </div>
     </div>
 
+    {% if organization.owner == request.user %}
+        <div class="col-md">
 
-    <div class="col-md">
+          <form method="POST" action="" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% form form=post_form %}{% endform %}
+              <input class="btn btn-info" type="submit" name="Submit">
+              <script type="text/javascript">
+                  let author = '{{request.user.id}}';
+                  let organization = '{{organization.id}}';
+                  document.getElementById('post_author').value = author;
+                  document.getElementById('post_organization').value = organization;
+              </script>
 
-      <form method="POST" action="" enctype="multipart/form-data">
-          {% csrf_token %}
-          {% form form=post_form %}{% endform %}
-          <input class="btn btn-info" type="submit" name="Submit">
-          <script type="text/javascript">
-              let author = '{{request.user.id}}';
-              let organization = '{{organization.id}}';
-              document.getElementById('post_author').value = author;
-              document.getElementById('post_organization').value = organization;
-          </script>
-
-    </div>
+        </div>
+    {% endif %}
 
     <div class="col-md">
       Posts:
