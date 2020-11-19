@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 from django.contrib import messages
 
 from ..organizations.models import Organization
@@ -12,7 +12,7 @@ from .models import Post
 
 
 
-def view_post(request, organization_name: str, post_id: str):
+def view_post(request, organization_name: str, pk: str):
     '''
     View a single post
     '''
@@ -23,7 +23,7 @@ def view_post(request, organization_name: str, post_id: str):
 
     # Get post from the organization's posts
     post = Post.objects.get(
-        id = post_id
+        id = pk
     )
 
     context = {
@@ -35,7 +35,7 @@ def view_post(request, organization_name: str, post_id: str):
 
 
 
-class CreatePostView(FormView):
+class CreatePostView(LoginRequiredMixin, FormView):
     template_name = 'posts/create_post.html'
     form_class = PostForm
     success_url = 'posts/view'
@@ -68,5 +68,15 @@ class CreatePostView(FormView):
 
         new_post.save()
 
-
         return redirect("view-organization", organization_name = self.organization.name)
+
+
+class UpdatePostView(UpdateView):
+    '''
+    Uses Django built-in generic view 
+    '''
+    model = Post
+
+    fields = [
+        "text"
+    ]

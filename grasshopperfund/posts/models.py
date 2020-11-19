@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 from ..organizations.models import Organization
 
 class Post(models.Model):
@@ -15,6 +15,8 @@ class Post(models.Model):
 
     created = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("view-post", args=(self.organization.name,self.id))
 
     def __str__(self):
         return f"author: {self.author} \norganization: {self.organization} \ntext:{self.text}"
