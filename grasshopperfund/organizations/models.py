@@ -16,6 +16,9 @@ class Organization(models.Model):
     # automatically set creation date
     created = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("view-organization", args=(self.organization.name))
+
     def __str__(self):
         return f"name: {self.name} \nowner: {self.owner} \ndescription:{self.description}"
 

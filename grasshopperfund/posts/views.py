@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import FormView, UpdateView, DeleteView
 from django.contrib import messages
 
 from ..organizations.models import Organization
@@ -73,10 +73,19 @@ class CreatePostView(LoginRequiredMixin, FormView):
 
 class UpdatePostView(UpdateView):
     '''
-    Uses Django built-in generic view 
+    Uses Django built-in generic view
     '''
     model = Post
 
     fields = [
         "text"
     ]
+
+class DeletePostView(DeleteView):
+    '''
+    Uses Django built-in generic view
+    '''
+    model = Post
+
+    def get_success_url(self):
+        return reverse_lazy
