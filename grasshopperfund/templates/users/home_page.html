@@ -2,6 +2,8 @@
 {% load humanize %}
 {% load static %}
 
+<link rel='stylesheet' href="{% static 'css/users/home_page.css' %}">
+
 <script>
     .button {
   background-color: #ddd;
@@ -28,7 +30,7 @@
             <!--This column displays beginner membership as bronze star-->
             <img src="{% static 'images/bronze-star-md.png' %}" width="200" height="200">
              <h4 class="service-heading">Beginner</h4>
-             <a class="btn btn-outline-info" href="">Learn More</a>
+             <a class="btn btn-yellow" href="">Learn More</a>
         </div>
         <div class="col s12 m4">
             <img src="{% static 'images/silver_star.png' %}" width="200" height="200">
