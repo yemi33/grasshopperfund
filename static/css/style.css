@@ -1,0 +1,38 @@
+:root {
+    --lightgreen: #3FC380;
+    --green: #39AF73;
+    --darkgreen: #318D5E;
+    --lightgrey: #F6F6F6;
+    --yellow: #EFBF57;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    color: var(--darkgreen);
+}
+
+.brand-logo {
+    color:var(--green);
+    font-weight:600;
+}
+
+.card {
+    /* add any styling here */
+}
+
+.btn {
+    background-color:var(--lightgreen);
+}
+
+.btn-flat {
+    background-color:white;
+    color: var(--darkgreen);
+    border:1px solid black;
+}
+
+.btn-yellow {
+    background-color:var(--yellow);
+}
