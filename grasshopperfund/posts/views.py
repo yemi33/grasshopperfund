@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, reverse_lazy
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -88,4 +88,7 @@ class DeletePostView(DeleteView):
     model = Post
 
     def get_success_url(self):
-        return reverse_lazy
+        '''
+        Redirect to the post's organization after deletion
+        '''
+        return self.get_object().organization.get_absolute_url()

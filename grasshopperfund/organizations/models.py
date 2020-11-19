@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Organization(models.Model):
 
@@ -17,7 +18,7 @@ class Organization(models.Model):
     created = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return reverse("view-organization", args=(self.organization.name))
+        return reverse("view-organization", kwargs={"organization_name": self.name})
 
     def __str__(self):
         return f"name: {self.name} \nowner: {self.owner} \ndescription:{self.description}"
