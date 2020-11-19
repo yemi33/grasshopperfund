@@ -46,8 +46,14 @@
 
 <hr>
   <div class="row">
+  <div class = "col s1">
+      {% for tag in tags %}
+       <a class="btn waves-effect waves-teal btn-flat" href="{% url 'filter-campaigns-from-tags' tag.name %}">
+           #{{ tag.name }}</a>
+      {% endfor %}
+  </div>
     {% for campaign in campaigns %}
-    <div class="col s12 m4">
+    <div class="col s12 m4 offset-l1">
 
         <div class="card darken-1 hoverable medium sticky-action">
           <div class="card-content ">
@@ -57,7 +63,10 @@
 
             <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
 
-            <p>By {{campaign.creator.username}}</p>
+
+            <p>By {{campaign.creator.username}} From {{ campaign.organization.name }}</p>
+
+            <p>By {{campaign.organization.username}}</p>
 
           </div>
           <div class="card-reveal">
@@ -73,23 +82,17 @@
           </div>
           <div class="card-action">
             {% if request.user == campaign.creator %}
-                <a href="{% url 'update-campaign' campaign.id %}">Update</a>
-                <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
-            {% else %}
-              <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
-              <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+              <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+              <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
             {% endif %}
+            <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
+            <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+
           </div>
         </div>
     </div>
       {% endfor %}
   </div>
-    <div class="row">
-       {% for tag in tags %}
-       <a class="btn waves-effect waves-teal btn-large col s1 offset-s1" href="{% url 'filter-campaigns-from-tags' tag.name %}">
-           #{{ tag.name }}</a>
-      {% endfor %}
-    </div>
 
 
 
