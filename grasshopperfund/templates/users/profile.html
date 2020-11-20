@@ -12,7 +12,19 @@
         <a href="{% url 'update-profile' %}" class="btn btn-outline-info">Edit Profile</a>
         <a class="btn btn-outline-danger" href="{% url 'startsmart-home' %}">Back</a>
     </div>
-</div>
+
+    <h5>Donations Made</h5>
+    <div class="row">
+        <div class="col-md">
+            {% for donation in donations %}
+                <div style="outline: 2px solid lightskyblue;" class="card card-body">
+                    <p style="padding:10px;">{{ donation }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
 </div>
 
 
