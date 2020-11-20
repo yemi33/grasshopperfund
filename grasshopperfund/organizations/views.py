@@ -3,8 +3,12 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import OrganizationForm, PostForm
-from .models import Organization, Post
+from ..posts.models import Post
+from ..posts.forms import PostForm
+
+from .forms import OrganizationForm
+from .models import Organization
+
 
 
 @login_required

@@ -1,4 +1,18 @@
-import random
+'''
+utilities for post test
+'''
+
+from django.test import TestCase
+from django.contrib.auth.models import User
+
+from ...organizations.models import Organization
+from ..models import Post
+
+
+
+'''
+Utility classes for testing
+'''
 
 from django.test import TestCase
 from django.contrib.auth.models import User
@@ -6,14 +20,21 @@ from django.contrib.auth.models import User
 from ...posts.models import Post
 from ..models import Organization
 
-class TestModels(TestCase):
+class BaseTestPosts(TestCase):
     def setUp(self):
         '''
         Must follow this order
         '''
         self.owner = self._create_organization_owner()
+
+        # posts author is also org owner
+        self.author = self.owner
         self.organization = self._create_organization()
-        self.owner_posts = self._create_posts_from_owner()
+        self.posts = self._create_posts_from_owner()
+
+        # default post to check is the first in self.posts
+        self.post = self.posts[0]
+
 
     def tearDown(self):
         '''
@@ -58,7 +79,7 @@ class TestModels(TestCase):
                 organization = self.organization,
                 text = text,
             )
-            posts.append(posts)
+            posts.append(post)
 
         return posts
 
@@ -78,40 +99,3 @@ class TestModels(TestCase):
 
 
         return organization
-
-    def test_organization_created(self):
-        '''
-        Verify that setUp created an organization
-        '''
-
-        # Query for the org
-        organization = Organization.objects.get(
-            name = self.organization_name,
-        )
-
-        # Check that this org is the org we just made
-
-        self.assertEqual(
-            organization.description,
-            self.organization_description
-        )
-
-
-    def test_owner_posts_created(self):
-        '''
-        Verify that posts from the owner within the organization have been
-        created
-        '''
-        posts = Post.objects.filter(
-            author = self.owner,
-        )
-
-        assert len(posts) > 1
-
-        for post in posts:
-            print(post)
-
-        org_posts = self.organization.posts.all()
-
-        assert len(org_posts) == self.organization.num_of_posts
-        assert len(org_posts) > 1

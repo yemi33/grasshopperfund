@@ -1,7 +1,9 @@
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from ..models import Organization, Post
+
+from ...posts.models import Post
+from ..models import Organization
 from ..forms import OrganizationForm
 from .utils import BaseTestOrganizations
 
@@ -60,6 +62,3 @@ class TestUpdateOrganization(BaseTestOrganizations):
         # verify that org was created
         organization = Organization.objects.get(name = self.updated_org_name)
         assert self.updated_org_description == organization.description
-
-
-    
