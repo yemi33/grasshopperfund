@@ -1,5 +1,7 @@
 {% include 'material/includes/material_css.html' %}
 {% include 'material/includes/material_js.html' %}
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +16,18 @@
 
    <!-- Compiled and minified JavaScript -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    
+    <!--- custom styles & fonts -->
+    <link rel='stylesheet' href="{% static 'css/style.css' %}">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
   <title>Grasshopperfund</title>
 </head>
 <body>
-    <nav class="green darken-1">
+    <nav class="green accent-7">
+
     <div class="nav-wrapper">
       <div class="container">
       <a class="brand-logo" href="{% url 'startsmart-home' %}">Grasshopperfund</a>
