@@ -1,8 +1,10 @@
 {% extends 'main.html' %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block content %}
-<div class="row">
+<div class="row" style="padding-top:2em;">
   <div class="col m8">
     <form method="POST" action="">
         {% csrf_token %}
@@ -18,8 +20,19 @@
                 <input type="password" name="password" maxlength="254" class="emailinput form-control" id="id_email">
             </div>
         </div>
-        <input class="btn btn-outline-info" type="submit" name="Subit">
-    </form>
+        <input class="btn btn-outline-info green" type="submit" name="Submit">
+		</form>
+		<ul>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'register' %}">Register</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% provider_login_url 'google' %}">Google Login</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% provider_login_url 'facebook' method = 'js_sdk'%}">Facebook Login</a>
+			</li>
+		</ul>
   </div>
 </div>
 {% endblock %}

@@ -3,8 +3,12 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import OrganizationForm, PostForm
-from .models import Organization, Post
+from ..posts.models import Post
+from ..posts.forms import PostForm
+
+from .forms import OrganizationForm
+from .models import Organization
+
 
 
 @login_required
@@ -66,11 +70,9 @@ def view_organization(request, organization_name:str):
                 organization = organization,
                 text = text,
             )
-
             new_post.save()
             messages.success(request, "Posted!")
             return redirect("view-organization", organization_name = organization.name)
-
         else:
             print(form.errors)
 

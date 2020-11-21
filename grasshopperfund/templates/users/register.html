@@ -1,15 +1,21 @@
 {% extends 'main.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
+
+{% block styles %}
+<link rel='stylesheet' href="{% static 'css/users/register.css' %}">
+
 <div class="row">
   <div class="col m8">
     <form method="POST" action="">
         {% csrf_token %}
         {{form|crispy}}
-        <input class="btn btn-outline-info" type="submit" name="Subit">
-    </form>
+        <input class="btn btn-outline-info" type="submit" name="Submit">
+      </form>
   </div>
 </div>
 
+{% endblock %}
 {% endblock %}

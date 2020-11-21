@@ -1,4 +1,4 @@
-xtends 'main.html' %}
+{% extends 'main.html' %}
 {% load humanize %}
 {% block content %}
 {% load material_form %}
@@ -11,11 +11,15 @@ xtends 'main.html' %}
             <h5>Owned by {{organization.owner}}</h5>
             <hr>
         </div>
-        {% if organization.owner == request.user %}
-            <a class="btn btn-info" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
+        <!-- The create campaign button is only available to the organization's owner -->
+        {% if request.user == organization.owner %}
+          <li class="nav-item">
+              <a class="btn btn-info" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
+          </li>
         {% endif %}
     </div>
 
+    <!-- Organization information -->
     <div class="col-md">
         <div class="card card-body">
             <h5>Organization Information</h5>
@@ -23,6 +27,16 @@ xtends 'main.html' %}
             <p><strong>Organization Name:</strong> {{organization.name}}</p>
             <p><strong>Description:</strong> {{organization.description}}</p>
             <img src="{{ organization.image.url }}" >
+
+            <!-- Add update and delete organization options -->
+            {% if request.user == organization.owner %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'update-organization' organization.name %}">Edit Organization</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'delete-organization' organization.name %}">Delete Organization</a>
+              </li>
+            {% endif %}
         </div>
     </div>
 
@@ -43,16 +57,59 @@ xtends 'main.html' %}
         </div>
     {% endif %}
 
+    <!-- posts are displayed here -->
     <div class="col-md">
-      Posts:
-      {% for post in organization_posts %}
-      <div>
-        <p>
-          Post text: {{post.text}}
-          {{post.created}}
-        </p>
-      </div>
 
+      <p>Posts:<p>
+      {% for post in organization.all_posts %}
+
+      <!-- each post uses materializecss card class -->
+      {% include "posts/post.html" %}
+
+      {% endfor %}
+    </div>
+
+    <!-- campaigns are displayed here -->
+    <div class="row">
+      <p>Campagins:<p>
+      {% for campaign in organization.all_campaigns %}
+
+        <div class="col s12 m4">
+
+            <!-- campaigns use materializecss cards -->
+            <div class="card darken-1 hoverable medium sticky-action">
+              <div class="card-content ">
+                <div class="card-image">
+                  <img class="activator responsive" src="{{ campaign.image.url }}" >
+                </div>
+
+                <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
+
+
+
+              </div>
+              <div class="card-reveal">
+                <span class="card-title">{{campaign.title}}<i class="material-icons right">close</i></span>
+                <p class="flow-text">
+                  <ul>{{campaign.description}}</ul>
+                </p>
+                <h6>
+                  <ul>Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></ul>
+                  <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
+                  <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
+                </h6>
+              </div>
+              <div class="card-action">
+                {% if request.user == campaign.creator %}
+                  <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+                  <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+                {% endif %}
+                <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
+                <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+
+              </div>
+            </div>
+        </div>
       {% endfor %}
     </div>
 </div>

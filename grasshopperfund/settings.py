@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'grasshopperfund.users.apps.UsersConfig',
     'grasshopperfund.campaigns.apps.CampaignsConfig',
     'grasshopperfund.organizations.apps.OrganizationsConfig',
-    'grasshopperfund.tags.apps.TagsConfig'
+    'grasshopperfund.tags.apps.TagsConfig',
+    'grasshopperfund.posts.apps.PostsConfig',
 ]
 
 MIDDLEWARE = [

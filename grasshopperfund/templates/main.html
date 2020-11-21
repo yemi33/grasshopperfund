@@ -1,11 +1,14 @@
-{% load socialaccount %}
-{% providers_media_js %}
 {% include 'material/includes/material_css.html' %}
 {% include 'material/includes/material_js.html' %}
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
   <!-- Compiled and minified CSS -->
+
+    <!--  CSS -->
+
     <!-- practice -->
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
@@ -13,20 +16,28 @@
 
    <!-- Compiled and minified JavaScript -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-  <title>StartSmart</title>
+    
+    <!--- custom styles & fonts -->
+    <link rel='stylesheet' href="{% static 'css/style.css' %}">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+  <title>Grasshopperfund</title>
 </head>
 <body>
-    <nav class="blue darken-1">
+    <nav class="green accent-7">
+
     <div class="nav-wrapper">
       <div class="container">
-      <a class="brand-logo" href="{% url 'startsmart-home' %}">StartSmart</a>
+      <a class="brand-logo" href="{% url 'startsmart-home' %}">Grasshopperfund</a>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'startsmart-home' %}">Home</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'browse-organizations' %}">Browse Organizations</a>
+              <a class="nav-link" href="{% url 'browse-organizations' %}">Explore</a>
           </li>
           {% if request.user.is_authenticated %}
 
@@ -44,16 +55,7 @@
           {% if request.user.is_anonymous %}
 
               <li class="nav-item">
-                  <a class="nav-link" href="{% url 'register' %}">Register</a>
-              </li>
-              <li class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Login</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{% provider_login_url 'google' %}">Google Login</a>
-              </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% provider_login_url 'facebook' method = 'js_sdk'%}">Facebook Login</a>
               </li>
 
           {% endif %}
@@ -62,8 +64,6 @@
     </div>
   </nav>
     <div class="container">
-
-
 
     {% block content %}
 
@@ -76,6 +76,7 @@
       </script>
       {% endfor %}
     {% endif %}
+    <!-- ovya was here! -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
