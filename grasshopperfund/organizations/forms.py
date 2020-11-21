@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Organization, Post
+from .models import Organization
 
 
 
@@ -12,20 +12,4 @@ class OrganizationForm(forms.ModelForm):
 
         widgets = {
                 'owner': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
-            }
-
-
-
-class PostForm(forms.ModelForm):
-
-    class Meta:
-        model = Post
-        fields = [
-            'author',
-            'text',
-        ]
-
-        widgets = {
-                'author': forms.TextInput(attrs={'value': '', 'id': 'post_author', 'type': 'hidden'}),
-                # 'organization': forms.TextInput(attrs={'value': '', 'id': 'post_organization', 'type': 'hidden'}),
             }

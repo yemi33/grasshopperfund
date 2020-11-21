@@ -1,6 +1,8 @@
 from django.urls import reverse
 
-from ..models import Organization, Post
+
+from ...posts.models import Post
+from ..models import Organization
 from .utils import BaseTestOrganizations
 
 

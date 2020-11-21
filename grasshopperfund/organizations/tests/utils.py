@@ -5,7 +5,8 @@ Utility classes for testing
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from ..models import Organization, Post
+from ...posts.models import Post
+from ..models import Organization
 
 class BaseTestOrganizations(TestCase):
     def setUp(self):
@@ -59,7 +60,7 @@ class BaseTestOrganizations(TestCase):
                 organization = self.organization,
                 text = text,
             )
-            posts.append(posts)
+            posts.append(post)
 
         return posts
 
