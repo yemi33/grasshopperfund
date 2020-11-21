@@ -12,7 +12,7 @@ from .models import Post
 
 
 
-def view_post(request, organization_name: str, pk: str):
+def view_post(request, organization_name: str, post_id: str):
     '''
     View a single post
     '''
@@ -23,7 +23,7 @@ def view_post(request, organization_name: str, pk: str):
 
     # Get post from the organization's posts
     post = Post.objects.get(
-        id = pk
+        id = post_id
     )
 
     context = {
@@ -71,7 +71,7 @@ class CreatePostView(LoginRequiredMixin, FormView):
         return redirect("view-organization", organization_name = self.organization.name)
 
 
-class UpdatePostView(UpdateView):
+class UpdatePostView(LoginRequiredMixin, UpdateView):
     '''
     Uses Django built-in generic view
     '''
@@ -81,7 +81,13 @@ class UpdatePostView(UpdateView):
         "text"
     ]
 
-class DeletePostView(DeleteView):
+    def get_object(self):
+        '''
+        Override the built-in get_object method
+        '''
+        return Post.objects.get(pk=self.kwargs['post_id'])
+
+class DeletePostView(LoginRequiredMixin, DeleteView):
     '''
     Uses Django built-in generic view
     '''
@@ -92,3 +98,9 @@ class DeletePostView(DeleteView):
         Redirect to the post's organization after deletion
         '''
         return self.get_object().organization.get_absolute_url()
+
+    def get_object(self):
+        '''
+        Override the built-in get_object method
+        '''
+        return Post.objects.get(pk=self.kwargs['post_id'])
