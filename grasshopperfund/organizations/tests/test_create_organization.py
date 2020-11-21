@@ -1,7 +1,9 @@
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from ..models import Organization, Post
+
+from ...posts.models import Post
+from ..models import Organization
 from ..forms import OrganizationForm
 from .utils import BaseTestOrganizations
 

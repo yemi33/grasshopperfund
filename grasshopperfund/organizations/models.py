@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Organization(models.Model):
 
@@ -16,6 +17,9 @@ class Organization(models.Model):
     # automatically set creation date
     created = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse("view-organization", kwargs={"organization_name": self.name})
+
     def __str__(self):
         return f"name: {self.name} \nowner: {self.owner} \ndescription:{self.description}"
 
@@ -30,20 +34,3 @@ class Organization(models.Model):
     @property
     def all_campaigns(self) -> list:
         return self.campaigns.all()
-
-
-class Post(models.Model):
-    # Foreign keys
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-
-    # allows us to access an organization's posts
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='posts')
-
-    # What should char limit be?
-    text = models.TextField(max_length=1000)
-
-    created = models.DateTimeField(auto_now=True)
-
-
-    def __str__(self):
-        return f"author: {self.author} \norganization: {self.organization} \ntext:{self.text}"

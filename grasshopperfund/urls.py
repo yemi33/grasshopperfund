@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('grasshopperfund.users.urls')),
     path('organizations/', include('grasshopperfund.organizations.urls')),
+    path('posts/', include('grasshopperfund.posts.urls')),
     path('campaigns/', include('grasshopperfund.campaigns.urls')),
     path('tags/', include('grasshopperfund.tags.urls')),
 

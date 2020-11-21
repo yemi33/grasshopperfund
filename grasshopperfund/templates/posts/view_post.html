@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% load humanize %}
+{% block content %}
+{% load material_form %}
+
+<br>
+
+<div class="row">
+  <!-- each post uses materializecss card class -->
+  {% include "posts/post.html" %}
+
+
+
+</div>
+
+
+{% endblock %}
