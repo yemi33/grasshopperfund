@@ -42,7 +42,8 @@ def create_campaign(request, organization_name: str):
                 }
 
                 # this seems incorrectly placed. commenting it out.
-                # return render(request, 'campaigns/create_campaign.html', context)
+                # Used for re-rendering create campaigns page. 
+                return render(request, 'campaigns/create_campaign.html', context)
             campaign_creator = campaign_form.cleaned_data['creator']
             campaign_title = campaign_form.cleaned_data['title']
             campaign_description = campaign_form.cleaned_data['description']
@@ -64,7 +65,7 @@ def create_campaign(request, organization_name: str):
                 new_campaign.tag.add(tag_created)
                 tag_created.campaigns.add(new_campaign)
             if request.POST.get('tag') != None:
-                for exist_tag in campaign_form.cleaned_data['tag']:
+                for exist_tag in tag_form.cleaned_data['tag']:
                     new_campaign.tag.add(exist_tag)
                     exist_tag.campaigns.add(new_campaign)
             messages.success(request, 'Campaign Created!')
