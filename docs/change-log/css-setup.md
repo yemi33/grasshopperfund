@@ -16,6 +16,8 @@ The global stylesheet, `style.css`, is responsible for the app's main styles. st
 
 ## main.html
 main.html is the main (haha) template that all of the other templates will be extending. It can be found in `grasshopperfund/templates`. main.html contains:
+
+
 - The navigation bar
 - The footer
 - All global styles in style.css
@@ -38,7 +40,9 @@ The design guidelines for this project can be found [here](https://www.figma.com
 
 ## Global stylesheet (style.css)
 style.css contains a basic implementation of all of the [design guidelines](https://www.figma.com/file/fEJlgeYxgEMve45zMURP4H/Design-Guidelines?node-id=0%3A1) outlined in our Figma folder.
+
 The current components included are:
+
 - **Colors**: all 5 primary colors (lightgreen, green, darkgreen, lightgrey, and yellow) are listed as variables in the :root pseudoclass. Note that these variables only work in style.css and cannot be used in other css files.
 - **Fonts**: Poppins and Lato are both loaded into main.html and can be used in any stylesheet, not just style.css. Poppins has been set to the default font.
 - **Buttons**: 3 different button classes have been initialized: `.btn`, `.btn-flat`, and `.btn-yellow`. `.btn` is a default green button, `.btn-flat` is a white button with green text, and `.btn-yellow` is a, you guessed it, yellow button. Buttons can also be large (.btn-large) or small (.btn-small) - see [Materialize documentation](https://materializecss.com/buttons.html) for more info
