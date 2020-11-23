@@ -9,7 +9,9 @@ from ...organizations.models import Organization
 # Create your tests here.
 class TestModels(TestCase):
     def setUp(self):
-        print("From test tags")
+        '''
+        Setting up the test for tags
+        '''
         self.owner = self._create_organization_owner()
         self.organization = self._create_organization()
         self.campaign_list = self._create_lists_of_campaign_for_tag()
@@ -17,6 +19,9 @@ class TestModels(TestCase):
 
 
     def tearDown(self) -> None:
+        '''
+        Finishes the test for tags
+        '''
         del self.campaign_list
         self.tag_list.campaigns.clear()
 
@@ -57,6 +62,9 @@ class TestModels(TestCase):
         return organization
 
     def _create_lists_of_campaign_for_tag(self):
+        '''
+        Creates a list of campaigns (note that default is two campaigns) for testing the tags
+        '''
         self.creator = self.owner
         self.title = 'Jazz festival'
         self.description = 'Come join us for smooth jazz festival'
@@ -90,6 +98,9 @@ class TestModels(TestCase):
         return campaigns_list
 
     def _create_tag(self):
+        '''
+        Testing for creating the tag and adding additional campaigns (note by default is two campaigns)
+        '''
         print("X")
         tag = Tags(name='jazz')
         tag.save()
@@ -98,6 +109,9 @@ class TestModels(TestCase):
         return tag
 
     def test_tag_created(self):
+        '''
+        Testing to make sure the tags have been successfully created,
+        as well as multiple campaigns associated with a given tag
+        '''
         print("test tag created starting")
         self.assertEqual(len(Tags.objects.get(name=self.tag_list.name).campaigns.all()), 2)
-        pass
