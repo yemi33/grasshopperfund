@@ -3,6 +3,7 @@
     --green: #39AF73;
     --darkgreen: #318D5E;
     --lightgrey: #F6F6F6;
+    --darkgrey: #4D4D4D;
     --yellow: #EFBF57;
 }
 
@@ -14,9 +15,38 @@ h1, h2, h3, h4, h5 {
     color: var(--darkgreen);
 }
 
-.brand-logo {
-    color:var(--green);
+nav {
+    padding: 0 3em 0 3em;
+    height: 60px;
+    background-color: white;
+}
+
+.nav-wrapper .brand-logo {
+    color: var(--green);
     font-weight:600;
+    font-size: 28px;
+}
+
+nav .sidenav-trigger .material-icons {
+    color: var(--darkgrey) !important;
+}
+
+nav .label-icon .material-icons {
+    color: var(--darkgrey) !important;
+    font-size: 20px;
+}
+
+nav .label-icon.active .material-icons {
+    color: var(--green) !important;
+}
+
+nav ul li a {
+    font-size: 16px;
+    color: var(--darkgrey);
+}
+
+nav ul li a:hover {
+    color: white !important;
 }
 
 .card {
