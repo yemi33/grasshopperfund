@@ -15,6 +15,9 @@ class Post(models.Model):
 
     created = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-created"]
+
     def get_absolute_url(self):
         return reverse("view-post", args=(self.organization.name,self.id))
 
