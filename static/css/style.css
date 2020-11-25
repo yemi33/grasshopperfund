@@ -9,6 +9,13 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+flex: 1 0 auto;
 }
 
 h1, h2, h3, h4, h5 {
@@ -49,6 +56,9 @@ nav ul li a:hover {
     color: white !important;
 }
 
+footer.page-footer {
+    background-color: var(--darkgreen) !important;
+}
 .card {
     /* add any styling here */
 }
