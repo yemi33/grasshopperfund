@@ -110,6 +110,16 @@ def delete_campaign(request, pk):
     }
     return render(request, 'campaigns/delete_campaign.html', context)
 
+def search_campaign(request):
+    print(request.GET.get('search_query'))
+    campaign = Campaign.objects.all()
+    tag = Tags.objects.all()
+    context = {
+        'campaigns' : campaign,
+        'tags' : tag
+    }
+    return render(request, 'users/home_page.html', context)
+
 # login not required for this
 def view_campaign(request, username:str, campaign_title:str):
     campaign = Campaign.objects.get(creator__username=username, title=campaign_title)

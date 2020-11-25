@@ -39,10 +39,10 @@
               <a class="nav-link" href="{% url 'browse-organizations' %}">Explore</a>
           </li>
           <li>
-            <div class="input-field">
-              <input id="search" type="search">
+            <form action="{% url 'search-campaign' %}" class="input-field" method="get">
+              <input name="search_query" type="search">
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-            </div>
+            </form>
           </li>
         </ul>
         <ul id="nav-right" class="right hide-on-med-and-down">
