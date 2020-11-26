@@ -36,7 +36,11 @@ nav:
     - Git Workflow: Git-Workflow.md
     - Django: Django.md
   - Database: database.md
+  - Frontend: frontend.md
   - Change log:
+    - added Organizations and Posts: change-log/added-organizations-and-posts.md
+    - CSS Setup: change-log/css-setup.md
+    - Created donation: change-log/created-donation.md
     - Added Tags: change-log/added-tags.md
     - Added Organizations: change-log/added-organizations.md
     - Project Restructure: change-log/project-restructure.md
