@@ -3,6 +3,7 @@ from ..models import Campaign
 from ...tags.models import Tags
 from ...organizations.models import Organization
 from django.contrib.auth.models import User
+import re
 
 
 class TestModels(TestCase):
@@ -167,5 +168,14 @@ class TestModels(TestCase):
         for campaign in Campaign.objects.all():
             if str(campaign.creator) == 'testerx': testerx_exists = True
         self.assertEqual(testerx_exists, True)
+
+    def test_search_for_campaigns_from_search_bar(self):
+        '''Testing a search on campaign that contains the keyword rock'''
+        query_result = [res_word for res_word in re.split('[, ]', 'jaz,  rock  run,') if res_word != '']
+        temp = Campaign.objects.none()
+        for word in query_result:
+            res = Campaign.objects.all().filter(title__icontains=word)
+            temp |= res
+        self.assertEqual(len(temp), 3)
 
 
