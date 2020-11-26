@@ -111,8 +111,13 @@ def delete_campaign(request, pk):
     return render(request, 'campaigns/delete_campaign.html', context)
 
 def search_campaign(request):
-    print(request.GET.get('search_query'))
-    campaign = Campaign.objects.all()
+    query_word = request.GET.get('search_query')
+    query_result = [res_word for res_word in re.split('[, ]', query_word) if res_word != '']
+    temp = Campaign.objects.none()
+    for word in query_result:
+        res = Campaign.objects.all().filter(title__icontains=word)
+        temp |= res
+    campaign = temp
     tag = Tags.objects.all()
     context = {
         'campaigns' : campaign,
