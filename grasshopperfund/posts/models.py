@@ -21,5 +21,54 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("view-post", args=(self.organization.name,self.id))
 
+    def already_liked(self, user: User) -> bool:
+        '''
+        Check if user has already liked this post
+        '''
+        return (self.likes.filter(user=user).exists())
+
+    def add_like(self, user: User):
+        '''
+        Add a like to post from user and return the like
+        '''
+        return PostLike.objects.create(post=self, user=user)
+
+    def remove_like(self, user: User):
+        '''
+        Remove a user's like to this post
+        '''
+        PostLike.objects.get(post=self, user=user).delete()
+
+
+    def like(self, user: User):
+        '''
+        Like post, or unlike if post as already been liked by user
+        '''
+
+        if self.already_liked(user):
+            # Unlike if post already liked
+            self.remove_like(user)
+
+        else:
+            self.add_like(user)
+
     def __str__(self):
         return f"author: {self.author} \norganization: {self.organization} \ntext:{self.text}"
+
+
+
+class Like(models.Model):
+    '''
+    Base class for likes
+    '''
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='liked_entities')
+    created = models.DateTimeField(auto_now=True)
+
+
+class PostLike(Like):
+    '''
+    Class for likes for Posts
+    '''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+
+    unique_together = (('user', 'post'),)
