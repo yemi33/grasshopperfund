@@ -29,11 +29,19 @@ class BaseTestPosts(TestCase):
 
         # posts author is also org owner
         self.author = self.owner
+
         self.organization = self._create_organization()
         self.posts = self._create_posts_from_owner()
 
         # default post to check is the first in self.posts
         self.post = self.posts[0]
+
+
+        # set user which likes posts
+        self.liker = self.owner
+
+        # like posts
+        self.likes = self._like_posts(self.posts,self.liker)
 
 
     def tearDown(self):
@@ -99,3 +107,13 @@ class BaseTestPosts(TestCase):
 
 
         return organization
+
+    def _like_posts(self, posts: list, liker: User):
+        '''
+        Like posts in list
+        '''
+        likes = []
+        for post in posts:
+            likes.append(post.add_like(liker))
+
+        return likes
