@@ -26,7 +26,8 @@
   <title>Grasshopperfund</title>
 </head>
 <body>
-  <nav>
+  <header>
+    <nav>
       <div class="nav-wrapper">
         <a class="brand-logo center" href="{% url 'startsmart-home' %}">Grasshopperfund</a>
         <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -67,34 +68,70 @@
           {% endif %}
         </ul>
       </div>
-  </nav>
-  <ul class="sidenav" id="mobile">
-    <li><a href="{% url 'startsmart-home' %}">Home</a></li>
-    <li><a href="{% url 'browse-organizations' %}">Explore</a></li>
+    </nav>
+    <ul class="sidenav" id="mobile">
+      <li><a href="{% url 'startsmart-home' %}">Home</a></li>
+      <li><a href="{% url 'browse-organizations' %}">Explore</a></li>
 
-    {% if request.user.is_authenticated %}
-    <li><a href="{% url 'create-organization' %}">Create</a></li>
-    <li><a href="{% url 'profile' request.user.profile.id %}">Profile</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% if request.user.is_authenticated %}
+      <li><a href="{% url 'create-organization' %}">Create</a></li>
+      <li><a href="{% url 'profile' request.user.profile.id %}">Profile</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
 
-    {% endif %}
-    {% if request.user.is_anonymous %}
-    <li><a href="{% url 'login' %}">Login</a></li>
-    {% endif %}
-  </ul>
-  <script language="javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems);
+      {% endif %}
+      {% if request.user.is_anonymous %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      {% endif %}
+    </ul>
+    <script language="javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('.sidenav');
+          var instances = M.Sidenav.init(elems);
       });
     </script>
+  </header>
 
+  <main>
     <div class="container">
+      {% block content %}
 
-    {% block content %}
-
-    {% endblock %}
+      {% endblock %}
     </div>
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Grasshopperfund</h5>
+          <p class="grey-text text-lighten-4">Crowdfunding for this generation.</p>
+        </div>
+        <div class="col l3 m3 s12">
+          <h5 class="white-text">Navigate</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="{% url 'startsmart-home' %}">Home</a></li>
+            <li><a class="grey-text text-lighten-3" href="{% url 'browse-organizations' %}">Explore</a></li>
+            <li><a class="grey-text text-lighten-3" href="{% url 'create-organization' %}">Create</a></li>
+          </ul>
+        </div>
+        <div class="col l3 m3 s12">
+          <h5 class="white-text">Socials</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="https://facebook.com">Facebook</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://instagram.com">Instagram</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://twitter.com">Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      © 2020 Grasshopperfund
+      <a class="grey-text text-lighten-4 right" href="https://startsmart.co/">StartSmart</a>
+      </div>
+    </div>
+  </footer>
+  
     {% if messages %}
       {% for message in messages %}
       <script>

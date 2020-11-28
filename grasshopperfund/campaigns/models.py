@@ -19,7 +19,7 @@ class Campaign(models.Model):
     search_fields = ['creator__username']
 
     class Meta:
-        unique_together = (('creator', 'title'),)
+        unique_together = (('organization', 'title'),)
 
     def __str__(self):
         return self.title
