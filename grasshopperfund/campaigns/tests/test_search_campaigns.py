@@ -294,6 +294,25 @@ class TestModels(TestCase):
         res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
         self.assertEqual(len(res1), 2)
 
+    def test_search_for_campaigns_from_the_search_bar_with_avoid_duplicate_campaigns(self):
+        '''Testing a search on campaign in avoiding duplicating campaigns'''
+        query_result = [res_word for res_word in re.split('[, ]', 'jaz,  rock  run,') if res_word != '']
+        temp = Campaign.objects.none()
+        tag_temp = Tags(name='music')
+        tag_temp.save()
+        for word in query_result:
+            campaign = Campaign.objects.get(title__icontains=word)
+            campaign.save()
+            campaign.tag.add(tag_temp)
+            tag_temp.campaigns.add(campaign)
+        res = Campaign.objects.filter( Q(tags__name__icontains='music') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        temp |= res1
+        res = Campaign.objects.filter(Q(tags__name__icontains='music') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        temp |= res1
+        self.assertEqual(len(temp), 3)
+
 
 
 
