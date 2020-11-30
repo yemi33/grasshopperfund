@@ -5,6 +5,7 @@ from ...organizations.models import Organization
 from django.contrib.auth.models import User
 import re
 
+from django.db.models import Q
 
 class TestModels(TestCase):
     def setUp(self) -> None:
@@ -71,6 +72,7 @@ class TestModels(TestCase):
             tag = Tags(name=tag_name)
             tag.save()
             campaign1.tag.add(tag)
+            tag.campaigns.add(campaign1)
             campaigns_list_result.append(campaign1)
 
         # campaign1 = Campaign.objects.create(creator=self.creator, title=self.title,
@@ -170,12 +172,147 @@ class TestModels(TestCase):
         self.assertEqual(testerx_exists, True)
 
     def test_search_for_campaigns_from_search_bar(self):
-        '''Testing a search on campaign that contains the keyword rock'''
+        '''Testing a search on campaigns'''
         query_result = [res_word for res_word in re.split('[, ]', 'jaz,  rock  run,') if res_word != '']
         temp = Campaign.objects.none()
         for word in query_result:
-            res = Campaign.objects.all().filter(title__icontains=word)
+            res = Campaign.objects.all().filter(Q(title__icontains=word))
             temp |= res
         self.assertEqual(len(temp), 3)
+
+    def test_search_for_campaigns_from_the_search_bar_with_tags(self):
+        '''Testing a search on campaign using tags and campaigns'''
+        query_result = [res_word for res_word in re.split('[, ]', 'jaz,  rock  run,') if res_word != '']
+        tag_temp = Tags(name='music')
+        tag_temp.save()
+        for word in query_result:
+            campaign = Campaign.objects.get(title__icontains=word)
+            campaign.save()
+            campaign.tag.add(tag_temp)
+            tag_temp.campaigns.add(campaign)
+        res = Campaign.objects.filter( Q(tags__name__icontains='music') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        self.assertEqual(len(res1), 3)
+
+    def test_search_for_campaigns_from_the_search_bar_with_no_existing_tags_or_campaigns(self):
+        '''Testing a search on campaign using no existing tags or campaigns'''
+        res = Campaign.objects.filter(Q(tags__name__icontains='stuff') | Q(title__icontains='disco'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        self.assertEqual(len(res1), 0)
+
+    def test_search_for_campaigns_from_the_search_bar_with_existing_tags_and_campaigns(self):
+        '''Testing a search on campaign using existing tags and campaigns'''
+        res = Campaign.objects.filter(Q(tags__name__icontains='rock') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        self.assertEqual(len(res1), 2)
+
+    def test_search_for_campaigns_from_the_search_bar_with_tags_mapping_to_campaigns(self):
+        '''Testing a search on campaign using tags that are mapped to campaigns'''
+        res = Campaign.objects.filter(Q(tags__name__icontains='jazz') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        self.assertEqual(len(res1), 1)
+
+    def test_search_for_campaigns_from_the_search_bar_with_tags_mapping_to_multiple_campaigns(self):
+        '''Testing a search on campaign using tags that are mapped to multiple campaigns'''
+        the_username = "testerx"
+        the_email = "testerxy@email.com"
+        the_password = "loliscool890"
+
+        owner = User.objects.create_user(
+            username=the_username,
+            password=the_password,
+            email=the_email
+        )
+        owner.save()
+        the_organization_name = "Test Org XYZ."
+        the_organization_description = "XYZ for testing purposes"
+
+        organization = Organization.objects.create(
+            owner=owner,
+            name=the_organization_name,
+            description=the_organization_description,
+        )
+        organization.save()
+        the_creator = owner
+        the_title = 'Old school jazz in cafe'
+        the_organization = organization
+        the_description = 'Join us for a night of old school jazz that is a tribute to the 1950s'
+        the_target_money = 35
+        the_days_left = 13
+        campaign = Campaign.objects.create(creator=the_creator,
+                                           title=the_title,
+                                           organization=the_organization,
+                                           description=the_description,
+                                           target_money=the_target_money,
+                                           days_left=the_days_left)
+        campaign.save()
+        tag = Tags.objects.filter(name='jazz')
+        campaign.tag.add(tag[0])
+        tag[0].campaigns.add(campaign)
+        res = Campaign.objects.filter(Q(tags__name__icontains='jazz') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        self.assertEqual(len(res1), 2)
+
+    def test_search_for_campaigns_from_the_search_bar_with_tags_only(self):
+        '''Testing a search on campaign using tags only'''
+        the_username = "testerx"
+        the_email = "testerxy@email.com"
+        the_password = "loliscool890"
+
+        owner = User.objects.create_user(
+            username=the_username,
+            password=the_password,
+            email=the_email
+        )
+        owner.save()
+        the_organization_name = "Test Org XYZ."
+        the_organization_description = "XYZ for testing purposes"
+
+        organization = Organization.objects.create(
+            owner=owner,
+            name=the_organization_name,
+            description=the_organization_description,
+        )
+        organization.save()
+        the_creator = owner
+        the_title = 'Old school jazz in cafe'
+        the_organization = organization
+        the_description = 'Join us for a night of old school jazz that is a tribute to the 1950s'
+        the_target_money = 35
+        the_days_left = 13
+        campaign = Campaign.objects.create(creator=the_creator,
+                                           title=the_title,
+                                           organization=the_organization,
+                                           description=the_description,
+                                           target_money=the_target_money,
+                                           days_left=the_days_left)
+        campaign.save()
+        tag = Tags.objects.filter(name='jazz')
+        campaign.tag.add(tag[0])
+        tag[0].campaigns.add(campaign)
+        res = Campaign.objects.filter(Q(tags__name__icontains='jazz') | Q(title__icontains='disco'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        self.assertEqual(len(res1), 2)
+
+    def test_search_for_campaigns_from_the_search_bar_with_avoid_duplicate_campaigns(self):
+        '''Testing a search on campaign in avoiding duplicating campaigns'''
+        query_result = [res_word for res_word in re.split('[, ]', 'jaz,  rock  run,') if res_word != '']
+        temp = Campaign.objects.none()
+        tag_temp = Tags(name='music')
+        tag_temp.save()
+        for word in query_result:
+            campaign = Campaign.objects.get(title__icontains=word)
+            campaign.save()
+            campaign.tag.add(tag_temp)
+            tag_temp.campaigns.add(campaign)
+        res = Campaign.objects.filter( Q(tags__name__icontains='music') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        temp |= res1
+        res = Campaign.objects.filter(Q(tags__name__icontains='music') | Q(title__icontains='jazz'))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        temp |= res1
+        self.assertEqual(len(temp), 3)
+
+
 
 
