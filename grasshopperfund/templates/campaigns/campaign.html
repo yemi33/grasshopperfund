@@ -1,0 +1,37 @@
+<!-- This is the HTML for a simple Campaign card using materialize css -->
+{% load humanize %}
+<div class="card darken-1 hoverable medium sticky-action">
+  <div class="card-content ">
+    <div class="card-image">
+      <img class="activator responsive" src="{{ campaign.image.url }}" >
+    </div>
+
+    <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
+
+
+    <p>By {{campaign.creator.username}} From {{ campaign.organization.name }}</p>
+
+    <p>By {{campaign.organization.username}}</p>
+
+  </div>
+  <div class="card-reveal">
+    <span class="card-title">{{campaign.title}}<i class="material-icons right">close</i></span>
+    <p class="flow-text">
+      <ul>{{campaign.description}}</ul>
+    </p>
+    <h6>
+      <ul>Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></ul>
+      <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
+      <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
+    </h6>
+  </div>
+  <div class="card-action">
+    {% if request.user == campaign.creator %}
+      <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+      <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+    {% endif %}
+    <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
+    <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
+
+  </div>
+</div>
