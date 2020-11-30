@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
 from .models import Profile
-from ..campaigns.models import Campaign
+from ..campaigns.models import Campaign, Donation
 from ..tags.models import Tags
 
 from ..templates import *
