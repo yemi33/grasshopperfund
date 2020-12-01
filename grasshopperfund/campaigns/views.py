@@ -4,6 +4,9 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import AnonymousUser
+from django.views import View
 
 from .forms import CampaignForm, TagsForm, DonationForm
 from .models import Campaign, Donation
@@ -42,7 +45,7 @@ def create_campaign(request, organization_name: str):
                 }
 
                 # this seems incorrectly placed. commenting it out.
-                # Used for re-rendering create campaigns page. 
+                # Used for re-rendering create campaigns page.
                 return render(request, 'campaigns/create_campaign.html', context)
             campaign_creator = campaign_form.cleaned_data['creator']
             campaign_title = campaign_form.cleaned_data['title']
@@ -166,3 +169,23 @@ def make_donation(request, pk):
     }
 
     return render(request, 'campaigns/make_donation.html', context)
+
+
+
+class RecommendationsView(View):
+
+
+    def recommend_campaigns(self, request) -> list:
+        self.user = request.user
+        self.donated_campaigns = set()
+        self.donated_campaigns_tags = set()
+
+        if user.donations is not None:
+            donations = user.donations
+
+            for donation in donations:
+                self.donated_campaigns.append(donations)
+
+
+    def get(self, request):
+        return HttpResponse('result')
