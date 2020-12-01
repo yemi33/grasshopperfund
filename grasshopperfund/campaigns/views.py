@@ -114,10 +114,13 @@ def delete_campaign(request, pk):
 def view_campaign(request, username:str, campaign_title:str):
     campaign = Campaign.objects.get(creator__username=username, title=campaign_title)
     donor = Donation.objects.filter(donor=request.user.id)
+    progress = int(campaign.current_money)/campaign.target_money
 
     context = {
         'campaign': campaign,
         'donor': donor,
+        'progress': progress,
+        'bar_width': int(progress*100),
     }
 
     return render(request, 'campaigns/view_campaign.html', context)
