@@ -33,7 +33,16 @@ def register_page(request):
         if form.is_valid():
             messages.success(request, 'Account Registered!')
             form.save()
-            return redirect('login')
+
+            # login the user
+            new_user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password1'],
+            )
+            login(request,new_user)
+
+            # redirect to add interested tags
+            return redirect('add-interested-tags')
     context = {
         'form': form
     }
@@ -105,6 +114,10 @@ class AddInterestedTagsView(LoginRequiredMixin, UpdateView):
     '''
     model = Profile
     form_class = AddInterestedTagsForm
+
+    # On success, direct to home page
+    # In the future, probably direct to recommended campaigns
+    success_url = '/'
 
     def get_object(self):
         '''
