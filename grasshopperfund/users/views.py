@@ -16,10 +16,12 @@ from ..templates import *
 def home_page(request):
     campaigns = Campaign.objects.all()
     tags = Tags.objects.all()
+    progress_dict = {campaign.title:int((campaign.current_money/campaign.target_money)*100) for campaign in campaigns}
 
     context = {
         'campaigns': campaigns,
-        'tags' : tags
+        'tags': tags,
+        'progress_dict': progress_dict,
     }
     return render(request, 'users/home_page.html', context)
 
