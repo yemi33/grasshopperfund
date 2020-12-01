@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import CampaignForm, TagsForm, DonationForm
 from .models import Campaign, Donation
-from ..tags.models import Tags
+from ..tags.models import Tag
 from ..organizations.models import Organization
 
 
@@ -30,7 +30,7 @@ def create_campaign(request, organization_name: str):
                         tag_form.cleaned_data['enter_tags_you_would_like_to_include'])
                         if tag_name != '']
             for tag_name in tag_list:
-                if Tags.objects.filter(name=tag_name).exists():
+                if Tag.objects.filter(name=tag_name).exists():
                     count_same_tag += 1
                     messages.success(request, 'Tag name %s exists' % tag_name)
                     tag_list.remove(tag_name)
@@ -60,7 +60,7 @@ def create_campaign(request, organization_name: str):
                 image = campaign_image)
             new_campaign.save()
             for enter_tag_name in tag_list:
-                tag_created = Tags(name=enter_tag_name)
+                tag_created = Tag(name=enter_tag_name)
                 tag_created.save()
                 new_campaign.tag.add(tag_created)
                 tag_created.campaigns.add(new_campaign)
@@ -118,7 +118,7 @@ def search_campaign(request):
         res = Campaign.objects.all().filter(title__icontains=word)
         temp |= res
     campaign = temp
-    tag = Tags.objects.all()
+    tag = Tag.objects.all()
     context = {
         'campaigns' : campaign,
         'tags' : tag

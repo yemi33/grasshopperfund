@@ -1,6 +1,6 @@
 from django import forms
 from .models import Profile
-from ..tags.models import Tags
+from ..tags.models import Tag
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -39,6 +39,6 @@ class AddInterestedTagsForm(forms.ModelForm):
 
     # interested tags should be prepopulated with check boxes
     interested_tags = forms.ModelMultipleChoiceField(
-        queryset = Tags.objects.all(),
+        queryset = Tag.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )

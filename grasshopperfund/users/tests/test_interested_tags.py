@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from ...tags.models import Tags
+from ...tags.models import Tag
 from ..models import Profile
 
 
@@ -38,7 +38,7 @@ class TestProfile(TestCase):
         '''
         tags = []
         for name in tag_names:
-            tag = Tags.objects.create(
+            tag = Tag.objects.create(
                 name=name
             )
             tags.append(tag)

@@ -10,14 +10,14 @@ from django.views.generic.edit import FormView, UpdateView, DeleteView
 from .forms import CreateUserForm, ProfileForm, UpdateProfileForm, AddInterestedTagsForm
 from .models import Profile
 from ..campaigns.models import Campaign, Donation
-from ..tags.models import Tags
+from ..tags.models import Tag
 
 from ..templates import *
 # Create your views here.
 
 def home_page(request):
     campaigns = Campaign.objects.all()
-    tags = Tags.objects.all()
+    tags = Tag.objects.all()
 
     context = {
         'campaigns': campaigns,
