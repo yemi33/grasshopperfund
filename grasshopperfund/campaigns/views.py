@@ -1,5 +1,6 @@
 import re
 
+from django.db.models import Q
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib import messages
@@ -115,9 +116,12 @@ def search_campaign(request):
     query_result = [res_word for res_word in re.split('[, ]', query_word) if res_word != '']
     temp = Campaign.objects.none()
     for word in query_result:
-        res = Campaign.objects.all().filter(title__icontains=word)
-        temp |= res
-    campaign = temp
+        res = Campaign.objects.filter(Q(tags__name__icontains=word) | Q(title__icontains=word))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        if len(res1) == 0: messages.success(request, '%s does not exist' % word)
+        temp |= res1
+    if len(temp) == 0: campaign = Campaign.objects.all()
+    else: campaign = temp
     tag = Tags.objects.all()
     context = {
         'campaigns' : campaign,
