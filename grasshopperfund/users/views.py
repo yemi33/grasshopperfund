@@ -4,8 +4,10 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import FormView, UpdateView, DeleteView
 
-from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
+from .forms import CreateUserForm, ProfileForm, UpdateProfileForm, AddInterestedTagsForm
 from .models import Profile
 from ..campaigns.models import Campaign, Donation
 from ..tags.models import Tags
@@ -95,3 +97,19 @@ def delete_profile(request):
         return redirect('register')
 
     return render(request, 'users/delete_profile.html')
+
+
+class AddInterestedTagsView(LoginRequiredMixin, UpdateView):
+    '''
+    Uses Django built-in generic view
+    '''
+    model = Profile
+    form_class = AddInterestedTagsForm
+
+    def get_object(self):
+        '''
+        Override the built-in get_object method
+        '''
+        return Profile.objects.get(
+            user__id = self.request.user.id
+        )

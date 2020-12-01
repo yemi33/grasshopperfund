@@ -1,5 +1,6 @@
 from django import forms
 from .models import Profile
+from ..tags.models import Tags
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -20,8 +21,6 @@ class ProfileForm(forms.ModelForm):
             'user': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
         }
 
-##Update part
-
 class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
@@ -32,5 +31,14 @@ class UpdateProfileForm(forms.ModelForm):
             'user': forms.TextInput(attrs={'value': '', 'id': 'element', 'type': 'hidden'})
         }
 
-##Member choice members: (Free, Pro, Elite) or (Customer, Pro, Creator)
-##MEMBER_CHOICES = [(), (), ()]
+class AddInterestedTagsForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['interested_tags']
+
+    # interested tags should be prepopulated with check boxes
+    interested_tags = forms.ModelMultipleChoiceField(
+        queryset = Tags.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )

@@ -54,13 +54,8 @@ class TestProfile(TestCase):
 
         assert self.profile.interested_tags is not None
         assert self.profile.interested_tags.filter(name=self.tag.name).exists()
-
-    def test_add_interested_user(self):
-        '''
-        Test addomg an interested user to a tag
-        '''
-        self.tag.interested_users.add(self.profile)
         assert self.tag.interested_users.filter(user__username=self.username).exists()
+
 
 
     def tearDown(self):
