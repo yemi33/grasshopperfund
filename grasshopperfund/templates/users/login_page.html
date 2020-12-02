@@ -2,37 +2,50 @@
 {% load crispy_forms_tags %}
 {% load socialaccount %}
 {% providers_media_js %}
+{% load static %}
 
 {% block content %}
-<div class="row" style="padding-top:2em;">
-  <div class="col m8">
-    <form method="POST" action="">
-        {% csrf_token %}
-        <div id="div_id_username" class="form-group">
-            <label for="id_username" class=" requiredField">Username</label>
-            <div class="">
-                <input type="text" name="username" maxlength="150" autofocus class="textinput textInput form-control" required id="id_username">
+{% block styles %}
+<link rel='stylesheet' href="{% static 'css/users/login_page.css' %}">
+    <div class="row">
+        <div class="col l6" style="margin-top:10%">
+            <p><h3>Grasshopperfund</h3>
+            Grasshopperfund is a crowdfunding platform for this generation.</p>
+        </div>
+        <div class="col l6 s12">
+            <div class="form-block" style="margin-top:10%">
+                <h4 class="center-align">Welcome back!</h4>
+                <form method="POST" action=""> 
+                    {% csrf_token %}
+                    <div id="div_id_email" class="form-group">
+                        <label for="id_username" class=" requiredField">Username</label>
+                        <div class="">
+                            <input type="text" name="username" maxlength="150" autofocus class="textinput textInput form-control" required id="id_username">
+                        </div>
+                    </div>
+                    <div id="div_id_email" class="form-group">
+                        <label for="id_email" class="">Password</label>
+                        <div class="">
+                            <input type="password" name="password" maxlength="254" class="emailinput form-control" id="id_email">
+                        </div>
+                    </div>
+                    <input class="btn btn-outline-info-green" type="submit" name="Submit" value="Sign in" style="text-transform:none;">
+                </form>
+                <ul>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item" id="google-fb">
+                        Or, sign in with
+                        <a class="nav-link" id="social-link" href="{% provider_login_url 'google' %}"><img src="/static/images/user_pics/google.svg"></a>
+                        <a class="nav-link" id="social-link" href="{% provider_login_url 'facebook' method = 'js_sdk'%}"><img src="/static/images/user_pics/facebook.svg"></a>
+                    </li>
+                    <li class="nav-item" id="sign-up">
+                        Don't have an account? <a class="nav-link" href="{% url 'register' %}">Sign up</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div id="div_id_email" class="form-group">
-            <label for="id_email" class="">Password</label>
-            <div class="">
-                <input type="password" name="password" maxlength="254" class="emailinput form-control" id="id_email">
-            </div>
-        </div>
-        <input class="btn btn-outline-info green" type="submit" name="Submit">
-		</form>
-		<ul>
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'register' %}">Register</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{% provider_login_url 'google' %}">Google Login</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{% provider_login_url 'facebook' method = 'js_sdk'%}">Facebook Login</a>
-			</li>
-		</ul>
-  </div>
-</div>
+    </div>
+
+{% endblock %}
 {% endblock %}

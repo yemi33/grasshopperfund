@@ -81,6 +81,13 @@
               <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
               <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
             </h6>
+              {% for title, progress in progress_dict.items %}
+                {% if title == campaign.title %}
+                  <div class="progress">
+      	            <div class="determinate" style="width: {{ progress }}%"></div>
+                  </div>
+                 {% endif %}
+              {% endfor %}
           </div>
           <div class="card-action">
             {% if request.user == campaign.creator %}
