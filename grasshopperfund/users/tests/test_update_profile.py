@@ -8,7 +8,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from ..models import Profile
 
 
-class TestLogin(TestCase):
+class TestUpdateProfile(TestCase):
     def setUp(self):
         self.username = "test"
         self.email = "test@email.com"
