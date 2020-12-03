@@ -23,6 +23,15 @@ def home_page(request):
     }
     return render(request, 'users/home_page.html', context)
 
+def faq(request):
+    campaigns = Campaign.objects.all()
+
+    context = {
+        'campaigns': campaigns,
+    }
+
+    return render(request, 'users/faq.html', context)
+
 def register_page(request):
     form = CreateUserForm()
 

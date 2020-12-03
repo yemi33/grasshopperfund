@@ -1,0 +1,11 @@
+.row-hero {
+    background-color:var(--darkgreen);
+    min-width:100vw;
+    display:inline-block;
+    margin:0 auto;
+    margin-left:-18vw;
+}
+
+.h3-hero-text {
+    color:white;
+}
