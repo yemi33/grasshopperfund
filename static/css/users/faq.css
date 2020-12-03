@@ -1,11 +1,58 @@
-.row-hero {
-    background-color:var(--darkgreen);
-    min-width:100vw;
-    display:inline-block;
-    margin:0 auto;
-    margin-left:-18vw;
+body {
+    scroll-behavior: smooth;
 }
 
-.h3-hero-text {
-    color:white;
+.container {
+    width: 100%;
+    max-width:initial;
+  }
+  .container > .row {
+    margin: 0;
+  }
+  .container > .row > .col {
+    padding: 0;
+  }
+
+.container#hero {
+    padding:5%;
+    background-color:var(--darkgreen);
+}
+
+.container#hero h4 {
+    padding-bottom: 20px;
+    color: white;
+}
+
+.container#cards {
+    width:80%;
+    margin-top:20px;
+}
+
+.container#cards img {
+    width:100%;
+    box-shadow: 0px 0px 10px darkgrey;
+    border-radius:15px;
+}
+
+.container#cards .col {
+    padding:10px;
+}
+
+span {
+    color: var(--yellow);
+}
+
+.box {
+    max-width: 600px;
+    display:block;
+    margin: 0 auto;
+    width: 100%;
+    padding: 20px 50px;
+    background-color: var(--darkgreen);
+    border-radius: 10px;
+}
+
+.box a {
+    color: white;
+    text-decoration: none;
 }

@@ -3,12 +3,61 @@
 
 {% block content %}
 {% block styles %}
-
 <link rel='stylesheet' href="{% static 'css/users/faq.css' %}">
-<div class="row row-hero">
-    <div class="col-12">
-        <h3 class="h3-hero-text center-align">Bring your ideas to life</h3>  
+
+<div class="valign-wrapper center-align">
+<div class="container" id="hero">
+    <h4 class="center-align">Bring your <span>ideas</span> to life</h4>
+    <a class="btn btn-yellow" href="#">Start a campaign</a>
+</div>
+</div>
+
+<div class="valign-wrapper center-align">
+<div class="container" id="cards">
+    <div class="row">
+    <div class="col l6">
+        <a href="#"><img class="responsive-img" src="{% static 'images/faq_pics/image1.png' %}" alt="image2"></a>
+        <p>Tips for a successful campaign</p>
     </div>
+
+    <div class="col l6">
+        <a href="#"><img class="responsive-img" src="{% static 'images/faq_pics/image2.png' %}" alt="image1"></a>
+        <p>Connect with entrepreneurs</p>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="box">
+    <a href="#">
+        <h5>What do you need to know</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua.</p>
+    </a>
+</div>
+
+<div class="box">
+    <a href="#">
+        <h5>How can I get supporters?</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua.</p>
+    </a>
+</div>
+
+<div class="box">
+    <a href="#">
+        <h5>What do I need for my campaign?</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua.</p>
+    </a>
+</div>
+
+<div class="box">
+    <a href="#">
+        <h5>How much work do i have to do?</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua.</p>
+    </a>
 </div>
 
 {% endblock %}
