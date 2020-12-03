@@ -1,5 +1,6 @@
 import re
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
@@ -115,6 +116,7 @@ def search_campaign(request):
     query_word = request.GET.get('search_query')
     query_result = [res_word for res_word in re.split('[, ]', query_word) if res_word != '']
     temp = Campaign.objects.none()
+    number_of_campaigns = 0
     for word in query_result:
         res = Campaign.objects.filter(Q(tags__name__icontains=word) | Q(title__icontains=word))
         res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
@@ -122,10 +124,17 @@ def search_campaign(request):
         temp |= res1
     if len(temp) == 0: campaign = Campaign.objects.all()
     else: campaign = temp
+    number_of_campaigns = len(temp)
     tag = Tag.objects.all()
+    campaign_list = campaign.order_by('title')
+    pageinator = Paginator(campaign_list, 30)
+    num_page = request.GET.get('page')
+    page_res = pageinator.get_page(num_page)
     context = {
         'campaigns' : campaign,
-        'tags' : tag
+        'tags' : tag,
+        'number_of_campaigns': number_of_campaigns,
+        'page_res' : page_res
     }
     return render(request, 'users/home_page.html', context)
 
