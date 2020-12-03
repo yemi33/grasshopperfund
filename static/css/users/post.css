@@ -1,0 +1,38 @@
+.header {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.org-image {
+    width: 15%;
+    border-radius: 50%;
+    float:left;
+    padding-right: 2em;
+}
+
+.card {
+    border-radius: 20px;
+}
+
+.card-title {
+    font-weight: 600;
+    margin:0px;
+    float:left;
+    vertical-align: middle;
+    padding-right: 1em;
+}
+
+.time {
+    color: #AEAEAE;
+    font-size: 14px;
+    float:left;
+    vertical-align: middle;
+}
+
+.material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+    color: #4D4D4D;
+    padding-right: 1em;
+}
