@@ -150,7 +150,7 @@ def view_campaign(request, username:str, campaign_title:str):
         'progress': progress,
         'bar_width': int(progress*100),
     }
-
+    # git
     return render(request, 'campaigns/view_campaign.html', context)
 
 @login_required
