@@ -96,6 +96,8 @@ class TestModels(TestCase):
             if campaign.tags.filter(name=tag_name).exists(): count_i += 1
         self.assertEqual(count_i, 3)
 
+        assert len(self.campaign_list[0].all_tags) > 0
+
     def test_search_for_campaigns_1(self):
         '''Testing a search on campaign that contains the keyword jazz'''
         self.assertEqual(str(Campaign.objects.filter(title__icontains='jazz')[0]), 'Jazz festival')

@@ -64,6 +64,20 @@ class Campaign(models.Model):
         '''
         return len(self.backers)
 
+    @property
+    def percent_funded(self) -> float:
+        '''
+        Returns a percentage of how much of the funding goal has been reached
+        '''
+        return self.target_money / self.current_money
+
+    @property
+    def all_tags(self) -> list:
+        '''
+        Returns all tags associated w/ the campaign
+        '''
+        return self.tags.all()
+
 
 class Donation(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.PROTECT, related_name='donations')
