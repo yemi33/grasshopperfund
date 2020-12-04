@@ -1,11 +1,17 @@
 <!-- This is the HTML for a simple Post card using materialize css -->
+
+<!-- humanize allows us to use naturaltime -->
+{% load humanize %}
+
 <div class="card darken-1 hoverable small">
   <div class="card-content ">
     <span class="card-title">{{post.author}}</span>
 
     <p class="flow-text">
       <ul>Post text: {{post.text}}</ul>
-      <ul>{{post.created}}</ul>
+
+      <!-- use humanize naturaltime to format the datetime -->
+      <ul>{{post.created|naturaltime}}</ul>
     </p>
 
     <div class="card-action">
