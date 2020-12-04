@@ -6,9 +6,14 @@
 <link rel='stylesheet' href="{% static 'css/users/faq.css' %}">
 
 <div class="valign-wrapper center-align">
-<div class="container" id="hero">
+<div class="container-hero" id="hero">
+    <div class="row">
+        <div class="col s12">
     <h4 class="center-align">Bring your <span>ideas</span> to life</h4>
-    <a class="btn btn-yellow" href="#">Start a campaign</a>
+    <!-- i changed the button from "start a campaign" to "create an organization" -->
+    <a class="btn btn-yellow" href="{% url 'create-organization' %}">Create an organization</a>
+</div>
+</div>
 </div>
 </div>
 
@@ -28,37 +33,47 @@
 </div>
 </div>
 
-<div class="box">
-    <a href="#">
-        <h5>What do you need to know</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua.</p>
-    </a>
-</div>
-
-<div class="box">
-    <a href="#">
+<div class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <h5>What do I need to know?</h5>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+    </div>
+  </div> <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
         <h5>How can I get supporters?</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua.</p>
-    </a>
-</div>
-
-<div class="box">
-    <a href="#">
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+    </div>
+  </div> <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
         <h5>What do I need for my campaign?</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua.</p>
-    </a>
-</div>
-
-<div class="box">
-    <a href="#">
-        <h5>How much work do i have to do?</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua.</p>
-    </a>
-</div>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+    </div>
+  </div> <div class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <h5>How much work do I have to do?</h5>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+        incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
 {% endblock %}
