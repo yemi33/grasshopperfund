@@ -2,7 +2,11 @@
 
 This is meant to help onboard frontend developers.
 
-Our Project Structure:
+## Structure
+
+
+
+### File Structure:
 
 ```
 └───grasshopperfund
@@ -18,6 +22,47 @@ Our Project Structure:
     │       └───tags
     │    
     └───static <--- images used for the website.
+```
+
+### Django URLs
+
+Here are the URLS, organized by their URL path (not file path), along with their associated name. 
+
+```
+└───grasshopperfund
+    ├──/ - startsmart-home      <-- Root pages
+    │   ├───register/ - register   
+    │   ├───login/ - login  
+    │   ├───logout/ - logout
+    │   ├───update_profile/ - update-profile 
+    │   ├───delete-profile/ - delete-profile
+    │   ├───profile/<user_id>/ - profile
+    │   └───add_interested_tags - add-interested-tags
+    │
+    ├──/campaigns               <-- Campaigns pages
+    │   ├───<organization_name>/create/ - create-campaign   
+    │   ├───view/<organization_name>/<campaign_title>/ - view-campaign  
+    │   ├───make_donation/<campaign_id>/ - make-donation
+    │   ├───search/ - search_campaign
+    │   ├───update/<campaign_id>/ - update-campaign
+    │   └───delete/<campaign_id>/ - delete-campaign
+    │
+    ├──/organizations           <-- Organizations pages
+    │   ├───create/ - create-organization  
+    │   ├───browse/ - browse-organizations
+    │   ├───view/<organization_name>/- view-organization
+    │   ├───update/<organization_name>/ - update-organization
+    │   └───delete/<organization_name>/ - delete-organization
+    │
+    ├──/posts                   <-- Posts pages
+    │   ├───create/<organization_name>/ - create-post 
+    │   ├───view/<organization_name>/<post_id>/ - view-post
+    │   ├───update/<organization_name>/<post_id>/ - update-post
+    │   └───delete/<organization_name>/<post_id>/ - delete-post
+    │
+    └──/tags                     <-- Tags pages
+        └───filter/<tagname>/ - filter-campaigns-from-tags
+
 ```
 
 ## What do I need to know?
