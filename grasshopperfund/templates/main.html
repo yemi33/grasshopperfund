@@ -14,6 +14,9 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  <!-- Amarysti was here-->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+  
    <!-- Compiled and minified JavaScript -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     
@@ -23,12 +26,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     
+<!-- Amarysti add this  style -->
+<style type="text/css">
+ 
+<!-- Amarysti add this  style -->
+<style type="text/css">
+.nav-wrapper{
+    z-index:1400;
+position: fixed;
+}
+.sticky-nav {
+  position: fixed;
+  z-index:1400;
+  top: 0;
+  width: 100%;
+}
+
+
+</style>
+  </style>
+
+
   <title>Grasshopperfund</title>
 </head>
 <body>
   <header>
-    <nav>
-      <div class="nav-wrapper">
+    
+    <nav fixed>
+      
+      <div class="nav-wrapper fixed"  >
         <a class="brand-logo center" href="{% url 'startsmart-home' %}">Grasshopperfund</a>
         <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-left" class="left hide-on-med-and-down">
@@ -68,6 +94,7 @@
           {% endif %}
         </ul>
       </div>
+    
     </nav>
     <ul class="sidenav" id="mobile">
       <li><a href="{% url 'startsmart-home' %}">Home</a></li>
@@ -99,8 +126,8 @@
     </div>
   </main>
 
-  <footer class="page-footer">
-    <div class="container">
+  <footer class="page-footer"style="z-index:1200;">
+    <div class="container" >
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Grasshopperfund</h5>
@@ -143,5 +170,15 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+<script>
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 50) {
+      $('nav').addClass('sticky-nav');
+    } else {
+      $('nav').removeClass('sticky-nav');
+    }
+  });
+</script>
+  </body>
+
 </html>

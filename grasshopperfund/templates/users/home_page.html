@@ -2,106 +2,476 @@
 {% load humanize %}
 {% load static %}
 
-<link rel='stylesheet' href="{% static 'css/users/home_page.css' %}">
 
-<script>
-    .button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-</script>
+
+
+<head>
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+</head>
+
+
+
 
 {% block content %}
+<head>
 
-{% if not request.user.is_authenticated %}
-        <div class="row text-center">
-        <div class="col-md-12 text-center">
-            <h2 style="margin-top:10px;">Membership</h2>
-        </div>
-      <div class="col s12 m4">
-            <!--This column displays beginner membership as bronze star-->
-            <img src="{% static 'images/bronze-star-md.png' %}" width="200" height="200">
-             <h4 class="service-heading">Beginner</h4>
-             <a class="btn btn-yellow" href="">Learn More</a>
-        </div>
-        <div class="col s12 m4">
-            <img src="{% static 'images/silver_star.png' %}" width="200" height="200">
-             <h4 class="service-heading">Pro</h4>
-             <a class="btn btn-outline-info" href="">Learn More</a>
-        </div>
-        <div class="col s12 m4">
-            <img src="{% static 'images/gold_star.png' %}" width="200" height="200">
-            <h4 class="service-heading">Expert</h4>
-            <a class="btn btn-outline-info" href="">Learn More</a>
-        </div>
-
-        </div>
-{% endif %}
-
-<hr>
-  <div class="row">
-  <div class = "col s1">
-      {% for tag in tags %}
-       <a class="btn waves-effect waves-teal btn-flat" href="{% url 'filter-campaigns-from-tags' tag.name %}">
-           #{{ tag.name }}</a>
-      {% endfor %}
-  </div>
-    {% for campaign in campaigns %}
-    <div class="col s12 m4 offset-l1">
-
-        <div class="card darken-1 hoverable medium sticky-action">
-          <div class="card-content ">
-            <div class="card-image">
-              <img class="activator responsive" src="{{ campaign.image.url }}" >
-            </div>
-
-            <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
+<style type="text/css">
 
 
-            <p>By {{campaign.creator.username}} From {{ campaign.organization.name }}</p>
+*{
+    box-sizing: border-box;
+}
+section{
+    overflow-x:hidden;
+}
+h4{
+color: #4D4D4D;
+margin: 0 0 0 0;
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+h6{
+padding: 5;
+color: #4D4D4D;
+    
+}
 
-            <p>By {{campaign.organization.username}}</p>
 
-          </div>
-          <div class="card-reveal">
-            <span class="card-title">{{campaign.title}}<i class="material-icons right">close</i></span>
-            <p class="flow-text">
-              <ul>{{campaign.description}}</ul>
-            </p>
-            <h6>
-              <ul>Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></ul>
-              <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
-              <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
-            </h6>
-              {% for title, progress in progress_dict.items %}
-                {% if title == campaign.title %}
-                  <div class="progress">
-      	            <div class="determinate" style="width: {{ progress }}%"></div>
-                  </div>
-                 {% endif %}
-              {% endfor %}
-          </div>
-          <div class="card-action">
-            {% if request.user == campaign.creator %}
-              <a href="{% url 'update-campaign' campaign.id %}">Update</a>
-              <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
-            {% endif %}
-            <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
-            <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
 
-          </div>
-        </div>
-    </div>
-      {% endfor %}
-  </div>
+/* Attribute: Progress Bar */
 
-  <!-- Compiled and minified CSS -->
+.progressBar {
+    background-color: lightgrey;
+width: 300px;
+height: 20px;
+    border-radius: 1.5em;
+    
+}
+.progress {
+width: 10%;
+height: 100%;
+    border-radius: 30px;
+    background-color: rgb(0, 185, 0);
+animation: color 5s linear 0s alternate forwards;
+    
+    
+}
+
+
+
+@keyframes color{
+   
+    10% {
+        background-color:rgb(0, 185, 0);
+    width: 10%;
+    }
+    100% {
+        background-color:rgb(0, 185, 0);
+    width: 100%;
+    }
+}
+
+/* Side-Navigation */
+.side-nav {
+    height:1000px;
+    width:220px;
+  
+    z-index : 100;
+    top:60px;
+    left:0;
+    background-color:#3FC380;
+    overflow-x:hidden;
+    padding-top: 30px;
+}
+.side-nav a {
+padding:0px 8px 6px 16px;
+    text-decoration: none;
+    font-size:17px;
+    font-family: 'Poppins', sans-serif;
+color: #ffffff;
+display:block;
+}
+.side-nav a:hover{
+color:#ffe96b;
+}
+
+/* Section: section-title  */
+.btn{
+    text-align: center;
+    max-height: 100%;
+}
+.card-panel{
+    border-radius: 13px !important;
+    min-width: 500px;
+    max-width: 700px;
+margin: 0 auto;
+} 
+
+.container{
+ margin-top:-3px;
+width: 100%;
+    max-width:initial;
+    > .row{
+    margin: 0;
+        > .col{
+        padding: 0;
+        }
+    }
+position: absolute;
+}
+
+@media only screen and (min-width: 320px) {
+    .card-panel {
+        margin-left: 0 auto;
+    }
+}
+@media only screen and (min-width: 9900px) {
+    .card-panel {
+        margin-left: 0 auto;
+    }
+    
+}
+@media only screen and (min-width: 1000px) {
+    .card-panel {
+        margin-left: 30.5vw;
+    }
+    
+}
+
+
+/*Section: Featured Campaign */
+.sizeslide{
+    box-sizing: border-box;
+width:50%;
+    
+}
+.slider .indicators .indicator-item.active{
+    background-color: #ebb70c;
+}
+
+
+/*Section: Post */
+.card{
+    border-radius: 13px !important;
+    min-width: 100px;
+    max-width: 300px;
+    min-height: 100px;
+    max-height: 500px;
+    
+}
+
+
+</style>
+
+
+<body>
+
+
+<!------ Section: Header ------->
+<section class="section section-title center green darken-3 "  >
+<br>
+<div class="container" style="margin:0 auto; margin-to:-3px; ">
+<div class="col s12 m5">
+<div class="inner">
+<div class="card-panel white ">
+<div class="row">
+<div class="col s12">
+<h4 style="font-size: max(3vw, 30px);;" ><b>Discover new ideas on <span style="color: #39AF73">Grasshopperfund</span></b></h3>
+<h6 style="padding-top: 10px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!</h4>
+<br>
+<div class="buttons" >
+<a class="waves-effect waves-dark btn yellow darken-3 " style="margin-right: 0px 10px 0px 0px;  border-radius: 16px;"  href="{% url 'register' %}">Sign up</a>
+<a class="waves-effect waves-dark btn yellow darken-3 " style="margin: 0px 0px 0px 30px;  border-radius: 16px;" href="{% url 'register' %}">Join us today</a>
+</div>
+</div>
+</div>
+</div>
+<br>
+</div>
+</div>
+</div>
+</section>
+
+<!-------- Side Navigation --------->
+<ul id="slide-out" class="side-nav fixed hidden-on-large-only ">
+<li><a  href="#">Online Programs</a></li>
+<li><a  href="#">Grow Your Network</a></li>
+<li><a  href="#">About Crowdfunding</a></li>
+<li><a  href="#">Resources & Tips</a></li>
+</ul>
+</head>
+<script src= "home_page.js"> </script>
+
+<!-- break lines-->
+<br>
+
+<!------Section: Featured -------->
+<section class="section featured center">
+<h3 style="margin:0 auto; padding-left: 10vw;  font-size: 36px; color:#4D4D4D; "><strong>Featured Campaign</strong></h3> <br>
+<div class="sizeslide" style=" margin: 0vw 100vw 0vw 30vw; ">
+<div class="slider ">
+<ul class="slides center " style="border-radius: 15px;"><div class="carousel-fixed-item center clearfix">
+
+</div>
+
+<li>
+<img class="img-responsive"  src="{% static 'images/bronze-star-md.png' %}"  alt="image one" style="background-color: #eeeeee; border-radius: 15px" >
+<!-- random image -->
+<div class="caption left-align">
+<h5  style="font-size: 32px; color: #000000; "><b>Project Name</b></h3>
+<h6 style="font-size: 18px; color: #000000dd;">by Startup Venture</h5>
+</div>
+</li>
+<li>
+<img class="img-responsive"  src="{% static 'images/silver_star.png' %}" alt="image two" style="background-color: #eeeeee; border-radius: 15px" > <!-- random image -->
+<div class="caption left-align">
+<h3 style="font-size: 32px; color: #000000;"><b>Project Name</b></h3>
+<h5  style="font-size: 18px; color: #000000;">by Startup Venture</h5>
+</div>
+</li>
+<li>
+<img class="img-responsive"  src="{% static 'images/gold_star.png' %}" alt="image three"  style="background-color: #eeeeee; border-radius: 15px"> <!-- random image -->
+<div class="caption left-align">
+<h3 style="font-size: 32px; color: #000000; "><b>Project Name</b></h3>
+<h5  style="font-size: 18px; color: #000000;">by Startup Venture</h5>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+<!-- break lines-->
+<br>
+<br>
+<br>
+
+
+
+<!-------- Section: Posts ---------->
+
+<!-------- where the cards are ---------->
+<section class="fcards scrollspy">
+<div class="row" style="padding-left: 50px; padding-right: 50px;">
+<h7 style="text-align:left; margin-left: 17vw; font-size: 25px; ">Popular Campaign</h7>
+<div class="project" style="margin-left: 15vw; margin-right: 1vw;">
+<!-- First Card -->
+<div class="col s12 m12 l4" style="padding: 20px 5px;">
+<a href="{% url 'register' %}">
+<div class="card" style=" border-radius: 30px; margin-left:15px; ">
+<div class="card-image">
+<!-- Save and Share icons-->
+<a href="#" >
+<i class=" small material-icons  grey-text"  style=" position:relative; float:right; ">bookmark_border</i>
+</a>
+<a href="#" >
+<i class=" small material-icons grey-text" style="position:relative; float:right;  " >shares</i>
+</a>
+<!-- End Save and Share icons-->
+<img src="{% static 'images/campaign_default_pic.png' %}" alt="campaign">
+<!-- Progress Bar -->
+<div class="progressBar">
+<div class="progress" style="max-width:50%;"></div>
+</div>
+<!-- END Progress Bar -->
+</div>
+</a>
+<div class="card-content">
+<span class="card-title black-text left-align"><strong>Organization Name</strong></span>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat, sequi nam excepturi quo odio?</p>
+</div>
+</div>
+</div>
+<!-- Second Card -->
+<div class="col s12 m12 l4" style="padding: 20px 5px;">
+<a href="{% url 'register' %}">
+<div class="card" style=" border-radius: 30px; margin-left:15px; margin-right:15px;">
+<div class="card-image">
+<!-- Save and Share icons-->
+<a href="#" >
+<i class=" small material-icons  grey-text"  style=" position:relative; float:right; ">bookmark_border</i>
+</a>
+<a href="#" >
+<i class=" small material-icons grey-text" style="position:relative; float:right;  " >shares</i>
+</a>
+<!-- End Save and Share icons-->
+<img src="{% static 'images/campaign_default_pic.png' %}" alt="campaign">
+<!-- Progress Bar -->
+<div class="progressBar">
+<div class="progress" style="max-width:80%;"></div>
+</div>
+<!-- END Progress Bar -->
+</div>
+</a>
+<div class="card-content">
+<span class="card-title black-text left-align"><strong>Organization Name</strong></span>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat, sequi nam excepturi quo odio?</p>
+</div>
+</div>
+</div>
+<!-- Third Card -->
+<div class="col s12 m12 l4" style="padding: 20px 5px;">
+<a href="{% url 'register' %}">
+<div class="card" style=" border-radius: 30px; margin-left:15px; margin-right:15px;">
+<div class="card-image">
+<!--  Save and Share icons-->
+<a href="#" >
+<i class=" small material-icons  grey-text"  style=" position:relative; float:right; ">bookmark_border</i>
+</a>
+<a href="#" >
+<i class=" small material-icons grey-text" style="position:relative; float:right;  " >shares</i>
+</a>
+<!-- End Save and Share icons-->
+<img src="{% static 'images/campaign_default_pic.png' %}" alt="campaign">
+<!-- Progress Bar -->
+<div class="progressBar">
+<div class="progress" style="max-width:30%;"></div>
+</div>
+<!-- END Progress Bar -->
+</div>
+</a>
+<div class="card-content">
+<span class="card-title black-text left-align"><strong>Organization Name</strong></span>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat, sequi nam excepturi quo odio?</p>
+</div>
+</div>
+</div>
+<!-- Fourth Card -->
+<div class="col s12 m12 l4" style="padding: 20px 5px;">
+<a href="{% url 'register' %}">
+<div class="card" style=" border-radius: 30px; margin-left:15px; margin-right:15px;">
+<div class="card-image">
+<!--  Save and Share icons-->
+<a href="#" >
+<i class=" small material-icons  grey-text"  style=" position:relative; float:right; ">bookmark_border</i>
+</a>
+<a href="#" >
+<i class=" small material-icons grey-text" style="position:relative; float:right;  " >shares</i>
+</a>
+<!-- End Save and Share icons-->
+<img src="{% static 'images/campaign_default_pic.png' %}" alt="campaign">
+<!-- Progress Bar -->
+<div class="progressBar">
+<div class="progress" style="max-width:100%;"></div>
+</div>
+<!-- END Progress Bar -->
+</div>
+</a>
+<div class="card-content">
+<span class="card-title black-text left-align"><strong>Organization Name</strong></span>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat, sequi nam excepturi quo odio?</p>
+</div>
+</div>
+</div>
+<!-- Fifth Card -->
+<div class="col s12 m12 l4" style="padding: 20px 5px;">
+<a href="{% url 'register' %}">
+<div class="card" style=" border-radius: 30px; margin-left:15px; margin-right:15px;">
+<div class="card-image">
+<!--  Save and Share icons-->
+<a href="#" >
+<i class=" small material-icons  grey-text"  style=" position:relative; float:right; ">bookmark_border</i>
+</a>
+<a href="#" >
+<i class=" small material-icons grey-text" style="position:relative; float:right;  " >shares</i>
+</a>
+<!-- End Save and Share icons-->
+<img src="{% static 'images/campaign_default_pic.png' %}" alt="campaign">
+<!-- Progress Bar -->
+<div class="progressBar">
+<div class="progress" style="max-width:100%;"></div>
+</div>
+<!-- END Progress Bar -->
+</div>
+</a>
+<div class="card-content">
+<span class="card-title black-text left-align"><strong>Organization Name</strong></span>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat, sequi nam excepturi quo odio?</p>
+</div>
+</div>
+</div>
+<!-- Sixth Card -->
+<div class="col s12 m12 l4" style="padding: 20px 5px;">
+<a href="{% url 'register' %}">
+<div class="card" style=" border-radius: 30px; margin-left:15px; margin-right:15px;">
+<div class="card-image">
+<!--  Save and Share icons-->
+<a href="#" >
+<i class=" small material-icons  grey-text"  style=" position:relative; float:right; ">bookmark_border</i>
+</a>
+<a href="#" >
+<i class=" small material-icons grey-text" style="position:relative; float:right;  " >shares</i>
+</a>
+<!-- End Save and Share icons-->
+<img src="{% static 'images/campaign_default_pic.png' %}" alt="campaign">
+<!-- Progress Bar -->
+<div class="progressBar">
+<div class="progress"></div>
+</div>
+<!-- END Progress Bar -->
+</div>
+</a>
+<div class="card-content">
+<span class="card-title black-text left-align"><strong>Organization Name</strong></span>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat, sequi nam excepturi quo odio?</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</body>
+
+
+
+<!---------- SideNav JAVASCRIPT------------>
+
+<script>
+$(document).ready(function(){
+    $('.sidenav').sidenav();
+});
+</script>
+
+<!---------- SLIDER JAVASCRIPT------------>
+<script>
+const slider=document.querySelector('.slider');
+M.Slider.init(slider,{
+fullWidth: false,
+indicators: true,
+height: 400,
+transition: 500,
+interval: 5000
+});
+
+</script>
+
+<script>
+$(document).ready(function(){
+    $('.slider').slider();
+    
+    // function for next slide
+    $('.next').click(function(){
+        $('.slider').slider('next');
+    })
+    
+    // function for previous slide
+    $('.prev').click(function(){
+        $('.slider').slider('prev');
+    })
+});
+
+</script>
+
+
+
 {% endblock %}
+
+
+
