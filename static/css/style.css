@@ -69,12 +69,12 @@ footer.page-footer {
     color:white;
 }
 
-.btn-flat {
+.btn btn-flat {
     background-color:white;
     color: var(--darkgreen);
     border:1px solid black;
 }
 
-.btn-yellow {
+.btn btn-yellow {
     background-color:var(--yellow);
 }

@@ -1,5 +1,7 @@
 import re
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib import messages
@@ -7,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import CampaignForm, TagsForm, DonationForm
 from .models import Campaign, Donation
-from ..tags.models import Tags
+from ..tags.models import Tag
 from ..organizations.models import Organization
 
 
@@ -30,7 +32,7 @@ def create_campaign(request, organization_name: str):
                         tag_form.cleaned_data['enter_tags_you_would_like_to_include'])
                         if tag_name != '']
             for tag_name in tag_list:
-                if Tags.objects.filter(name=tag_name).exists():
+                if Tag.objects.filter(name=tag_name).exists():
                     count_same_tag += 1
                     messages.success(request, 'Tag name %s exists' % tag_name)
                     tag_list.remove(tag_name)
@@ -60,7 +62,7 @@ def create_campaign(request, organization_name: str):
                 image = campaign_image)
             new_campaign.save()
             for enter_tag_name in tag_list:
-                tag_created = Tags(name=enter_tag_name)
+                tag_created = Tag(name=enter_tag_name)
                 tag_created.save()
                 new_campaign.tag.add(tag_created)
                 tag_created.campaigns.add(new_campaign)
@@ -114,14 +116,25 @@ def search_campaign(request):
     query_word = request.GET.get('search_query')
     query_result = [res_word for res_word in re.split('[, ]', query_word) if res_word != '']
     temp = Campaign.objects.none()
+    number_of_campaigns = 0
     for word in query_result:
-        res = Campaign.objects.all().filter(title__icontains=word)
-        temp |= res
-    campaign = temp
-    tag = Tags.objects.all()
+        res = Campaign.objects.filter(Q(tags__name__icontains=word) | Q(title__icontains=word))
+        res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
+        if len(res1) == 0: messages.success(request, '%s does not exist' % word)
+        temp |= res1
+    if len(temp) == 0: campaign = Campaign.objects.all()
+    else: campaign = temp
+    number_of_campaigns = len(temp)
+    tag = Tag.objects.all()
+    campaign_list = campaign.order_by('title')
+    pageinator = Paginator(campaign_list, 30)
+    num_page = request.GET.get('page')
+    page_res = pageinator.get_page(num_page)
     context = {
         'campaigns' : campaign,
-        'tags' : tag
+        'tags' : tag,
+        'number_of_campaigns': number_of_campaigns,
+        'page_res' : page_res
     }
     return render(request, 'users/home_page.html', context)
 
@@ -129,10 +142,13 @@ def search_campaign(request):
 def view_campaign(request, username:str, campaign_title:str):
     campaign = Campaign.objects.get(creator__username=username, title=campaign_title)
     donor = Donation.objects.filter(donor=request.user.id)
+    progress = campaign.current_money/campaign.target_money
 
     context = {
         'campaign': campaign,
         'donor': donor,
+        'progress': progress,
+        'bar_width': int(progress*100),
     }
 
     return render(request, 'campaigns/view_campaign.html', context)

@@ -47,6 +47,13 @@
 {% endif %}
 
 <hr>
+    <div class="row">
+    <div class="col s12 m4">
+        {% if number_of_campaigns != None %}
+            <p><strong>There are {{number_of_campaigns}} Campaigns</strong></p>
+        {% endif %}
+    </div>
+    </div>
   <div class="row">
   <div class = "col s1">
       {% for tag in tags %}
@@ -81,6 +88,13 @@
               <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
               <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
             </h6>
+              {% for title, progress in progress_dict.items %}
+                {% if title == campaign.title %}
+                  <div class="progress">
+      	            <div class="determinate" style="width: {{ progress }}%"></div>
+                  </div>
+                 {% endif %}
+              {% endfor %}
           </div>
           <div class="card-action">
             {% if request.user == campaign.creator %}
@@ -95,6 +109,26 @@
     </div>
       {% endfor %}
   </div>
+
+    {% if number_of_campaigns != None %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_res.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_res.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_res.number }} of {{ page_res.paginator.num_pages }}.
+        </span>
+
+        {% if page_res.has_next %}
+            <a href="?page={{ page_res.next_page_number }}">next</a>
+            <a href="?page={{ page_res.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+        {% endif %}
 
   <!-- Compiled and minified CSS -->
 {% endblock %}
