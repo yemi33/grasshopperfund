@@ -16,6 +16,10 @@ h4 {
     box-shadow:0px 0px 15px grey;
 }
 
+.nav-link {
+    color: var(--darkgreen);
+}
+
 .nav-item#google-fb {
     display:flex;
     align-items:center;
@@ -29,8 +33,4 @@ h4 {
 
 .nav-link#social-link {
     margin-left:5px;
-}
-
-.nav-link#sign-up-link {
-    color: var(--darkgreen);
 }
