@@ -130,7 +130,7 @@ def search_campaign(request):
     number_of_campaigns = len(temp)
     tag = Tag.objects.all()
     campaign_list = campaign.order_by('title')
-    pageinator = Paginator(campaign_list, 30)
+    pageinator = Paginator(campaign_list, 8//2)
     num_page = request.GET.get('page')
     page_res = pageinator.get_page(num_page)
     context = {
