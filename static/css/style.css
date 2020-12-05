@@ -64,6 +64,7 @@ footer.page-footer {
 }
 
 .btn {
+    text-transform:none;
     background-color:var(--green);
     color:white;
 }

@@ -2,30 +2,27 @@
 {% load material_form %}
 {% block content %}
 
+<div class="container">
 <div class="row">
-    <div class="col m6">
-
+    <div class="col m12">
+        <h3 class="center-align">Create a new campaign</h3>
       <form method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
           {% form form=form %}{% endform %}
-          <input class="btn btn-info" type="submit" name="Submit">
           <script type="text/javascript">
               let creator = '{{request.user.id}}';
               document.getElementById('element').value = creator;
           </script>
-
-    </div>
-<div class="col m6">
-
-      <form method="POST" action="" enctype="multipart/form-data">
-          {% csrf_token %}
-          {% form form=form1 %}{% endform %}
-          <script type="text/javascript">
-              let creator = '{{request.user.id}}';
-              document.getElementById('element').value = creator;
-          </script>
-
+          <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% form form=form1 %}{% endform %}
+            <script type="text/javascript">
+                let creator = '{{request.user.id}}';
+                document.getElementById('element').value = creator;
+            </script>
+            <input class="btn btn-yellow center-align" type="submit" name="Submit" value="Create campaign">
+  
+      </div>
     </div>
 </div>
-
 {% endblock %}
