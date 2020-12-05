@@ -62,11 +62,11 @@ def create_campaign(request, organization_name: str):
             for enter_tag_name in tag_list:
                 tag_created = Tag(name=enter_tag_name)
                 tag_created.save()
-                new_campaign.tag.add(tag_created)
+                new_campaign.tags.add(tag_created)
                 tag_created.campaigns.add(new_campaign)
             if request.POST.get('tag') != None:
                 for exist_tag in tag_form.cleaned_data['tag']:
-                    new_campaign.tag.add(exist_tag)
+                    new_campaign.tags.add(exist_tag)
                     exist_tag.campaigns.add(new_campaign)
             messages.success(request, 'Campaign Created!')
             ##Uncomment campaign_form.save()
@@ -130,7 +130,7 @@ def search_campaign(request):
     number_of_campaigns = len(temp)
     tag = Tag.objects.all()
     campaign_list = campaign.order_by('title')
-    pageinator = Paginator(campaign_list, 30)
+    pageinator = Paginator(campaign_list, 8//2)
     num_page = request.GET.get('page')
     page_res = pageinator.get_page(num_page)
     context = {
