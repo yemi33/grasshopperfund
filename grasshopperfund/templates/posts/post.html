@@ -7,18 +7,16 @@
 {% block styles %}
 <link rel='stylesheet' href="{% static 'css/users/post.css' %}">
 
-<div class="card darken-1 hoverable small">
+<div class="card hoverable">
   <div class="card-content ">
 
     <div class="header">
-      <span><img class="org-image" src="{{ organization.image.url }}"></span>
+      <span><div class="img-crop"><img class="org-image" src="{{ organization.image.url }}"></div></span>
       <span class="card-title">{{post.organization.name}}</span>
       <span class="time">{{post.created|naturaltime}}</span>
     </div>
 
-    <p class="flow-text">
-      <ul>{{post.text}}</ul>
-    </p>
+    <span class="text">{{post.text}}</span>
 
     <div class="card-action">
       <i class="material-icons">thumb_up</i>
