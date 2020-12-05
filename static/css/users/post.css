@@ -1,0 +1,53 @@
+.header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-crop {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    float:left;
+}
+
+.org-image {
+    display: inline;
+    margin: 0 auto;
+    margin-left: -25%;
+    height: 100%;
+    width: auto;
+}
+
+.card {
+    border-radius: 20px;
+}
+
+.card-title {
+    font-weight: 600;
+    margin:0px;
+    float:left;
+    padding-left: 1em;
+}
+
+.time {
+    color: #AEAEAE;
+    font-size: 14px;
+    float:left;
+    padding-left: 2em;
+}
+
+.text {
+    display: flex;
+    padding-left: 100px;
+    padding-bottom: 2em;
+}
+
+.material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+    color: #4D4D4D;
+    padding-right: 1em;
+}
