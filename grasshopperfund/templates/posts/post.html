@@ -1,5 +1,7 @@
 <!-- This is the HTML for a simple Post card using materialize css -->
 {% load static %}
+<!-- humanize allows us to use naturaltime -->
+{% load humanize %}
 
 {% block content %}
 {% block styles %}
@@ -11,7 +13,7 @@
     <div class="header">
       <span><img class="org-image" src="{{ organization.image.url }}"></span>
       <span class="card-title">{{post.organization.name}}</span>
-      <span class="time">{{post.created}}</span>
+      <span class="time">{{post.created|naturaltime}}</span>
     </div>
 
     <p class="flow-text">
