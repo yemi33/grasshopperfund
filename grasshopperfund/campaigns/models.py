@@ -14,7 +14,7 @@ class Campaign(models.Model):
     days_left = models.IntegerField()
     image = models.ImageField(default='campaign_default_pic.png', blank=True, upload_to='campaign_pics')
 
-    tag = models.ManyToManyField('tags.Tag', related_name='campaign')
+    tags = models.ManyToManyField('tags.Tag', related_name='campaigns')
 
     search_fields = ['creator__username']
 
@@ -63,6 +63,20 @@ class Campaign(models.Model):
         get num_of_backers from len of backers
         '''
         return len(self.backers)
+
+    @property
+    def percent_funded(self) -> float:
+        '''
+        Returns a percentage of how much of the funding goal has been reached
+        '''
+        return self.target_money / self.current_money
+
+    @property
+    def all_tags(self) -> list:
+        '''
+        Returns all tags associated w/ the campaign
+        '''
+        return self.tags.all()
 
 
 class Donation(models.Model):

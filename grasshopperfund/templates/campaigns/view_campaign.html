@@ -1,32 +1,37 @@
 {% extends 'main.html' %}
 {% load humanize %}
+{% load static %}
+
 {% block content %}
 
-<br>
+{% block styles %}
+<link rel='stylesheet' href="{% static 'css/users/view_campaign.css' %}">
 
-<div class="row">
-    <div class="col-md">
-        <div class="card card-body">
-            <h5>Created by {{campaign.creator}}</h5>
-            <h5>Organization: {{ campaign.organization.name }}</h5>
-            <hr>
-        </div>
-    </div>
+<div class="container">
+    <h1>{{campaign.title}}</h1>
+    <h2>by {{ campaign.organization.name }}</h2>
+    <h3><i class="material-icons">access_time</i> {{campaign.days_left}} days left</h3>
+    <img class="cover-picture" src="{{ campaign.image.url }}">
+    <p>{{campaign.description}}</p>
+    </br>
 
-    <div class="col-md">
-        <div class="card card-body">
-            <h5>Campaign Information</h5>
-            <hr>
-            <p><strong>Project Name:</strong> {{campaign.title}}</p>
-            <p><strong>Target Goal:</strong> ${{campaign.target_money|intcomma}}</p>
-            <p><strong>Current Donations:</strong> ${{campaign.current_money|intcomma}}</p>
-            <p><strong>Description:</strong> {{campaign.description}}</p>
-            <p><strong>Days Left:</strong> {{campaign.days_left}}</p>
-            <p><strong>Number of Investors:</strong> {{campaign.num_of_backers}}</p>
-            <!-- <p><strong>Image:</strong> {{campaign.imageUrl}}</p> -->
-            <a class="btn btn-outline-info" href="{% url 'make-donation' campaign.id %}">Donate</a>
+    <div class="tracker">
+        <p class="current-donations">${{campaign.current_money|intcomma}}</p>
+        <p class="target-goal">${{campaign.target_money|intcomma}}</p>
+        <div class="progress">
+            <div class="determinate" style="width: {{ bar_width }}%"></div>
         </div>
+        <p class="percent-funded">{{ bar_width }}% funded</p>
+        <p class="backers">{{campaign.num_of_backers}} backers</p>
     </div>
+    {% if donor.count == 0 %}
+        <a class="donate-btn btn-large" href="{% url 'make-donation' campaign.id %}">Back project</a>
+    {% else %}
+        <a class="donated-btn btn-large disabled">Already Backed!</a>
+    {% endif %}
+    </br>
+
 </div>
 
+{% endblock %}
 {% endblock %}
