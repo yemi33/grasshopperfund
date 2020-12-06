@@ -60,10 +60,52 @@ footer.page-footer {
     background-color: var(--darkgreen) !important;
 }
 .card {
-    /* add any styling here */
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card .card-image {
+    height: 50%;
+    margin-bottom: -40px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.card .progress {
+    height: 15px;
+    border-radius: 50px;
+    background: #E8F5EF;
+    box-shadow: 0px 2px 2px  rgba(0, 0, 0, 0.25);
+}
+
+.card .progress .determinate {
+    background: #318D5E;
+}
+
+.card .card-title {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.card .organization {
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.card .material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.card .card-action {
+    border-radius: 0px 0px 20px 20px;
+}
+
+a {
+    color: inherit;
 }
 
 .btn {
+    text-transform:none;
     background-color:var(--green);
     color:white;
 }
