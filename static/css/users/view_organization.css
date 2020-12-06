@@ -1,0 +1,56 @@
+.title-header {
+    padding: 3em 0em 3em 0em;
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+}
+
+.img-circle {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.org-img {
+    display: inline;
+    margin: 0 auto;
+    margin-left: -25%;
+    height: 100%;
+    width: auto;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 42px;
+    color: #4D4D4D;
+    padding-top: 1em;
+    padding-left: 30px;
+    margin: auto;
+}
+
+h2 {
+    font-size: 20px;
+    color: #4D4D4D;
+    padding-left: 30px;
+
+}
+
+.tabs .tab a {
+    color: #4D4D4D;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.tabs .tab a:hover {
+    color:#39AF73;
+}
+
+.tabs .tab a.active {
+    color: #39AF73;
+}
+
+.tabs .indicator {
+    background-color: #39AF73;
+}
