@@ -59,10 +59,11 @@
       {% for tag in tags %}
        <a class="btn waves-effect waves-teal btn-flat" href="{% url 'filter-campaigns-from-tags' tag.name %}">
            #{{ tag.name }}</a>
+        <div class="row"></div>
       {% endfor %}
   </div>
     {% for campaign in campaigns %}
-    <div class="col s10 m3">
+        <div class = "col s10 m3">
       <a class="link" href="{% url 'view-campaign' campaign.creator campaign.title %}">
         <div class="card medium hoverable">
           <div class="card-image">
@@ -87,8 +88,11 @@
             {% endif %}
           </div>
         </div>
-      </a>
-    </div>
+      </a></div>
+        {% if forloop.counter|divisibleby:"3" or forloop.last %}
+        <div class="row"></div>
+            <div class = "col push-s2">
+        {% endif %}
     {% endfor %}
   </div>
 
