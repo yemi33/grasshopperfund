@@ -32,7 +32,9 @@ from .models import Tag
 def filter_campaigns_from_tags(request, tagname:str):
     campaigns = Tag.objects.get(name=tagname).campaigns.all()
     tags = Tag.objects.all()
-    context = {'campaigns': campaigns, 'tags': tags}
+    progress_dict = {campaign_x.title: int((campaign_x.current_money / campaign_x.target_money) * 100) for campaign_x in
+                     campaigns}
+    context = {'campaigns': campaigns, 'tags': tags, 'progress_dict': progress_dict}
     return render(request, 'users/home_page.html', context)
 
 # Create your views here.
