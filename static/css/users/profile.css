@@ -1,0 +1,41 @@
+.title-header {
+    padding: 3em 0em 3em 0em;
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+}
+
+.img-circle {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.org-image {
+    display: inline;
+    margin: 0 auto;
+    margin-left: -25%;
+    height: 100%;
+    width: auto;
+}
+
+h1 {
+    color: #4D4D4D;
+    font-size: 32px;
+    font-weight: 600;
+    padding-top: 2em;
+    padding-left: 30px;
+    margin: auto;
+}
+
+h2 {
+    color: #4D4D4D;
+    font-size: 16px;
+    padding-left: 30px;
+}
+
+.card {
+    padding-left: 1em;
+}
