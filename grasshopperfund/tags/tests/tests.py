@@ -114,4 +114,6 @@ class TestModels(TestCase):
         as well as multiple campaigns associated with a given tag
         '''
         print("test tag created starting")
-        self.assertEqual(len(Tag.objects.get(name=self.tag_list.name).campaigns.all()), 2)
+        self.assertEqual(len(Tag.objects.get(name=self.tag_list.name).all_campaigns), 2)
+
+
