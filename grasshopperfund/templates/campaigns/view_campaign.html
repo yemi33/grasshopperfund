@@ -19,17 +19,15 @@
         <p class="current-donations">${{campaign.current_money|intcomma}}</p>
         <p class="target-goal">${{campaign.target_money|intcomma}}</p>
         <div class="progress">
-            <div class="determinate" style="width: 70%"></div>
+            <div class="determinate" style="width: {{ bar_width }}%"></div>
         </div>
-        <p class="percent-funded">{% widthratio campaign.current_money campaign.target_money 1 %}% funded</p>
+        <p class="percent-funded">{{ bar_width }}% funded</p>
         <p class="backers">{{campaign.num_of_backers}} backers</p>
     </div>
-
-    {% if donor == 0 %}
-    <a class="donate-btn btn-large" href="{% url 'make-donation' campaign.id %}">Back project</a>
-
+    {% if donor.count == 0 %}
+        <a class="donate-btn btn-large" href="{% url 'make-donation' campaign.id %}">Back project</a>
     {% else %}
-    <a class="donated-btn btn-large disabled">Already Backed!</a>
+        <a class="donated-btn btn-large disabled">Already Backed!</a>
     {% endif %}
     </br>
 

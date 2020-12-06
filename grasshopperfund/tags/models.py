@@ -2,6 +2,7 @@ from django.db import models
 
 class Tag(models.Model):
     name = models.CharField(max_length=300, unique=True)
-    campaigns = models.ManyToManyField('campaigns.Campaign', related_name='tags', blank=True)
+    # no need to indicate relationship with campaigns here. 
+    # it is done in the "campaigns" app instead (campaigns/models.py)
 
     def __str__(self): return f"{self.name}"
