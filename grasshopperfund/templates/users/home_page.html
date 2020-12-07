@@ -483,18 +483,7 @@ $(document).ready(function(){
   <div class="col s12 m4 offset-l1">
 
 
-    <div class="card darken-1 hoverable tiny sticky-action">
-      <div class="card-content ">
-
-        <span class="card-title activator">{{post.organization.name}}</span>
-
-
-        <i>By {{post.organization.owner}}</i>
-        <div style=" word-break: break-all;  white-space: normal;">
-          {{post.text}}
-        </div>
-      </div>
-    </div>
+    {% include "posts/post.html" %}
   </div>
 {% endfor %}
 
