@@ -7,7 +7,7 @@ h1 {
 
 h2 {
     text-align: center;
-    color: #4D4D4D;
+    color: #39AF73;
     font-size: 20px;
 }
 
@@ -32,10 +32,13 @@ h3 {
 
 .current-donations {
     float: left;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .target-goal {
     float: right;
+    font-size: 20px;
 }
 
 .percent-funded {

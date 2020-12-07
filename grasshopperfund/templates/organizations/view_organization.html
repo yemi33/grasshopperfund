@@ -1,80 +1,60 @@
 {% extends 'main.html' %}
 {% load humanize %}
-{% block content %}
 {% load material_form %}
+{% load static %}
 
-<br>
+{% block content %}
+{% block styles %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<link rel='stylesheet' href="{% static 'css/users/view_organization.css' %}">
 
-<div class="row">
-    <div class="col-md">
-        <div class="card card-body">
-            <h5>Owned by {{organization.owner}}</h5>
-            <hr>
-        </div>
-        <!-- The create campaign button is only available to the organization's owner -->
-        {% if request.user == organization.owner %}
-          <li class="nav-item">
-              <a class="btn btn-info" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
-          </li>
-        {% endif %}
+<div class="container">
+  <div class="title-header">
+    <div class="col s12">
+      <span><div class="img-circle"><img class="org-img" src="{{ organization.image.url }}"></div></span>
     </div>
-
-    <!-- Organization information -->
-    <div class="col-md">
-        <div class="card card-body">
-            <h5>Organization Information</h5>
-            <hr>
-            <p><strong>Organization Name:</strong> {{organization.name}}</p>
-            <p><strong>Description:</strong> {{organization.description}}</p>
-            <img src="{{ organization.image.url }}" >
-
-            <!-- Add update and delete organization options -->
-            {% if request.user == organization.owner %}
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'update-organization' organization.name %}">Edit Organization</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'delete-organization' organization.name %}">Delete Organization</a>
-              </li>
-            {% endif %}
-        </div>
+    <div class="col s12">
+      <h1>{{organization.name}}</h1>
+      <h2>{{organization.description}}</h2>
     </div>
+  </div>
 
-    {% if organization.owner == request.user %}
-        <div class="col-md">
+  {% if request.user == organization.owner %}
+    <a class="btn" href="{% url 'create-campaign' organization.name %}">Create Campaign</a>
+    <a class="btn" href="{% url 'update-organization' organization.name %}">Edit Organization</a>
+    <a class="btn red" href="{% url 'delete-organization' organization.name %}">Delete Organization</a>
+    <form method="POST" action="" enctype="multipart/form-data">
+      <p>Create Post</p>
+      {% csrf_token %}
+      {% form form=post_form %}{% endform %}
+      <input class="btn btn-info" type="submit" name="Submit">
+      <script type="text/javascript">
+          let author = '{{request.user.id}}';
+          let organization = '{{organization.id}}';
+          document.getElementById('post_author').value = author;
+          document.getElementById('post_organization').value = organization;
+      </script>
+    </form>
+  {% endif %}
 
-          <form method="POST" action="" enctype="multipart/form-data">
-              {% csrf_token %}
-              {% form form=post_form %}{% endform %}
-              <input class="btn btn-info" type="submit" name="Submit">
-              <script type="text/javascript">
-                  let author = '{{request.user.id}}';
-                  let organization = '{{organization.id}}';
-                  document.getElementById('post_author').value = author;
-                  document.getElementById('post_organization').value = organization;
-              </script>
-
-        </div>
-    {% endif %}
-
-    <!-- posts are displayed here -->
-    <div class="col-md">
-
-      <p>Posts:<p>
-      {% for post in organization.all_posts %}
-
-      <!-- each post uses materializecss card class -->
-      {% include "posts/post.html" %}
-
-      {% endfor %}
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#posts">Posts</a></li>
+        <li class="tab col s3"><a href="#campaigns">Campaigns</a></li>
+      </ul>
     </div>
-
-    <!-- campaigns are displayed here -->
-    <div class="row">
-      <p>Campagins:<p>
+    <div id="posts" class="col s12">
+      <div class="col-md">
+        {% for post in organization.all_posts %}
+          {% include "posts/post.html" %}
+        {% endfor %}
+      </div>
+    </div>
+    <div id="campaigns" class="col s12">
       {% for campaign in organization.all_campaigns %}
         <div class="col s10 m3">
-          <a class="link" href="{% url 'view-organization' organization.name %}">
+          <a class="link" href="{% url 'view-campaign' campaign.creator campaign.title %}">
             <div class="card medium hoverable">
               <div class="card-image">
                 <img src="{{ campaign.image.url }}">
@@ -102,6 +82,14 @@
         </div>
       {% endfor %}
     </div>
+  </div>
 </div>
 
+<script>
+  $(document).ready(function(){
+    $('.tabs').tabs();
+  });
+</script>
+
+{% endblock %}
 {% endblock %}
