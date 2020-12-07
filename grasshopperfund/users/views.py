@@ -4,12 +4,16 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import FormView, UpdateView, DeleteView
 
-from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
+from .forms import CreateUserForm, ProfileForm, UpdateProfileForm, AddInterestedTagsForm
 from .models import Profile
 from ..campaigns.models import Campaign, Donation
-from ..tags.models import Tags
+
+from ..tags.models import Tag
 from ..posts.models import Post
+
 
 from ..templates import *
 # Create your views here.
@@ -32,6 +36,15 @@ def home_page(request):
     }
     return render(request, 'users/home_page.html', context)
 
+def faq(request):
+    campaigns = Campaign.objects.all()
+
+    context = {
+        'campaigns': campaigns,
+    }
+
+    return render(request, 'users/faq.html', context)
+
 def register_page(request):
     form = CreateUserForm()
 
@@ -40,7 +53,16 @@ def register_page(request):
         if form.is_valid():
             messages.success(request, 'Account Registered!')
             form.save()
-            return redirect('login')
+
+            # login the user
+            new_user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password1'],
+            )
+            login(request,new_user)
+
+            # redirect to add interested tags
+            return redirect('add-interested-tags')
     context = {
         'form': form
     }
@@ -104,3 +126,23 @@ def delete_profile(request):
         return redirect('register')
 
     return render(request, 'users/delete_profile.html')
+
+
+class AddInterestedTagsView(LoginRequiredMixin, UpdateView):
+    '''
+    Uses Django built-in generic view
+    '''
+    model = Profile
+    form_class = AddInterestedTagsForm
+
+    # On success, direct to home page
+    # In the future, probably direct to recommended campaigns
+    success_url = '/'
+
+    def get_object(self):
+        '''
+        Override the built-in get_object method
+        '''
+        return Profile.objects.get(
+            user__id = self.request.user.id
+        )

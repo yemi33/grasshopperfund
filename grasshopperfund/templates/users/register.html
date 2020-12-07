@@ -3,18 +3,28 @@
 {% load static %}
 
 {% block content %}
-
 {% block styles %}
 <link rel='stylesheet' href="{% static 'css/users/register.css' %}">
-
 <div class="row">
-  <div class="col m8">
-    <form method="POST" action="">
+  <div class="col l6" style="margin-top:10%">
+      <p><h3>Welcome to Grasshopperfund!</h3>
+      We're a crowdfunding platform made for this generation.</p>
+  </div>
+  <div class="col l6 s12" style="margin-top:5%;">
+    <div class="form-block">
+      <h4 class="center-align">Create an account</h4>
+    <form method="POST" action="" style="padding:10px;">
         {% csrf_token %}
         {{form|crispy}}
-        <input class="btn btn-outline-info" type="submit" name="Submit">
+        <input class="btn btn-yellow" type="submit" style="margin-top:5%;text-transform:none;" value="Create account" name="Submit">
       </form>
+      <ul>
+        <li class="nav-item" id="log-in">
+          Aleady have an account? <a class="nav-link" id="form-block-link" href="{% url 'login' %}">Log in</a>
+      </li>
+      </ul>
   </div>
+</div>
 </div>
 
 {% endblock %}

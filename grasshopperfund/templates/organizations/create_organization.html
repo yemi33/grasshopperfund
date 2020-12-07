@@ -2,19 +2,23 @@
 {% load material_form %}
 {% block content %}
 
-<div class="row">
-    <div class="col m8">
-
+<div class="container">
+<div class="row valign-wrapper center-align">
+    <div class="col m12">
+        <p>
+        <h3>Create a new organization</h3>
+        Organizations are yabba dabba doo. You need to create an organization before you can set up a campaign!</p>
       <form method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
           {% form form=form %}{% endform %}
-          <input class="btn btn-info" type="submit" name="Submit">
+          <input class="btn btn-lg btn-yellow" type="submit" name="Submit" value="Create organization">
           <script type="text/javascript">
               let creator = '{{request.user.id}}';
               document.getElementById('element').value = creator;
           </script>
 
     </div>
+</div>
 </div>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from ..models import Campaign
-from ...tags.models import Tags
+from ...tags.models import Tag
 from ...organizations.models import Organization
 from django.contrib.auth.models import User
 import re
@@ -69,9 +69,9 @@ class TestModels(TestCase):
                                                 target_money=campaign_info['target_money'],
                                                     days_left=campaign_info['days_left'])
             campaign1.save()
-            tag = Tags(name=tag_name)
+            tag = Tag(name=tag_name)
             tag.save()
-            campaign1.tag.add(tag)
+            campaign1.tags.add(tag)
             tag.campaigns.add(campaign1)
             campaigns_list_result.append(campaign1)
 
@@ -91,10 +91,12 @@ class TestModels(TestCase):
         '''Testing for particular tags that have existed in one or more Campaigns'''
         tags_names_list = ['jazz', 'rock', 'excercise']
         count_i = 0
-        self.assertEqual(self.campaign_list[0].tag.filter(name=tags_names_list[0]).exists(), True)
+        self.assertEqual(self.campaign_list[0].tags.filter(name=tags_names_list[0]).exists(), True)
         for tag_name, campaign in zip(tags_names_list, self.campaign_list):
-            if campaign.tag.filter(name=tag_name).exists(): count_i += 1
+            if campaign.tags.filter(name=tag_name).exists(): count_i += 1
         self.assertEqual(count_i, 3)
+
+        assert len(self.campaign_list[0].all_tags) > 0
 
     def test_search_for_campaigns_1(self):
         '''Testing a search on campaign that contains the keyword jazz'''
@@ -123,9 +125,9 @@ class TestModels(TestCase):
                                            target_money=the_target_money,
                                            days_left=the_days_left)
         campaign.save()
-        tag = Tags.objects.filter(name='rock')
+        tag = Tag.objects.filter(name='rock')
         print(tag[0])
-        campaign.tag.add(tag[0])
+        campaign.tags.add(tag[0])
         self.assertEqual(Campaign.objects.filter(title__icontains='rock').count(), 2)
 
     def test_search_for_campaigns_from_different_owners_and_organizations(self):
@@ -162,9 +164,9 @@ class TestModels(TestCase):
                                            target_money=the_target_money,
                                            days_left=the_days_left)
         campaign.save()
-        tag = Tags.objects.filter(name='jazz')
+        tag = Tag.objects.filter(name='jazz')
         print(tag[0])
-        campaign.tag.add(tag[0])
+        campaign.tags.add(tag[0])
         testerx_exists = False
         self.assertEqual(Campaign.objects.filter(title__icontains='jazz').count(), 2)
         for campaign in Campaign.objects.all():
@@ -183,12 +185,12 @@ class TestModels(TestCase):
     def test_search_for_campaigns_from_the_search_bar_with_tags(self):
         '''Testing a search on campaign using tags and campaigns'''
         query_result = [res_word for res_word in re.split('[, ]', 'jaz,  rock  run,') if res_word != '']
-        tag_temp = Tags(name='music')
+        tag_temp = Tag(name='music')
         tag_temp.save()
         for word in query_result:
             campaign = Campaign.objects.get(title__icontains=word)
             campaign.save()
-            campaign.tag.add(tag_temp)
+            campaign.tags.add(tag_temp)
             tag_temp.campaigns.add(campaign)
         res = Campaign.objects.filter( Q(tags__name__icontains='music') | Q(title__icontains='jazz'))
         res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
@@ -246,8 +248,8 @@ class TestModels(TestCase):
                                            target_money=the_target_money,
                                            days_left=the_days_left)
         campaign.save()
-        tag = Tags.objects.filter(name='jazz')
-        campaign.tag.add(tag[0])
+        tag = Tag.objects.filter(name='jazz')
+        campaign.tags.add(tag[0])
         tag[0].campaigns.add(campaign)
         res = Campaign.objects.filter(Q(tags__name__icontains='jazz') | Q(title__icontains='jazz'))
         res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
@@ -287,8 +289,8 @@ class TestModels(TestCase):
                                            target_money=the_target_money,
                                            days_left=the_days_left)
         campaign.save()
-        tag = Tags.objects.filter(name='jazz')
-        campaign.tag.add(tag[0])
+        tag = Tag.objects.filter(name='jazz')
+        campaign.tags.add(tag[0])
         tag[0].campaigns.add(campaign)
         res = Campaign.objects.filter(Q(tags__name__icontains='jazz') | Q(title__icontains='disco'))
         res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))
@@ -298,12 +300,12 @@ class TestModels(TestCase):
         '''Testing a search on campaign in avoiding duplicating campaigns'''
         query_result = [res_word for res_word in re.split('[, ]', 'jaz,  rock  run,') if res_word != '']
         temp = Campaign.objects.none()
-        tag_temp = Tags(name='music')
+        tag_temp = Tag(name='music')
         tag_temp.save()
         for word in query_result:
             campaign = Campaign.objects.get(title__icontains=word)
             campaign.save()
-            campaign.tag.add(tag_temp)
+            campaign.tags.add(tag_temp)
             tag_temp.campaigns.add(campaign)
         res = Campaign.objects.filter( Q(tags__name__icontains='music') | Q(title__icontains='jazz'))
         res1 = Campaign.objects.filter(title__in=list(res.values_list('title', flat=True).distinct()))

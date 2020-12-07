@@ -36,7 +36,7 @@
             <a class="nav-link" href="{% url 'startsmart-home' %}">Home</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'browse-organizations' %}">Explore</a>
+              <a class="nav-link" href="{% url 'browse-campaigns' %}">Explore</a>
           </li>
           <li>
             <form action="{% url 'search-campaign' %}" class="input-field" method="get">
@@ -64,6 +64,9 @@
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Login</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Sign up</a>
+            </li>
 
           {% endif %}
         </ul>
@@ -71,7 +74,7 @@
     </nav>
     <ul class="sidenav" id="mobile">
       <li><a href="{% url 'startsmart-home' %}">Home</a></li>
-      <li><a href="{% url 'browse-organizations' %}">Explore</a></li>
+      <li><a href="{% url 'browse-campaigns' %}">Explore</a></li>
 
       {% if request.user.is_authenticated %}
       <li><a href="{% url 'create-organization' %}">Create</a></li>
@@ -117,9 +120,9 @@
         <div class="col l3 m3 s12">
           <h5 class="white-text">Socials</h5>
           <ul>
-            <li><a class="grey-text text-lighten-3" href="https://facebook.com">Facebook</a></li>
-            <li><a class="grey-text text-lighten-3" href="https://instagram.com">Instagram</a></li>
-            <li><a class="grey-text text-lighten-3" href="https://twitter.com">Twitter</a></li>
+            <li><a class="grey-text text-lighten-3" target="_blank" href="https://facebook.com/startsmart101">Facebook</a></li>
+            <li><a class="grey-text text-lighten-3" target="_blank" href="https://instagram.com/startsmartprogram">Instagram</a></li>
+            <li><a class="grey-text text-lighten-3" target="_blank" href="https://linkedin.com/company/startsmart-program">LinkedIn</a></li>
           </ul>
         </div>
       </div>
@@ -127,7 +130,7 @@
     <div class="footer-copyright">
       <div class="container">
       © 2020 Grasshopperfund
-      <a class="grey-text text-lighten-4 right" href="https://startsmart.co/">StartSmart</a>
+      <a class="grey-text text-lighten-4 right" href="https://startsmart.co/">Powered by StartSmart</a>
       </div>
     </div>
   </footer>
