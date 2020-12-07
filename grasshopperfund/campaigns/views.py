@@ -63,11 +63,9 @@ def create_campaign(request, organization_name: str):
                 tag_created = Tag(name=enter_tag_name)
                 tag_created.save()
                 new_campaign.tags.add(tag_created)
-                tag_created.campaigns.add(new_campaign)
             if request.POST.get('tag') != None:
                 for exist_tag in tag_form.cleaned_data['tag']:
                     new_campaign.tags.add(exist_tag)
-                    exist_tag.campaigns.add(new_campaign)
             messages.success(request, 'Campaign Created!')
             ##Uncomment campaign_form.save()
             ##form.save()
@@ -187,3 +185,14 @@ def make_donation(request, pk):
     }
 
     return render(request, 'campaigns/make_donation.html', context)
+
+
+
+def browse_campaigns(request):
+    tags = Tag.objects.all()
+
+    context = {
+        'tags': tags
+    }
+
+    return render(request, 'campaigns/browse_campaigns.html', context)
