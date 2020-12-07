@@ -9,17 +9,28 @@ from .forms import CreateUserForm, ProfileForm, UpdateProfileForm
 from .models import Profile
 from ..campaigns.models import Campaign, Donation
 from ..tags.models import Tags
+from ..posts.models import Post
 
 from ..templates import *
 # Create your views here.
 
 def home_page(request):
     campaigns = Campaign.objects.all()
-    tags = Tags.objects.all()
+    posts = Post.objects.order_by('created')
+    profile = Profile.objects.filter(user=request.user)
+
+    interested_orgs = set()
+
+    for campaign in campaigns:
+        for campaign_tag in campaign.tags.all():
+            if campaign_tag in profile[0].interested_tags.all():
+                interested_orgs.add(campaign.organization)
+
+    interested_posts = {post for post in posts if post.organization in interested_orgs}
+    result = reversed(list(interested_posts))
 
     context = {
-        'campaigns': campaigns,
-        'tags' : tags
+        'interested_posts': result,
     }
     return render(request, 'users/home_page.html', context)
 
