@@ -20,16 +20,24 @@ from ..templates import *
 
 def home_page(request):
 
-    profile = Profile.objects.get(user=request.user)
+    # init posts
+    posts = None
 
-    interested_orgs = set()
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
 
-    for tag in profile.interested_tags.all():
-        for campaign in tag.all_campaigns:
-            interested_orgs.add(campaign.organization)
+        interested_orgs = set()
 
-    # ordering already defaults to newest posts first
-    posts = Post.objects.filter(organization__in=interested_orgs)
+        for tag in profile.interested_tags.all():
+            for campaign in tag.all_campaigns:
+                interested_orgs.add(campaign.organization)
+
+        # ordering already defaults to newest posts first
+        posts = Post.objects.filter(organization__in=interested_orgs)
+
+    # if user is not logged in, show all posts
+    else:
+        posts = Post.objects.all()
 
     context = {
         'interested_posts': posts,
