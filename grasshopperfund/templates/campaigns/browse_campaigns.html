@@ -8,14 +8,15 @@
 <link rel='stylesheet' href="{% static 'css/users/explore.css' %}">
 
 <!-- Populate list of tags to filter by -->
-<div class = "col s2">
-  {% for tag in all_tags %}
-
-  <!-- filters are made by adding them as a query parameter -->
-   <a class="btn waves-effect waves-teal btn-flat" href="{% url 'browse-campaigns' %}?tag={{ tag.name | urlencode }}">
-       #{{ tag.name }}</a>
-  {% endfor %}
-</div>
+    <!-- filters are made by adding them as a query parameter -->
+{#<div class = "col s2">#}
+{#  {% for tag in all_tags %}#}
+{##}
+{#  <!-- filters are made by adding them as a query parameter -->#}
+{#   <a class="btn waves-effect waves-teal btn-flat" href="{% url 'browse-campaigns' %}?tag={{ tag.name | urlencode }}">#}
+{#       #{{ tag.name }}</a>#}
+{#  {% endfor %}#}
+{#</div>#}
 
 <!-- Populate list of campaigns for each tag -->
 {% for tag in selected_tags %}
@@ -24,9 +25,18 @@
     <strong>{{tag.name}}</strong>
   </p>
   <br>
+    <hr>
   <div class="row">
+  <div class = "col s2">
+  {% for tag in all_tags %}
 
-    
+  <!-- filters are made by adding them as a query parameter -->
+   <a class="btn waves-effect waves-teal btn-flat" href="{% url 'browse-campaigns' %}?tag={{ tag.name | urlencode }}">
+       #{{ tag.name }}</a>
+      <div class="row"></div>
+  {% endfor %}
+</div>
+
       {% for campaign in tag.all_campaigns %}
       <div class="col s10 m3">
         <a class="link" href="{% url 'view-campaign' campaign.creator campaign.title %}">
@@ -53,7 +63,6 @@
           </div>
         </a>
       </div>
-      <hr>
       {% endfor %}
     
   </div>
