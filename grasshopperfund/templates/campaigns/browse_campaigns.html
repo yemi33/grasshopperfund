@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+{% block styles %}
+<link rel='stylesheet' href="{% static 'css/users/explore.css' %}">
+
+
+{% for tag in tags %}
+  <br>
+  <p> 
+    <strong>{{tag.name}}</strong>
+  </p>
+  <br>
+  <div class="row">
+
+    
+      {% for campaign in tag.all_campaigns %}
+      <div class="col s10 m3">
+        <a class="link" href="{% url 'view-campaign' campaign.creator campaign.title %}">
+          <div class="card medium hoverable">
+            <div class="card-image">
+              <img src="{{ campaign.image.url }}">
+            </div>
+            <div class="card-content">
+              {% for title, progress in progress_dict.items %}
+              {% if title == campaign.title %}
+                <div class="progress">
+                  <div class="determinate" style="width: {{ progress }}%"></div>
+                </div>
+                {% endif %}
+              {% endfor %}
+              <span class="card-title">{{campaign.title}}</span>
+              <p class="organization">by {{ campaign.organization.name }}</p>
+              <span class="days-left"><i class="material-icons">access_time</i> {{campaign.days_left}} days left</span>
+            </div>
+            <div class="card-action">
+              {% if request.user == campaign.creator %}
+                <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+                <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      </div>
+      <hr>
+      {% endfor %}
+    
+  </div>
+{% endfor %}
+
+{% endblock %}
+{% endblock %}

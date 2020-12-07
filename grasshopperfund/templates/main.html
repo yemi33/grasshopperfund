@@ -74,7 +74,7 @@
     </nav>
     <ul class="sidenav" id="mobile">
       <li><a href="{% url 'startsmart-home' %}">Home</a></li>
-      <li><a href="{% url 'browse-organizations' %}">Explore</a></li>
+      <li><a href="{% url 'browse-campaigns' %}">Explore</a></li>
 
       {% if request.user.is_authenticated %}
       <li><a href="{% url 'create-organization' %}">Create</a></li>

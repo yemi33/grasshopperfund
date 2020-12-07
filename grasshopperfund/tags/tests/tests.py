@@ -104,8 +104,8 @@ class TestModels(TestCase):
         print("X")
         tag = Tag(name='jazz')
         tag.save()
-        for campaign_num in self.campaign_list:
-            tag.campaigns.add(campaign_num)
+        for campaign in self.campaign_list:
+            campaign.tags.add(tag)
         return tag
 
     def test_tag_created(self):
@@ -114,4 +114,6 @@ class TestModels(TestCase):
         as well as multiple campaigns associated with a given tag
         '''
         print("test tag created starting")
-        self.assertEqual(len(Tag.objects.get(name=self.tag_list.name).campaigns.all()), 2)
+        self.assertEqual(len(Tag.objects.get(name=self.tag_list.name).all_campaigns), 2)
+
+

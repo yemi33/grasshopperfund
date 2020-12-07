@@ -26,24 +26,7 @@ def create_campaign(request, organization_name: str):
         campaign_form = CampaignForm(request.POST, request.FILES)
         tag_form = TagsForm(request.POST)
         if all([campaign_form.is_valid(), tag_form.is_valid()]):
-            tag_list = [tag_name for tag_name in re.split('[, ]',
-                                                          tag_form.cleaned_data['enter_tags_you_would_like_to_include'])
-                        if tag_name != '']
-            for tag_name in tag_list:
-                if Tag.objects.filter(name=tag_name).exists():
-                    count_same_tag += 1
-                    messages.success(request, 'Tag name %s exists' % tag_name)
-                    tag_list.remove(tag_name)
-            if count_same_tag != 0:
-                result = ','.join(word for word in tag_list)
-                tag_form = TagsForm(initial={'enter_tags_you_would_like_to_include': result})
-                context = {
-                    'form': campaign_form, 'form1': tag_form
-                }
 
-                # this seems incorrectly placed. commenting it out.
-                # Used for re-rendering create campaigns page. 
-                return render(request, 'campaigns/create_campaign.html', context)
             campaign_creator = campaign_form.cleaned_data['creator']
             campaign_title = campaign_form.cleaned_data['title']
             campaign_description = campaign_form.cleaned_data['description']
@@ -59,15 +42,9 @@ def create_campaign(request, organization_name: str):
                 days_left=campaign_days_left,
                 image=campaign_image)
             new_campaign.save()
-            for enter_tag_name in tag_list:
-                tag_created = Tag(name=enter_tag_name)
-                tag_created.save()
-                new_campaign.tags.add(tag_created)
-                tag_created.campaigns.add(new_campaign)
             if request.POST.get('tag') != None:
                 for exist_tag in tag_form.cleaned_data['tag']:
                     new_campaign.tags.add(exist_tag)
-                    exist_tag.campaigns.add(new_campaign)
             messages.success(request, 'Campaign Created!')
             ##Uncomment campaign_form.save()
             ##form.save()
@@ -187,3 +164,14 @@ def make_donation(request, pk):
     }
 
     return render(request, 'campaigns/make_donation.html', context)
+
+
+
+def browse_campaigns(request):
+    tags = Tag.objects.all()
+
+    context = {
+        'tags': tags
+    }
+
+    return render(request, 'campaigns/browse_campaigns.html', context)

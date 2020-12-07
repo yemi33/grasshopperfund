@@ -6,3 +6,7 @@ class Tag(models.Model):
     # it is done in the "campaigns" app instead (campaigns/models.py)
 
     def __str__(self): return f"{self.name}"
+
+    @property
+    def all_campaigns(self):
+        return self.campaigns.all()
