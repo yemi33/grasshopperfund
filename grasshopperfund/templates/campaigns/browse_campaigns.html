@@ -7,8 +7,18 @@
 {% block styles %}
 <link rel='stylesheet' href="{% static 'css/users/explore.css' %}">
 
+<!-- Populate list of tags to filter by -->
+<div class = "col s2">
+  {% for tag in all_tags %}
 
-{% for tag in tags %}
+  <!-- filters are made by adding them as a query parameter -->
+   <a class="btn waves-effect waves-teal btn-flat" href="{% url 'browse-campaigns' %}?tag={{ tag.name | urlencode }}">
+       #{{ tag.name }}</a>
+  {% endfor %}
+</div>
+
+<!-- Populate list of campaigns for each tag -->
+{% for tag in selected_tags %}
   <br>
   <p> 
     <strong>{{tag.name}}</strong>

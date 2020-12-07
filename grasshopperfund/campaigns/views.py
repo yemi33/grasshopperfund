@@ -168,10 +168,44 @@ def make_donation(request, pk):
 
 
 def browse_campaigns(request):
-    tags = Tag.objects.all()
+    '''
+    Browse campaigns based on selected tags
+    These tags are queried via OR statements.
+    '''
+    # check for selected tags from the query parameter
+    # should be a list of tag names
+    queried_tags = request.GET.getlist('tag', [])
 
+    # all existing tags
+    all_tags = Tag.objects.all()
+
+    # selected tags based on what was queried
+    selected_tags = all_tags
+
+    print(queried_tags)
+
+    # check to filter by tag
+    if len(queried_tags) > 0:
+
+        # create quieries
+        # filter is case insensitive
+        queries = [Q(name__icontains=tag_name) for tag_name in queried_tags]
+
+        # init the final query
+        final_query = queries.pop()
+
+        for query in queries:
+
+            # join queries via OR statement
+            final_query |= query
+
+        # execute the final query
+        selected_tags = all_tags.filter(final_query)
+
+    # campaigns are accessible from tags
     context = {
-        'tags': tags
+        'all_tags': all_tags,
+        'selected_tags': selected_tags,
     }
 
     return render(request, 'campaigns/browse_campaigns.html', context)
