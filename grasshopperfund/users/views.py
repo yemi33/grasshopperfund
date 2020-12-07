@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-
+from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -24,12 +24,12 @@ def home_page(request):
 
     interested_orgs = set()
 
-    for tag in profile.interested_tags:
+    for tag in profile.interested_tags.all():
         for campaign in tag.all_campaigns:
             interested_orgs.add(campaign.organization)
 
-    interested_posts = {post for post in organization.posts.order_by('created')}
-    result = reversed(list(interested_posts))
+    # ordering already defaults to newest posts first
+    posts = Post.objects.filter(organization__in=interested_orgs)
 
     context = {
         'interested_posts': posts,
