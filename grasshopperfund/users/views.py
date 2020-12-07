@@ -15,22 +15,20 @@ from ..templates import *
 # Create your views here.
 
 def home_page(request):
-    campaigns = Campaign.objects.all()
-    posts = Post.objects.order_by('created')
-    profile = Profile.objects.filter(user=request.user)
+
+    profile = Profile.objects.get(user=request.user)
 
     interested_orgs = set()
 
-    for campaign in campaigns:
-        for campaign_tag in campaign.tags.all():
-            if campaign_tag in profile[0].interested_tags.all():
-                interested_orgs.add(campaign.organization)
+    for tag in profile.interested_tags:
+        for campaign in tag.all_campaigns:
+            interested_orgs.add(campaign.organization)
 
-    interested_posts = {post for post in posts if post.organization in interested_orgs}
+    interested_posts = {post for post in organization.posts.order_by('created')}
     result = reversed(list(interested_posts))
 
     context = {
-        'interested_posts': result,
+        'interested_posts': posts,
     }
     return render(request, 'users/home_page.html', context)
 
