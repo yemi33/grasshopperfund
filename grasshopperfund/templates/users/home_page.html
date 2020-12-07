@@ -2,22 +2,33 @@
 {% load humanize %}
 {% load static %}
 
-<!-- <link rel='stylesheet' href="{% static 'css/users/home_page.css' %}"> -->
-
 
 {% block content %}
+{% block styles %}
+<link rel='stylesheet' href="{% static 'css/users/home_page.css' %}">
 
-<h5>Recommended Posts</h5>
-<br>
-{% for post in interested_posts %}
-  <div class="col s12 m4 offset-l1">
+<ul id="slide-out" class="sidenav sidenav-fixed hidden-on-large-only">
+  <li><a  href="#"><span class="white-text">Online Programs</span></a></li>
+  <li><a  href="#"><span class="white-text">Grow Your Network</span></a></li>
+  <li><a  href="#"><span class="white-text">About Crowdfunding</span></a></li>
+  <li><a  href="#"><span class="white-text">Resources & Tips</span></a></li>
+</ul>
 
+  {% if request.user.is_authenticated %}
+  <h4>Recommended Posts</h4>
+  <br>
+  {% for post in interested_posts %}
+    <div class="col s12 m4 offset-l1">
+      {% include "posts/post.html" %}
+    </div>
+  {% endfor %}
 
-    {% include "posts/post.html" %}
-  </div>
-{% endfor %}
+  {% endif %}
+  {% if request.user.is_anonymous %}
 
+    <h2>add landing page content here!</h2>
 
+  {% endif %}
 
-
+{% endblock %}
 {% endblock %}
