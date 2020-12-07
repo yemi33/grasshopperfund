@@ -33,11 +33,11 @@ class Campaign(models.Model):
         return url
 
     @property
-    def current_money(self) -> Decimal:
+    def current_money(self) -> float:
         '''
         get current money from sum of donation amounts
         '''
-        money = Decimal(0)
+        money = 0
         for donation in self.donations.all():
             money += donation.amount
         return money
@@ -69,7 +69,7 @@ class Campaign(models.Model):
         '''
         Returns a percentage of how much of the funding goal has been reached
         '''
-        return self.target_money / self.current_money
+        return (self.current_money / self.target_money) * 100
 
     @property
     def all_tags(self) -> list:

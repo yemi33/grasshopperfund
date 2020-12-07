@@ -35,13 +35,11 @@
               <img src="{{ campaign.image.url }}">
             </div>
             <div class="card-content">
-              {% for title, progress in progress_dict.items %}
-              {% if title == campaign.title %}
-                <div class="progress">
-                  <div class="determinate" style="width: {{ progress }}%"></div>
-                </div>
-                {% endif %}
-              {% endfor %}
+
+              <div class="progress">
+                <div class="determinate" style="width: {{ campaign.percent_funded }}%"></div>
+              </div>
+
               <span class="card-title">{{campaign.title}}</span>
               <p class="organization">by {{ campaign.organization.name }}</p>
               <span class="days-left"><i class="material-icons">access_time</i> {{campaign.days_left}} days left</span>
