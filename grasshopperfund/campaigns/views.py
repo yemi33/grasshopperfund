@@ -91,6 +91,7 @@ def delete_campaign(request, pk):
 
 
 def search_campaign(request):
+    x = 0
     query_word = request.GET.get('search_query')
     query_result = [res_word for res_word in re.split('[, ]', query_word) if res_word != '']
     temp = Campaign.objects.none()
@@ -107,16 +108,26 @@ def search_campaign(request):
     number_of_campaigns = len(temp)
     tag = Tag.objects.all()
     campaign_list = campaign.order_by('title')
-    pageinator = Paginator(campaign_list, 8//2)
+    pageinator = Paginator(campaign_list, 8 // 2)
     num_page = request.GET.get('page')
+    if num_page == None:
+        x = 1
+    else:
+        page_res = pageinator.get_page(num_page)
+        x = page_res.number
     page_res = pageinator.get_page(num_page)
+    campaign = campaign[(x - 1) * 4: x * 4]
+    progress_dict = {campaign_x.title: int((campaign_x.current_money / campaign_x.target_money) * 100) for campaign_x in
+                     campaign}
     context = {
         'campaigns': campaign,
         'tags': tag,
         'number_of_campaigns': number_of_campaigns,
-        'page_res': page_res
+        'page_res': page_res,
+        'query_word': query_word,
+        'progress_dict': progress_dict,
     }
-    return render(request, 'users/home_page.html', context)
+    return render(request, 'campaigns/search_campaign.html', context)
 
 
 # login not required for this
@@ -201,7 +212,6 @@ def browse_campaigns(request):
 
         # execute the final query
         selected_tags = all_tags.filter(final_query)
-
     # campaigns are accessible from tags
     context = {
         'all_tags': all_tags,
