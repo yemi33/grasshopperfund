@@ -2,65 +2,30 @@
 {% load humanize %}
 {% load static %}
 
-<link rel='stylesheet' href="{% static 'css/users/home_page.css' %}">
+<!-- <link rel='stylesheet' href="{% static 'css/users/home_page.css' %}"> -->
 
-<script>
-    .button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-</script>
 
 {% block content %}
 
-{% if not request.user.is_authenticated %}
-        <div class="row text-center">
-        <div class="col-md-12 text-center">
-            <h2 style="margin-top:10px;">Membership</h2>
-        </div>
-      <div class="col s12 m4">
-            <!--This column displays beginner membership as bronze star-->
-            <img src="{% static 'images/bronze-star-md.png' %}" width="200" height="200">
-             <h4 class="service-heading">Beginner</h4>
-             <a class="btn btn-yellow" href="">Learn More</a>
-        </div>
-        <div class="col s12 m4">
-            <img src="{% static 'images/silver_star.png' %}" width="200" height="200">
-             <h4 class="service-heading">Pro</h4>
-             <a class="btn btn-outline-info" href="">Learn More</a>
-        </div>
-        <div class="col s12 m4">
-            <img src="{% static 'images/gold_star.png' %}" width="200" height="200">
-            <h4 class="service-heading">Expert</h4>
-            <a class="btn btn-outline-info" href="">Learn More</a>
-        </div>
+<h5>Recommended Posts</h5>
+<br>
+{% for post in interested_posts %}
+  <div class="col s12 m4 offset-l1">
 
+    <div class="card darken-1 hoverable tiny sticky-action">
+      <div class="card-content ">
+
+        <span class="card-title activator">{{post.organization.name}}</span>
+
+
+        <i>By {{post.organization.owner}}</i>
+        <div style=" word-break: break-all;  white-space: normal;">
+          {{post.text}}
         </div>
-{% endif %}
-
-<hr>
-  <div class="row">
-  <div class = "col s1">
-      {% for tag in tags %}
-       <a class="btn waves-effect waves-teal btn-flat" href="{% url 'filter-campaigns-from-tags' tag.name %}">
-           #{{ tag.name }}</a>
-      {% endfor %}
-  </div>
-    {% for campaign in campaigns %}
-    <div class="col s12 m4 offset-l1">
-      {% include "campaigns/campaign.html" %}
-
+      </div>
     </div>
-      {% endfor %}
   </div>
+{% endfor %}
 
-  <!-- Compiled and minified CSS -->
+
 {% endblock %}
