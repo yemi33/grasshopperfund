@@ -10,21 +10,29 @@ from django.views.generic.edit import FormView, UpdateView, DeleteView
 from .forms import CreateUserForm, ProfileForm, UpdateProfileForm, AddInterestedTagsForm
 from .models import Profile
 from ..campaigns.models import Campaign, Donation
+
 from ..tags.models import Tag
+from ..posts.models import Post
+
 
 from ..templates import *
 # Create your views here.
 
 def home_page(request):
-    campaigns = Campaign.objects.all()
 
-    tags = Tag.objects.all()
-    progress_dict = {campaign.title:int((campaign.current_money/campaign.target_money)*100) for campaign in campaigns}
+    profile = Profile.objects.get(user=request.user)
+
+    interested_orgs = set()
+
+    for tag in profile.interested_tags:
+        for campaign in tag.all_campaigns:
+            interested_orgs.add(campaign.organization)
+
+    interested_posts = {post for post in organization.posts.order_by('created')}
+    result = reversed(list(interested_posts))
 
     context = {
-        'campaigns': campaigns,
-        'tags': tags,
-        'progress_dict': progress_dict,
+        'interested_posts': posts,
     }
     return render(request, 'users/home_page.html', context)
 

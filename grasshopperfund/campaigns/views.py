@@ -6,6 +6,9 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import AnonymousUser
+from django.views import View
 
 from .forms import CampaignForm, TagsForm, DonationForm
 from .models import Campaign, Donation
@@ -26,7 +29,6 @@ def create_campaign(request, organization_name: str):
         campaign_form = CampaignForm(request.POST, request.FILES)
         tag_form = TagsForm(request.POST)
         if all([campaign_form.is_valid(), tag_form.is_valid()]):
-
             campaign_creator = campaign_form.cleaned_data['creator']
             campaign_title = campaign_form.cleaned_data['title']
             campaign_description = campaign_form.cleaned_data['description']
@@ -164,6 +166,7 @@ def make_donation(request, pk):
     }
 
     return render(request, 'campaigns/make_donation.html', context)
+
 
 
 
