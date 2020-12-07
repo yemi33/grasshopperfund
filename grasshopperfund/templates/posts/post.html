@@ -11,7 +11,7 @@
   <div class="card-content ">
 
     <div class="header">
-      <span><div class="img-crop"><img class="org-image" src="{{ organization.image.url }}"></div></span>
+      <span><div class="img-crop"><img class="org-image" src="{{ post.organization.image.url }}"></div></span>
       <span class="card-title">{{post.organization.name}}</span>
       <span class="time">{{post.created|naturaltime}}</span>
     </div>
@@ -21,10 +21,10 @@
     <div class="card-action">
       <i class="material-icons">thumb_up</i>
       <i class="material-icons">comment</i>
-      <a class="waves-effect waves-light" href="{% url 'view-post' organization.name post.id %}">View Post</a>
+      <a class="waves-effect waves-light" href="{% url 'view-post' post.organization.name post.id %}">View Post</a>
       {% if request.user == post.author %}
-      <a class="waves-effect waves-light right" href="{% url 'delete-post' organization.name post.id %}">Delete Post</a>
-      <a class="waves-effect waves-light right" href="{% url 'update-post' organization.name post.id %}">Edit Post</a>
+      <a class="waves-effect waves-light right" href="{% url 'delete-post' post.organization.name post.id %}">Delete Post</a>
+      <a class="waves-effect waves-light right" href="{% url 'update-post' post.organization.name post.id %}">Edit Post</a>
       {% endif %}
     </div>
   </div>
