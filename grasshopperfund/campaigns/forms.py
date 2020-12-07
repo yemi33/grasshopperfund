@@ -23,8 +23,6 @@ class TagsForm(forms.ModelForm):
         model = Campaign
         fields = ['tag']
 
-    enter_tags_you_would_like_to_include = \
-        forms.CharField(max_length=200, help_text='A comma-separated or white-space separated list of tags.')
     tag = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple,
                                          required=False)
 

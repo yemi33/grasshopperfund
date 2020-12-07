@@ -7,10 +7,16 @@
 {% block styles %}
 <link rel='stylesheet' href="{% static 'css/users/explore.css' %}">
 
-<hr>
+
+{% for tag in tags %}
+  <br>
+  <p> 
+    <strong>{{tag.name}}</strong>
+  </p>
+  <br>
   <div class="row">
 
-    {% for tag in tags %}
+    
       {% for campaign in tag.all_campaigns %}
       <div class="col s10 m3">
         <a class="link" href="{% url 'view-campaign' campaign.creator campaign.title %}">
@@ -39,10 +45,11 @@
           </div>
         </a>
       </div>
+      <hr>
       {% endfor %}
-    {% endfor %}
+    
   </div>
-
+{% endfor %}
 
 {% endblock %}
 {% endblock %}
