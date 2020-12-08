@@ -10,7 +10,7 @@
 <hr>
   <div class="row">
     {% for organization in organizations %}
-    <div class="col s10 m3">
+    <div class="col s12 m3">
       <a class="link" href="{% url 'view-organization' organization.name %}">
         <div class="card hoverable medium">
           <div class="card-image">
@@ -20,12 +20,12 @@
             <span class="card-title activator">{{organization.name}}</span>
             <p class="org-name">By {{organization.owner.username}}</p>
           </div>
-          <div class="card-action">
-            {% if request.user == organization.owner %}
-                <a href="{% url 'update-organization' organization.name %}">Update</a>
-                <a href="{% url 'delete-organization' organization.name %}">Delete</a>
-            {% endif %}
-          </div>
+          {% if request.user == organization.owner %}
+            <div class="card-action">
+              <a href="{% url 'update-organization' organization.name %}">Update</a>
+              <a href="{% url 'delete-organization' organization.name %}">Delete</a>
+            </div>
+          {% endif %}
         </div>
       </a>
     </div>
