@@ -26,29 +26,13 @@ h3 {
     vertical-align: middle;
 }
 
-.frame {
-    width: 800px;
-    height: 400px;
-    display: block;
-    overflow: hidden;
-    border-radius: 20px;
-}
-
 .cover-picture {
-    display: inline;
-    margin: 0 auto;
-    margin-left: -25%;
-    height: 100%;
-    width: auto;
-}
-
-/* .cover-picture {
     display: block;
     margin: auto;
     width: 800px;
     height: 400px;
     border-radius: 20px;
-} */
+}
 
 .current-donations {
     float: left;

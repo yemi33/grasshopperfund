@@ -13,7 +13,7 @@
     <a class="link" href="{% url 'view-organization' campaign.organization.name %}"><h2>by {{ campaign.organization.name }}</h2></a>
 
     <h3><i class="material-icons">access_time</i> {{campaign.days_left}} days left</h3>
-    <div class="frame"><img class="cover-picture" src="{{ campaign.image.url }}"></div>
+    <img class="cover-picture" src="{{ campaign.image.url }}">
     <p>{{campaign.description}}</p>
     </br>
 
