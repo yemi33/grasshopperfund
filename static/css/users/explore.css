@@ -1,3 +1,64 @@
 .card .card-image {
     margin-bottom: 0px;
 }
+
+
+header, main, footer {
+    margin-left: 300px;
+  }
+        
+  @media only screen and (max-width : 992px) {
+    header, main, footer {
+      margin-left: 0;
+    }
+  }
+
+ul#slide-out {
+    padding-top:20px;
+}
+
+.sidenav {
+    background-color:var(--green);
+    color:white;
+}
+
+li a {
+    color:white;
+}
+
+.card-panel{
+  border-radius: 20px;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.description {
+  padding-top: 10px; 
+  font-size: 24px;
+  color: #4D4D4D;
+}
+
+.buttons {
+  padding: 1em;
+}
+
+.sign-in {
+  background-color: white;
+  color: #39AF73;
+  border: 2px solid #39AF73;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  width: 150px;
+  margin-right: 2em;
+}
+
+.join {
+  background-color: EFBF57;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  width: 200px;
+}
