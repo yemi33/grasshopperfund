@@ -3,36 +3,119 @@
     --green: #39AF73;
     --darkgreen: #318D5E;
     --lightgrey: #F6F6F6;
+    --darkgrey: #4D4D4D;
     --yellow: #EFBF57;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+flex: 1 0 auto;
 }
 
 h1, h2, h3, h4, h5 {
     color: var(--darkgreen);
 }
 
-.brand-logo {
-    color:var(--green);
-    font-weight:600;
+nav {
+    padding: 0 3em 0 3em;
+    height: 60px;
+    background-color: white;
 }
 
+.nav-wrapper .brand-logo {
+    color: var(--green);
+    font-weight:600;
+    font-size: 28px;
+}
+
+nav .sidenav-trigger .material-icons {
+    color: var(--darkgrey) !important;
+}
+
+nav .label-icon .material-icons {
+    color: var(--darkgrey) !important;
+    font-size: 20px;
+}
+
+nav .label-icon.active .material-icons {
+    color: var(--green) !important;
+}
+
+nav ul li a {
+    font-size: 16px;
+    color: var(--darkgrey);
+}
+
+nav ul li a:hover {
+    color: white !important;
+}
+
+footer.page-footer {
+    background-color: var(--darkgreen) !important;
+}
 .card {
-    /* add any styling here */
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card .card-image {
+    height: 50%;
+    margin-bottom: -40px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.card .progress {
+    height: 15px;
+    border-radius: 50px;
+    background: #E8F5EF;
+    box-shadow: 0px 2px 2px  rgba(0, 0, 0, 0.25);
+}
+
+.card .progress .determinate {
+    background: #318D5E;
+}
+
+.card .card-title {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.card .organization {
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.card .material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.card .card-action {
+    border-radius: 0px 0px 20px 20px;
+}
+
+a {
+    color: inherit;
 }
 
 .btn {
-    background-color:var(--lightgreen);
+    text-transform:none;
+    background-color:var(--green);
+    color:white;
 }
 
-.btn-flat {
+.btn btn-flat {
     background-color:white;
     color: var(--darkgreen);
     border:1px solid black;
 }
 
-.btn-yellow {
+.btn btn-yellow {
     background-color:var(--yellow);
 }

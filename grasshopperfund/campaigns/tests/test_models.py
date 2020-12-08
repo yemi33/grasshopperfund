@@ -148,3 +148,6 @@ class TestModels(TestCase):
 
         assert len(self.donations) == len(donations)
         assert self.campaign.num_of_donations == len(self.donations)
+        
+        assert self.campaign.percent_funded > 0
+

@@ -14,12 +14,12 @@ class Campaign(models.Model):
     days_left = models.IntegerField()
     image = models.ImageField(default='campaign_default_pic.png', blank=True, upload_to='campaign_pics')
 
-    tag = models.ManyToManyField('tags.Tags', related_name='campaign')
+    tags = models.ManyToManyField('tags.Tag', related_name='campaigns')
 
     search_fields = ['creator__username']
 
     class Meta:
-        unique_together = (('creator', 'title'),)
+        unique_together = (('organization', 'title'),)
 
     def __str__(self):
         return self.title
@@ -33,11 +33,11 @@ class Campaign(models.Model):
         return url
 
     @property
-    def current_money(self) -> Decimal:
+    def current_money(self) -> float:
         '''
         get current money from sum of donation amounts
         '''
-        money = Decimal(0)
+        money = 0
         for donation in self.donations.all():
             money += donation.amount
         return money
@@ -63,6 +63,20 @@ class Campaign(models.Model):
         get num_of_backers from len of backers
         '''
         return len(self.backers)
+
+    @property
+    def percent_funded(self) -> float:
+        '''
+        Returns a percentage of how much of the funding goal has been reached
+        '''
+        return (self.current_money / self.target_money) * 100
+
+    @property
+    def all_tags(self) -> list:
+        '''
+        Returns all tags associated w/ the campaign
+        '''
+        return self.tags.all()
 
 
 class Donation(models.Model):

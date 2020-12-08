@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # from .forms import TagsForm
-from .models import Tags
+from .models import Tag
 
 # @login_required
 # def create_tags(request):
@@ -30,8 +30,8 @@ from .models import Tags
 #     return render(request, 'tags/create_tags.html', context)
 
 def filter_campaigns_from_tags(request, tagname:str):
-    campaigns = Tags.objects.get(name=tagname).campaigns.all()
-    tags = Tags.objects.all()
+    campaigns = Tag.objects.get(name=tagname).campaigns.all()
+    tags = Tag.objects.all()
     context = {'campaigns': campaigns, 'tags': tags}
     return render(request, 'users/home_page.html', context)
 

@@ -1,3 +1,26 @@
 body {
-    background-color:lightgrey;
+    background:url(/static/images/user_pics/login-signup-background.svg) no-repeat;
+    background-color:var(--lightgreen);
+    background-size: cover;
+    height:100vh;
+}
+
+h4 {
+    color: var(--darkgrey);
+}
+
+.form-block{
+    background:white;
+    padding:10%;
+    border-radius:20px;
+    box-shadow:0px 0px 15px grey;
+}
+
+.nav-link#form-block-link {
+    color: var(--darkgreen);
+}
+
+.nav-item#log-in {
+    margin-top:2em;
+    text-align: center;
 }

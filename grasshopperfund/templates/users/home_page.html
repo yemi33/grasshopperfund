@@ -2,99 +2,77 @@
 {% load humanize %}
 {% load static %}
 
-<link rel='stylesheet' href="{% static 'css/users/home_page.css' %}">
-
-<script>
-    .button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-</script>
 
 {% block content %}
+{% block styles %}
+<link rel='stylesheet' href="{% static 'css/users/home_page.css' %}">
 
-{% if not request.user.is_authenticated %}
-        <div class="row text-center">
-        <div class="col-md-12 text-center">
-            <h2 style="margin-top:10px;">Membership</h2>
-        </div>
-      <div class="col s12 m4">
-            <!--This column displays beginner membership as bronze star-->
-            <img src="{% static 'images/bronze-star-md.png' %}" width="200" height="200">
-             <h4 class="service-heading">Beginner</h4>
-             <a class="btn btn-yellow" href="">Learn More</a>
-        </div>
-        <div class="col s12 m4">
-            <img src="{% static 'images/silver_star.png' %}" width="200" height="200">
-             <h4 class="service-heading">Pro</h4>
-             <a class="btn btn-outline-info" href="">Learn More</a>
-        </div>
-        <div class="col s12 m4">
-            <img src="{% static 'images/gold_star.png' %}" width="200" height="200">
-            <h4 class="service-heading">Expert</h4>
-            <a class="btn btn-outline-info" href="">Learn More</a>
-        </div>
+<ul id="slide-out" class="sidenav sidenav-fixed hidden-on-large-only">
+  <li><a  href="#"><span class="white-text">Online Programs</span></a></li>
+  <li><a  href="#"><span class="white-text">Grow Your Network</span></a></li>
+  <li><a  href="#"><span class="white-text">About Crowdfunding</span></a></li>
+  <li><a  href="#"><span class="white-text">Resources & Tips</span></a></li>
+</ul>
 
-        </div>
-{% endif %}
-
-<hr>
-  <div class="row">
-  <div class = "col s1">
-      {% for tag in tags %}
-       <a class="btn waves-effect waves-teal btn-flat" href="{% url 'filter-campaigns-from-tags' tag.name %}">
-           #{{ tag.name }}</a>
-      {% endfor %}
-  </div>
-    {% for campaign in campaigns %}
+  {% if request.user.is_authenticated %}
+  <h4>Recommended Posts</h4>
+  <br>
+  {% for post in interested_posts %}
     <div class="col s12 m4 offset-l1">
+      {% include "posts/post.html" %}
+    </div>
+  {% endfor %}
 
-        <div class="card darken-1 hoverable medium sticky-action">
-          <div class="card-content ">
-            <div class="card-image">
-              <img class="activator responsive" src="{{ campaign.image.url }}" >
-            </div>
+  {% endif %}
+  {% if request.user.is_anonymous %}
 
-            <span class="card-title activator">{{campaign.title}}<i class="material-icons right">more_vert</i></span>
-
-
-            <p>By {{campaign.creator.username}} From {{ campaign.organization.name }}</p>
-
-            <p>By {{campaign.organization.username}}</p>
-
-          </div>
-          <div class="card-reveal">
-            <span class="card-title">{{campaign.title}}<i class="material-icons right">close</i></span>
-            <p class="flow-text">
-              <ul>{{campaign.description}}</ul>
-            </p>
-            <h6>
-              <ul>Target: <strong style="color:green;">${{campaign.target_money|intcomma}}</strong></ul>
-              <ul><i>Current: ${{campaign.current_money|intcomma}}</i><ul>
-              <ul>Number of Investors: <strong style="color:red;">{{campaign.num_of_backers}}</strong><ul>
-            </h6>
-          </div>
-          <div class="card-action">
-            {% if request.user == campaign.creator %}
-              <a href="{% url 'update-campaign' campaign.id %}">Update</a>
-              <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
-            {% endif %}
-            <a class="waves-effect waves-light" href="{% url 'view-campaign' campaign.creator campaign.title %}">View More</a>
-            <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
-
+    <section class="section center">
+      <div class="container">
+        <div class="card-panel">
+          <h4 class="title">Discover new ideas on <span style="color: #39AF73">Grasshopperfund</span></h4>
+          <h6 class="description">Crowdfunding for this generation.</h4>
+          <div class="buttons" >
+            <a class="sign-in btn" href="{% url 'login' %}">Sign in</a>
+            <a class="join btn" href="{% url 'register' %}">Join us today</a>
           </div>
         </div>
-    </div>
-      {% endfor %}
-  </div>
+      </div>
+    </section>
 
-  <!-- Compiled and minified CSS -->
+    <div class="popular-campaigns">
+      <h5>Popular Campaigns</h5>
+      <div class="row">
+      {% for campaign in campaigns %}
+        <div class="col s10 m3">
+          <a class="link" href="{% url 'view-campaign' campaign.creator campaign.title %}">
+            <div class="card medium hoverable">
+              <div class="card-image">
+                <img src="{{ campaign.image.url }}">
+              </div>
+              <div class="card-content">
+
+                <div class="progress">
+                  <div class="determinate" style="width: {{ campaign.percent_funded }}%"></div>
+                </div>
+
+                <span class="card-title">{{campaign.title}}</span>
+                <p class="organization">by {{ campaign.organization.name }}</p>
+                <span class="days-left"><i class="material-icons">access_time</i> {{campaign.days_left}} days left</span>
+              </div>
+              <div class="card-action">
+                {% if request.user == campaign.creator %}
+                  <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+                  <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+
+  {% endif %}
+
+{% endblock %}
 {% endblock %}

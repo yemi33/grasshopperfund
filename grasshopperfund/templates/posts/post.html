@@ -1,22 +1,33 @@
 <!-- This is the HTML for a simple Post card using materialize css -->
-<div class="card darken-1 hoverable small">
-  <div class="card-content ">
-    <span class="card-title">{{post.author}}</span>
+{% load static %}
+<!-- humanize allows us to use naturaltime -->
+{% load humanize %}
 
-    <p class="flow-text">
-      <ul>Post text: {{post.text}}</ul>
-      <ul>{{post.created}}</ul>
-    </p>
+{% block content %}
+{% block styles %}
+<link rel='stylesheet' href="{% static 'css/users/post.css' %}">
+
+<div class="card hoverable">
+  <div class="card-content ">
+
+    <div class="header">
+      <span><div class="img-crop"><img class="org-image" src="{{ post.organization.image.url }}"></div></span>
+      <span class="card-title">{{post.organization.name}}</span>
+      <span class="time">{{post.created|naturaltime}}</span>
+    </div>
+
+    <span class="text">{{post.text}}</span>
 
     <div class="card-action">
+      <i class="material-icons">thumb_up</i>
+      <i class="material-icons">comment</i>
+      <a class="waves-effect waves-light" href="{% url 'view-post' post.organization.name post.id %}">View Post</a>
       {% if request.user == post.author %}
-      <a class="waves-effect waves-light" href="{% url 'delete-post' organization.name post.id %}">Delete Post</a>
-      <a class="waves-effect waves-light" href="{% url 'update-post' organization.name post.id %}">Edit Post</a>
-
+      <a class="waves-effect waves-light right" href="{% url 'delete-post' post.organization.name post.id %}">Delete Post</a>
+      <a class="waves-effect waves-light right" href="{% url 'update-post' post.organization.name post.id %}">Edit Post</a>
       {% endif %}
-      <a class="waves-effect waves-light" href="{% url 'view-post' organization.name post.id %}">View Post</a>
-      <a class="right btn-small waves-effect waves-light blue lighten-1"><i class="material-icons">favorite</i></a>
-
     </div>
   </div>
 </div>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+{% load humanize %}
+{% load static %}
+
+
+<script>
+    .button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+</script>
+
+{% block content %}
+
+
+<div class="row">
+<div class = "col s1">
+    {% for tag in tags %}
+     <a class="btn waves-effect waves-teal btn-flat" href="{% url 'filter-campaigns-from-tags' tag.name %}">
+         #{{ tag.name }}</a>
+    {% endfor %}
+</div>
+  {% for campaign in campaigns %}
+  <div class="col s12 m4 offset-l1">
+    {% include "campaigns/campaign.html" %}
+
+  </div>
+    {% endfor %}
+</div>
+
+  <!-- Compiled and minified CSS -->
+{% endblock %}

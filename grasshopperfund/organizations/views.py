@@ -80,7 +80,7 @@ def view_organization(request, organization_name:str):
     context = {
         'organization': organization,
         'post_form': PostForm,
-        'organization_posts': organization.posts.all(),
+        'organization_posts': organization.posts.all()
     }
     return render(request, 'organizations/view_organization.html', context)
 

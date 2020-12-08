@@ -7,4 +7,7 @@ urlpatterns = [
     path('delete/<str:pk>/', views.delete_campaign, name='delete-campaign'),
     path('view/<str:username>/<str:campaign_title>', views.view_campaign, name='view-campaign'),
     path('make_donation/<str:pk>/', views.make_donation, name='make-donation'),
+    path('search/', views.search_campaign, name='search-campaign'),
+    path('browse/', views.browse_campaigns, name='browse-campaigns'),
+    path('listofcampaignsandtags/', views.list_of_campaigns_and_tags, name='list-of-campaigns-and-tags')
 ]

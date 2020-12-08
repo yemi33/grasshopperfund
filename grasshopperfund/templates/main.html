@@ -26,30 +26,37 @@
   <title>Grasshopperfund</title>
 </head>
 <body>
-    <nav class="green accent-7">
-
-    <div class="nav-wrapper">
-      <div class="container">
-      <a class="brand-logo" href="{% url 'startsmart-home' %}">Grasshopperfund</a>
-
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+  <header>
+    <nav>
+      <div class="nav-wrapper">
+        <a class="brand-logo center" href="{% url 'startsmart-home' %}">Grasshopperfund</a>
+        <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="nav-left" class="left hide-on-med-and-down">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'startsmart-home' %}">Home</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'browse-organizations' %}">Explore</a>
+              <a class="nav-link" href="{% url 'list-of-campaigns-and-tags' %}">Explore</a>
           </li>
+          <li>
+            <form action="{% url 'search-campaign' %}" class="input-field" method="get">
+              <input name="search_query" type="search">
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            </form>
+          </li>
+        </ul>
+        <ul id="nav-right" class="right hide-on-med-and-down">
           {% if request.user.is_authenticated %}
 
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' request.user.profile.id %}">Profile</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'create-organization' %}">Create Organization</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'faq' %}">Create</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' request.user.profile.id %}"><i class="material-icons">account_circle</i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
 
           {% endif %}
           {% if request.user.is_anonymous %}
@@ -57,18 +64,77 @@
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'login' %}">Login</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Sign up</a>
+            </li>
 
           {% endif %}
         </ul>
       </div>
-    </div>
-  </nav>
+    </nav>
+    <ul class="sidenav" id="mobile">
+      <li><a href="{% url 'startsmart-home' %}">Home</a></li>
+      <li><a href="{% url 'browse-campaigns' %}">Explore</a></li>
+
+      {% if request.user.is_authenticated %}
+      <li><a href="{% url 'create-organization' %}">Create</a></li>
+      <li><a href="{% url 'profile' request.user.profile.id %}">Profile</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+
+      {% endif %}
+      {% if request.user.is_anonymous %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      {% endif %}
+    </ul>
+    <script language="javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('.sidenav');
+          var instances = M.Sidenav.init(elems);
+      });
+    </script>
+  </header>
+
+  <main>
     <div class="container">
+      {% block content %}
 
-    {% block content %}
-
-    {% endblock %}
+      {% endblock %}
     </div>
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Grasshopperfund</h5>
+          <p class="grey-text text-lighten-4">Crowdfunding for this generation.</p>
+        </div>
+        <div class="col l3 m3 s12">
+          <h5 class="white-text">Navigate</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="{% url 'startsmart-home' %}">Home</a></li>
+            <li><a class="grey-text text-lighten-3" href="{% url 'browse-organizations' %}">Explore</a></li>
+            <li><a class="grey-text text-lighten-3" href="{% url 'create-organization' %}">Create</a></li>
+          </ul>
+        </div>
+        <div class="col l3 m3 s12">
+          <h5 class="white-text">Socials</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" target="_blank" href="https://facebook.com/startsmart101">Facebook</a></li>
+            <li><a class="grey-text text-lighten-3" target="_blank" href="https://instagram.com/startsmartprogram">Instagram</a></li>
+            <li><a class="grey-text text-lighten-3" target="_blank" href="https://linkedin.com/company/startsmart-program">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      © 2020 Grasshopperfund
+      <a class="grey-text text-lighten-4 right" href="https://startsmart.co/">Powered by StartSmart</a>
+      </div>
+    </div>
+  </footer>
+  
     {% if messages %}
       {% for message in messages %}
       <script>
@@ -80,5 +146,16 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+
+    <script>
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+          $('nav').addClass('sticky-nav');
+        } else {
+          $('nav').removeClass('sticky-nav');
+        }
+      });
+    </script>
+    
+  </body>
 </html>
