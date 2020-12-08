@@ -39,8 +39,12 @@ def home_page(request):
     else:
         posts = Post.objects.all()
 
+
+    campaigns = Campaign.objects.all()
+
     context = {
         'interested_posts': posts,
+        'campaigns': campaigns,
     }
     return render(request, 'users/home_page.html', context)
 

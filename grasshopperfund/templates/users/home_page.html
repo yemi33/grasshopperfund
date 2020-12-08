@@ -26,7 +26,51 @@
   {% endif %}
   {% if request.user.is_anonymous %}
 
-    <h2>add landing page content here!</h2>
+    <section class="section center">
+      <div class="container">
+        <div class="card-panel">
+          <h4 class="title">Discover new ideas on <span style="color: #39AF73">Grasshopperfund</span></h4>
+          <h6 class="description">Crowdfunding for this generation.</h4>
+          <div class="buttons" >
+            <a class="sign-in btn" href="{% url 'login' %}">Sign in</a>
+            <a class="join btn" href="{% url 'register' %}">Join us today</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="popular-campaigns">
+      <h5>Popular Campaigns</h5>
+      <div class="row">
+      {% for campaign in campaigns %}
+        <div class="col s10 m3">
+          <a class="link" href="{% url 'view-campaign' campaign.creator campaign.title %}">
+            <div class="card medium hoverable">
+              <div class="card-image">
+                <img src="{{ campaign.image.url }}">
+              </div>
+              <div class="card-content">
+
+                <div class="progress">
+                  <div class="determinate" style="width: {{ campaign.percent_funded }}%"></div>
+                </div>
+
+                <span class="card-title">{{campaign.title}}</span>
+                <p class="organization">by {{ campaign.organization.name }}</p>
+                <span class="days-left"><i class="material-icons">access_time</i> {{campaign.days_left}} days left</span>
+              </div>
+              <div class="card-action">
+                {% if request.user == campaign.creator %}
+                  <a href="{% url 'update-campaign' campaign.id %}">Update</a>
+                  <a href="{% url 'delete-campaign' campaign.id %}">Delete</a>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
 
   {% endif %}
 
