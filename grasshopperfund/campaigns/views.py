@@ -223,10 +223,3 @@ def browse_campaigns(request):
 
     return render(request, 'campaigns/browse_campaigns.html', context)
 
-def list_of_campaigns_and_tags(request):
-    campaigns = Campaign.objects.all()
-    tags = Tag.objects.all()
-    progress_dict = {campaign_x.title: int((campaign_x.current_money / campaign_x.target_money) * 100) for campaign_x in
-                     campaigns}
-    context = {'campaigns' : campaigns, 'tags' : tags, 'progress_dict' : progress_dict}
-    return render(request, 'campaigns/list_of_campaigns_and_tags.html', context)
