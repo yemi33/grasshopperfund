@@ -119,3 +119,23 @@ a {
 .btn btn-yellow {
     background-color:var(--yellow);
 }
+
+.sidenav li a {
+    color: white;
+}
+
+.img-circle {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-img {
+    display: inline;
+    margin: 0 auto;
+    margin-left: -25%;
+    height: 100%;
+    width: auto;
+}
